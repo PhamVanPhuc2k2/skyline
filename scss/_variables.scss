@@ -1,0 +1,71 @@
+// =================================================================
+// Bảng màu SKYLIFE: nền sáng kiểu nền tảng video, xanh bầu trời làm màu chính,
+// cam cho mua sắm / giá / khuyến mãi.
+// =================================================================
+
+// Xanh bầu trời (màu chính)
+$sky-900: #062a52;
+$sky-800: #0a3d75;
+$sky-700: #0b559e;
+$sky-600: #0b6bcb;
+$sky-500: #1a85f0;
+$sky-300: #7dbcff;
+$sky-100: #dcecff;
+$sky-50: #eef6ff;
+
+// Cam (mua sắm, giá, khuyến mãi)
+$orange-600: #e8590c;
+$orange-500: #f76707;
+$orange-100: #fff0e3;
+
+// Trung tính
+$white: #fff;
+$black: #000;
+$ink-900: #0f1c33;
+$ink-700: #2b3a52;
+$ink-500: #5d6b82;
+$ink-300: #a3afc2;
+$ink-200: #d5dce7;
+$ink-100: #e8edf4;
+$ink-50: #f5f7fb;
+$star: #f5a524;
+$green: #2b8a3e;
+
+// Vai trò
+$color-bg: $ink-50;
+$color-surface: $white;
+$color-text: $ink-900;
+$color-text-muted: $ink-500;
+$color-border: $ink-100;
+$color-primary: $sky-600;
+$color-accent: $orange-500;
+
+// Gradient
+$gradient-sky: linear-gradient(135deg, $sky-500 0%, $sky-700 100%);
+$gradient-hero: linear-gradient(0deg, rgba($ink-900, 0.92) 0%, rgba($ink-900, 0.55) 45%, rgba($ink-900, 0) 80%);
+
+// Typography
+$font-body: "Be Vietnam Pro", system-ui, sans-serif;
+
+// Kích thước khung
+$header-h: 64px;
+$sidebar-w: 232px;
+$sidebar-mini-w: 76px;
+$tabbar-h: 60px;
+$player-h: 68px;
+$radius: 14px;
+$radius-sm: 10px;
+
+// Bóng & hiệu ứng
+$shadow-sm: 0 1px 2px rgba($ink-900, 0.06), 0 1px 3px rgba($ink-900, 0.08);
+$shadow-md: 0 6px 20px rgba($ink-900, 0.1);
+$shadow-lg: 0 14px 40px rgba($ink-900, 0.18);
+$ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+// Breakpoints (giống landing_page)
+$bp-2xl: 1536px;
+$bp-xl: 1280px;
+$bp-lg: 1024px;
+$bp-md: 992px;
+$bp-sm: 767px;
+$bp-xs: 400px;

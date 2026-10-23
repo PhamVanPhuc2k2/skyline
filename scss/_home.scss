@@ -1,0 +1,181 @@
+@use "./variables" as *;
+
+/* =================================================================
+   Bố cục đầu trang theo bản vẽ tay (dùng cho trang chủ và 3 chuyên mục):
+
+   ┌────────┬──────────────────┬──────────┐
+   │ ô 1    │                  │ Bình     │
+   │ ô 2    │   KHỐI NỔI BẬT   │ luận     │
+   │ ô 3    │                  │ nổi bật  │
+   ├────┬───┴──┬──────┬────────┤ (Hay /   │
+   │ t1 │  t2  │  t3  │   t4   │  Nhiều)  │
+   └────┴──────┴──────┴────────┴──────────┘
+   ================================================================= */
+
+.top-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.3fr) minmax(300px, 1.05fr);
+    grid-template-areas:
+        "stack hero aside"
+        "row   row  aside";
+    gap: 16px;
+
+    &__stack {
+        grid-area: stack;
+        display: grid;
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+    &__hero {
+        grid-area: hero;
+    }
+    &__aside {
+        grid-area: aside;
+        position: relative;
+        min-height: 420px;
+        // Cột bình luận cao bằng 2 hàng bên trái, danh sách tự cuộn bên trong
+        > .panel {
+            position: absolute;
+            inset: 0;
+        }
+    }
+    &__row {
+        grid-area: row;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        padding-top: 8px;
+    }
+}
+
+/* ---------------- Khối nổi bật ---------------- */
+
+.hero {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: $radius;
+    background: $sky-900;
+    color: $white;
+
+    &__img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 6s ease-out;
+    }
+    &:hover &__img {
+        transform: scale(1.04);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: $gradient-hero;
+    }
+    &__content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        padding: 28px;
+        max-width: 640px;
+    }
+    &__kicker {
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: $sky-300;
+    }
+    &__title {
+        margin-top: 4px;
+        font-size: clamp(24px, 2.6vw, 40px);
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    &__desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-top: 8px;
+        color: rgba($white, 0.85);
+    }
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+        .btn--primary .icon,
+        .btn--accent .icon {
+            fill: currentColor;
+        }
+    }
+}
+
+/* ---------------- Hàng dưới: 3 khối rộng hẹp khác nhau ---------------- */
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr) minmax(0, 1.15fr);
+    gap: 16px;
+    margin-top: 28px;
+
+    .product-card__body {
+        padding: 8px 10px 10px;
+    }
+    .product-card__meta {
+        display: none;
+    }
+}
+
+.rank-list {
+    display: grid;
+    gap: 4px;
+}
+
+.utility {
+    .flight-form {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 0 14px;
+            border: 1.5px solid $ink-200;
+            border-radius: 999px;
+            &:focus {
+                border-color: $sky-500;
+            }
+        }
+    }
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    &__item {
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+        padding: 18px 8px;
+        border-radius: $radius-sm;
+        background: $sky-50;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: center;
+        color: $sky-800;
+        transition: background-color 0.15s;
+        &:hover {
+            background: $sky-100;
+        }
+        .icon {
+            width: 26px;
+            height: 26px;
+        }
+    }
+}

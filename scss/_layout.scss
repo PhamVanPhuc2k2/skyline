@@ -1,0 +1,445 @@
+@use "./variables" as *;
+
+/* ================= Header ================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: $header-h;
+    padding: 0 16px;
+    background: rgba($white, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid $color-border;
+
+    &__left,
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    &__right {
+        gap: 4px;
+    }
+    &__search-mobile {
+        display: none;
+    }
+    &__sell {
+        margin-right: 4px;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 4px;
+
+    &__mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: $gradient-sky;
+        color: $white;
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    &__text {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: $sky-800;
+    }
+}
+
+.search {
+    display: flex;
+    flex: 0 1 620px;
+    height: 42px;
+    border: 1.5px solid $ink-200;
+    border-radius: 999px;
+    background: $white;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus-within {
+        border-color: $sky-500;
+        box-shadow: 0 0 0 3px rgba($sky-500, 0.15);
+    }
+    &__input {
+        flex: 1;
+        min-width: 0;
+        padding: 0 18px;
+    }
+    &__btn {
+        width: 60px;
+        border-left: 1.5px solid $ink-200;
+        background: $ink-50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            background: $ink-100;
+        }
+    }
+    &--page {
+        max-width: 720px;
+        height: 50px;
+        margin: 8px 0 16px;
+    }
+}
+
+.lang {
+    display: flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: $ink-100;
+    font-size: 12px;
+    font-weight: 700;
+    a {
+        padding: 4px 9px;
+        border-radius: 999px;
+        color: $ink-500;
+        &.active {
+            background: $white;
+            color: $ink-900;
+            box-shadow: $shadow-sm;
+        }
+    }
+}
+
+/* ================= Sidebar ================= */
+
+.sidebar {
+    position: fixed;
+    top: $header-h;
+    bottom: 0;
+    left: 0;
+    z-index: 90;
+    width: $sidebar-w;
+    padding: 10px 12px 24px;
+    overflow-y: auto;
+    background: $color-bg;
+    scrollbar-width: thin;
+    transition: transform 0.25s $ease, width 0.25s $ease;
+}
+
+.nav-group {
+    padding: 8px 0;
+    border-bottom: 1px solid $color-border;
+    &:last-of-type {
+        border-bottom: 0;
+    }
+    &__title {
+        padding: 6px 12px 6px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: $ink-500;
+    }
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 42px;
+    padding: 0 12px;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    color: $ink-700;
+    transition: background-color 0.15s;
+
+    &:hover {
+        background: $ink-100;
+    }
+    &.active {
+        background: $sky-100;
+        color: $sky-800;
+        font-weight: 700;
+        .icon {
+            stroke-width: 2.2;
+        }
+    }
+    &__label {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    &--channel {
+        gap: 14px;
+        font-size: 14px;
+    }
+}
+
+.sidebar__foot {
+    padding: 16px 12px 0;
+    font-size: 12px;
+    color: $ink-300;
+}
+
+// Sidebar thu gọn (chỉ icon + chữ nhỏ) giống YouTube
+@mixin sidebar-mini {
+    .sidebar {
+        width: $sidebar-mini-w;
+        padding: 6px 4px;
+    }
+    .nav-group {
+        padding: 4px 0;
+        border-bottom: 0;
+        &__title {
+            display: none;
+        }
+        &--full {
+            display: none;
+        }
+    }
+    .nav-item {
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        height: 70px;
+        padding: 0 2px;
+        font-size: 10px;
+        text-align: center;
+        &__label {
+            max-width: 100%;
+        }
+        &.active {
+            background: transparent;
+            color: $sky-700;
+            .icon {
+                padding: 4px 10px;
+                width: 44px;
+                height: 30px;
+                border-radius: 999px;
+                background: $sky-100;
+            }
+        }
+    }
+    .shell {
+        margin-left: $sidebar-mini-w;
+    }
+}
+
+body.sidebar-mini {
+    @include sidebar-mini;
+}
+
+/* ================= Khung nội dung ================= */
+
+.shell {
+    margin-left: $sidebar-w;
+    padding-top: $header-h;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.25s $ease;
+}
+.page {
+    flex: 1;
+}
+body.has-player .shell {
+    padding-bottom: $player-h;
+}
+
+.sidebar-backdrop {
+    display: none;
+}
+
+/* ================= Footer ================= */
+
+.footer {
+    margin-top: 24px;
+    padding: 40px 24px 20px;
+    background: $sky-900;
+    color: rgba($white, 0.75);
+    font-size: 14px;
+
+    .logo__text {
+        color: $white;
+    }
+    &__grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
+        gap: 32px;
+        max-width: 1680px;
+        margin: 0 auto;
+    }
+    &__brand p {
+        margin-top: 12px;
+        max-width: 300px;
+    }
+    &__col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        h4 {
+            margin-bottom: 4px;
+            color: $white;
+            font-weight: 700;
+        }
+        a:hover {
+            color: $white;
+        }
+    }
+    &__contact p,
+    &__contact a {
+        display: flex;
+        gap: 10px;
+        .icon {
+            width: 18px;
+            height: 18px;
+            margin-top: 1px;
+            color: $sky-300;
+        }
+    }
+    &__bottom {
+        max-width: 1680px;
+        margin: 32px auto 0;
+        padding-top: 16px;
+        border-top: 1px solid rgba($white, 0.12);
+        font-size: 12px;
+        color: rgba($white, 0.5);
+    }
+}
+
+/* ================= Thanh tab mobile ================= */
+
+.tabbar {
+    display: none;
+}
+
+/* ================= Mini player ================= */
+
+.mini-player {
+    position: fixed;
+    left: $sidebar-w;
+    right: 0;
+    bottom: 0;
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: $player-h;
+    padding: 0 16px;
+    background: $sky-900;
+    color: $white;
+    box-shadow: 0 -6px 20px rgba($ink-900, 0.2);
+    transition: left 0.25s $ease;
+
+    .icon-btn:hover {
+        background: rgba($white, 0.12);
+    }
+    .icon-btn--primary {
+        background: $white;
+        color: $sky-900;
+        &:hover {
+            background: $sky-100;
+        }
+    }
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        width: 280px;
+        img {
+            width: 46px;
+            height: 46px;
+            border-radius: 8px;
+        }
+        span {
+            display: grid;
+            min-width: 0;
+        }
+        strong,
+        small {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        small {
+            color: rgba($white, 0.65);
+        }
+    }
+    &__controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    &__progress {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba($white, 0.2);
+        overflow: hidden;
+        span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: $sky-300;
+        }
+    }
+    &.is-playing &__progress span {
+        animation: progress 90s linear forwards;
+    }
+    &:not(.is-playing) &__progress span {
+        animation: progress 90s linear forwards paused;
+    }
+    &__time {
+        font-size: 12px;
+        color: rgba($white, 0.65);
+    }
+}
+body.sidebar-mini .mini-player {
+    left: $sidebar-mini-w;
+}
+
+@keyframes progress {
+    to {
+        width: 100%;
+    }
+}
+
+/* ================= Thông báo nhanh ================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 90px;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100% - 32px);
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: $ink-900;
+    color: $white;
+    font-weight: 500;
+    box-shadow: $shadow-lg;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 20px);
+    transition: opacity 0.25s, transform 0.25s $ease;
+    .icon {
+        color: #69db7c;
+    }
+    &.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}

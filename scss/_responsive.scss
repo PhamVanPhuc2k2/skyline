@@ -1,0 +1,395 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./layout";
+
+/* ================= ≤ 1536px ================= */
+
+@include maxw($bp-2xl) {
+    .watch {
+        grid-template-columns: minmax(0, 1fr) 360px;
+    }
+}
+
+/* ================= ≤ 1280px: sidebar thu gọn, bấm ☰ mở dạng ngăn kéo ================= */
+
+@include maxw($bp-xl) {
+    body:not(.sidebar-open) {
+        @include layout.sidebar-mini;
+    }
+    .mini-player {
+        left: $sidebar-mini-w;
+    }
+    body.sidebar-open {
+        .shell {
+            margin-left: $sidebar-mini-w;
+        }
+        .sidebar {
+            box-shadow: $shadow-lg;
+        }
+        .sidebar-backdrop {
+            display: block;
+            position: fixed;
+            inset: $header-h 0 0 0;
+            z-index: 80;
+            background: rgba($ink-900, 0.4);
+        }
+    }
+    .top-grid {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr) minmax(280px, 1fr);
+    }
+    .header__sell span {
+        display: none;
+    }
+}
+
+/* ================= ≤ 1024px ================= */
+
+@include maxw($bp-lg) {
+    // Đầu trang xếp dọc: khối nổi bật → 3 ô ngang → 4 thẻ → bình luận
+    .top-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "hero"
+            "stack"
+            "row"
+            "aside";
+        &__stack {
+            grid-template-rows: none;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            .tile {
+                aspect-ratio: 16 / 10;
+            }
+        }
+        &__row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            padding-top: 0;
+        }
+        &__aside {
+            min-height: 0;
+            > .panel {
+                position: static;
+            }
+            .comment-list {
+                max-height: 460px;
+            }
+        }
+    }
+    .bottom-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        > :nth-child(2) {
+            grid-column: 1 / -1;
+            grid-row: 1;
+        }
+    }
+    .watch,
+    .product-detail,
+    .article-layout,
+    .contact {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .article-side {
+        position: static;
+    }
+    .product {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .gallery {
+        max-width: 560px;
+    }
+    .footer__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .lang {
+        display: none;
+    }
+}
+
+/* ================= ≤ 767px: mobile, thanh tab dưới ================= */
+
+@include maxw($bp-sm) {
+    body {
+        font-size: 14px;
+    }
+    .container {
+        padding: 12px 12px 32px;
+    }
+
+    .header {
+        gap: 8px;
+        padding: 0 8px;
+        .search,
+        .header__sell,
+        .header__login span {
+            display: none;
+        }
+        &__search-mobile {
+            display: inline-flex;
+        }
+    }
+    .header__login {
+        width: 40px;
+        padding: 0;
+    }
+    .logo__text {
+        font-size: 18px;
+    }
+
+    // Sidebar ẩn hẳn, ☰ mở ngăn kéo đầy đủ
+    body:not(.sidebar-open) .sidebar,
+    .sidebar {
+        transform: translateX(-100%);
+        width: $sidebar-w;
+        padding: 10px 12px 24px;
+    }
+    body.sidebar-open .sidebar {
+        transform: none;
+    }
+    .shell,
+    body:not(.sidebar-open) .shell,
+    body.sidebar-open .shell {
+        margin-left: 0;
+        padding-bottom: $tabbar-h;
+    }
+    body.has-player .shell {
+        padding-bottom: $tabbar-h + $player-h;
+    }
+
+    .tabbar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 96;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        height: $tabbar-h;
+        padding-bottom: env(safe-area-inset-bottom);
+        background: rgba($white, 0.97);
+        border-top: 1px solid $color-border;
+        &__item {
+            display: grid;
+            justify-items: center;
+            align-content: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 500;
+            color: $ink-500;
+            &.active {
+                color: $sky-700;
+                font-weight: 700;
+                .icon {
+                    stroke-width: 2.3;
+                }
+            }
+        }
+    }
+
+    .mini-player,
+    body .mini-player {
+        left: 0;
+        bottom: $tabbar-h;
+        gap: 8px;
+        height: $player-h;
+        padding: 0 8px 0 10px;
+        &__info {
+            flex: 1;
+            width: auto;
+        }
+        &__progress {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 3px;
+            border-radius: 0;
+        }
+        &__time,
+        &__controls .icon-btn:not(.icon-btn--primary) {
+            display: none;
+        }
+    }
+    .toast {
+        bottom: $tabbar-h + 16px;
+    }
+
+    .page-head {
+        h1 {
+            font-size: 20px;
+        }
+        p {
+            font-size: 13px;
+        }
+        &__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+        }
+    }
+    .section {
+        margin-top: 28px;
+    }
+    .section-head h2 {
+        font-size: 18px;
+    }
+
+    .hero {
+        aspect-ratio: 4 / 5;
+        &__content {
+            padding: 18px;
+        }
+        &__desc {
+            font-size: 13px;
+        }
+        .btn {
+            height: 38px;
+            padding: 0 14px;
+            font-size: 14px;
+        }
+    }
+    .top-grid {
+        gap: 12px;
+        &__stack {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            .tile {
+                flex: 0 0 72%;
+                scroll-snap-align: start;
+            }
+        }
+        &__row {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 20px;
+        }
+    }
+    .bottom-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        &--3 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            > :nth-child(3) {
+                display: none;
+            }
+        }
+    }
+    .product-card__body {
+        padding: 8px 10px 10px;
+    }
+    .shelf {
+        grid-auto-columns: 78%;
+        gap: 12px;
+    }
+    .news-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .channel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .poster-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 12px;
+    }
+
+    .watch__title {
+        font-size: 18px;
+    }
+    .watch__bar,
+    .watch .actions {
+        width: 100%;
+    }
+    .watch .actions {
+        overflow-x: auto;
+    }
+    .video-player {
+        margin: -12px -12px 0;
+        border-radius: 0;
+    }
+    .audio-player {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        padding: 18px;
+        &__cover {
+            max-width: 220px;
+            margin: 0 auto;
+        }
+        &__main h2 {
+            font-size: 20px;
+        }
+    }
+    .media-row .thumb {
+        flex-basis: 140px;
+    }
+
+    .product {
+        padding: 14px;
+        gap: 18px;
+        &__info h1 {
+            font-size: 20px;
+        }
+        &__buy {
+            position: sticky;
+            bottom: $tabbar-h + 8px;
+            z-index: 5;
+            .btn {
+                height: 44px;
+                padding: 0 12px;
+                font-size: 15px;
+            }
+        }
+    }
+    .price--lg strong {
+        font-size: 24px;
+    }
+
+    .channel {
+        &__cover {
+            height: 120px;
+        }
+        &__head {
+            flex-direction: column;
+            gap: 10px;
+            > .avatar {
+                margin-top: -56px;
+            }
+        }
+        &__info h1 {
+            font-size: 22px;
+        }
+    }
+    .avatar--xl {
+        width: 84px;
+        height: 84px;
+        font-size: 28px;
+    }
+
+    .news-lead {
+        aspect-ratio: 4 / 3;
+        &__body {
+            padding: 16px;
+            small {
+                display: none;
+            }
+        }
+    }
+    .article h1 {
+        font-size: 24px;
+    }
+    .article > p {
+        font-size: 16px;
+    }
+
+    .field-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .footer {
+        padding: 28px 16px 16px;
+        &__grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 20px;
+        }
+    }
+}
