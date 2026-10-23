@@ -286,7 +286,7 @@
         var cat = byId(D.categories, SL.param("c")) || D.categories[0];
         var activeFilter = SL.param("f") || "Tất cả";
         var isShop = cat.id === "mua-sam";
-        document.title = cat.name + " | SKYLIFE";
+        document.title = cat.name + " | SKYLINE";
 
         var top, grid;
         if (isShop) {
@@ -356,7 +356,7 @@
         var next = D.media.filter(function (x) { return x.cat === m.cat && x.id !== m.id; });
         var comments = D.comments.filter(function (c) { return c.media === m.id; })
             .concat(D.comments.filter(function (c) { return c.media !== m.id; }).slice(0, 4));
-        document.title = m.title + " | SKYLIFE";
+        document.title = m.title + " | SKYLINE";
 
         var player = audio
             ? '<div class="audio-player">' +
@@ -447,7 +447,7 @@
         var inMedia = D.media.filter(function (m) { return (m.products || []).indexOf(p.id) > -1; });
         var reviews = D.comments.filter(function (c) { return c.media === p.id; }).concat(D.comments.slice(0, 3));
         var related = D.products.filter(function (x) { return x.id !== p.id; }).slice(0, 4);
-        document.title = p.name + " | SKYLIFE";
+        document.title = p.name + " | SKYLINE";
 
         page.innerHTML =
             '<div class="container">' +
@@ -487,7 +487,7 @@
                 '<div class="product-detail">' +
                     '<section class="panel">' +
                         "<h2>Mô tả sản phẩm</h2><p>" + esc(p.desc) + "</p>" +
-                        "<p>Sản phẩm được bán bởi " + esc(ch.name) + " trên SKYLIFE. Đặt hàng ngay trong chuyến bay qua màn hình ghế ngồi hoặc điện thoại kết nối Wi-Fi trên máy bay; thanh toán bằng thẻ, ví điện tử hoặc khi nhận hàng.</p>" +
+                        "<p>Sản phẩm được bán bởi " + esc(ch.name) + " trên SKYLINE. Đặt hàng ngay trong chuyến bay qua màn hình ghế ngồi hoặc điện thoại kết nối Wi-Fi trên máy bay; thanh toán bằng thẻ, ví điện tử hoặc khi nhận hàng.</p>" +
                         '<h2 class="mt">Đánh giá từ khách bay</h2>' +
                         '<ul class="comment-list">' + reviews.map(function (c) { return commentItem(c, false); }).join("") + "</ul>" +
                     "</section>" +
@@ -514,7 +514,7 @@
         var videos = media.filter(function (m) { return m.kind === "video"; });
         var audios = media.filter(function (m) { return m.kind === "audio"; });
         var products = D.products.filter(function (p) { return p.channel === ch.id; });
-        document.title = ch.name + " | SKYLIFE";
+        document.title = ch.name + " | SKYLINE";
 
         var tabs = [
             { id: "home", label: "Trang chủ" },
@@ -603,7 +603,7 @@
         var cats = ["Tất cả"].concat(D.news.map(function (n) { return n.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
         page.innerHTML =
             '<div class="container">' +
-                '<header class="page-head"><span class="page-head__icon">' + icon("news") + "</span><div><h1>Tin tức</h1><p>Line-up, sự kiện, mẹo bay và câu chuyện kinh doanh trên SKYLIFE.</p></div></header>" +
+                '<header class="page-head"><span class="page-head__icon">' + icon("news") + "</span><div><h1>Tin tức</h1><p>Line-up, sự kiện, mẹo bay và câu chuyện kinh doanh trên SKYLINE.</p></div></header>" +
                 '<a class="news-lead" href="' + link("news", first.id) + '">' +
                     '<img src="' + img(first.id, 1200, 600) + '" alt="">' +
                     '<span class="news-lead__body"><span class="pill">' + esc(first.cat) + "</span><strong>" + esc(first.title) + "</strong><small>" + esc(first.excerpt) + "</small></span>" +
@@ -620,7 +620,7 @@
     function renderArticle() {
         var n = byId(D.news, SL.param("id"));
         if (!n) return notFound();
-        document.title = n.title + " | SKYLIFE";
+        document.title = n.title + " | SKYLINE";
         var related = D.news.filter(function (x) { return x.id !== n.id; }).slice(0, 4);
         page.innerHTML =
             '<div class="container article-layout">' +
@@ -632,7 +632,7 @@
                     '<img class="article__cover" src="' + img(n.id, 1200, 640) + '" alt="">' +
                     "<p>Nội dung bài viết minh họa cho mockup. Phần thân bài sẽ do biên tập viên nhập trong CMS, gồm đoạn văn, ảnh, video và có thể gắn sản phẩm hoặc nội dung liên quan ngay trong bài.</p>" +
                     "<h2>Điểm nổi bật</h2>" +
-                    "<p>SKYLIFE kết hợp nội dung giải trí trên chuyến bay với tính năng mạng xã hội: hành khách có thể xem, nghe, bình luận, theo dõi kênh yêu thích và mua sắm ngay khi đang bay.</p>" +
+                    "<p>SKYLINE kết hợp nội dung giải trí trên chuyến bay với tính năng mạng xã hội: hành khách có thể xem, nghe, bình luận, theo dõi kênh yêu thích và mua sắm ngay khi đang bay.</p>" +
                     '<blockquote>“Mỗi chuyến bay là vài giờ khách hàng sẵn sàng khám phá nội dung mới.”</blockquote>' +
                     "<p>Doanh nghiệp có thể mở kênh, đăng video giới thiệu sản phẩm và gắn sản phẩm vào nội dung để khách đặt hàng chỉ với một chạm.</p>" +
                     '<div class="article__share"><span>Chia sẻ</span><button class="icon-btn" type="button" aria-label="Chia sẻ">' + icon("share") + '</button><button class="icon-btn" type="button" aria-label="Lưu">' + icon("save") + "</button></div>" +
@@ -652,7 +652,7 @@
         var s = D.site;
         page.innerHTML =
             '<div class="container">' +
-                '<header class="page-head"><span class="page-head__icon">' + icon("phone") + "</span><div><h1>Liên hệ & hợp tác</h1><p>Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên SKYLIFE.</p></div></header>" +
+                '<header class="page-head"><span class="page-head__icon">' + icon("phone") + "</span><div><h1>Liên hệ & hợp tác</h1><p>Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên SKYLINE.</p></div></header>" +
                 '<div class="contact">' +
                     '<div class="contact__info">' +
                         '<div class="panel info-card">' + icon("map") + "<div><strong>Địa chỉ</strong><p>" + esc(s.address) + "</p></div></div>" +
@@ -691,7 +691,7 @@
         var products = q ? D.products.filter(function (p) { return hit(p.name + " " + p.cat); }) : [];
         var channels = q ? D.channels.filter(function (c) { return hit(c.name + " " + c.type); }) : [];
         var total = media.length + products.length + channels.length;
-        document.title = (q ? q + " - " : "") + "Tìm kiếm | SKYLIFE";
+        document.title = (q ? q + " - " : "") + "Tìm kiếm | SKYLINE";
 
         page.innerHTML =
             '<div class="container">' +

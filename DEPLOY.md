@@ -1,4 +1,4 @@
-# SKYLIFE: mockup giao diện mới cho skyline.vn
+# SKYLINE: mockup giao diện mới cho skyline.vn
 
 Web **tĩnh** (HTML/CSS/JS), không cần Node, PHP hay database. Đây là bản mockup để khách duyệt bố cục;
 nội dung là dữ liệu mẫu trong `data/content.json`, ảnh minh họa lấy từ picsum.photos (cần internet).
@@ -30,7 +30,7 @@ python3 -m http.server 8000
 ## 3. Đưa lên server
 
 ```
-/var/www/skylife/
+/var/www/skyline/
 ├── *.html            10 trang
 ├── css/style.css
 ├── js/data.js, js/layout.js, js/main.js

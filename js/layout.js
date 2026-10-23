@@ -27,7 +27,7 @@
 
     // Ảnh minh họa cho mockup (picsum, cố định theo seed). Có ảnh thật thì thay ở đây.
     function img(seed, w, h) {
-        return "https://picsum.photos/seed/skylife-" + encodeURIComponent(seed) + "/" + w + "/" + h;
+        return "https://picsum.photos/seed/skyline-" + encodeURIComponent(seed) + "/" + w + "/" + h;
     }
 
     function byId(list, id) {
@@ -114,7 +114,7 @@
                 '<button class="icon-btn header__toggle" type="button" aria-label="Mở menu" data-action="toggle-sidebar">' + icon("menu") + "</button>" +
                 '<a class="logo" href="index.html">' +
                     '<span class="logo__mark">' + icon("plane") + "</span>" +
-                    '<span class="logo__text">SKYLIFE</span>' +
+                    '<span class="logo__text">SKYLINE</span>' +
                 "</a>" +
             "</div>" +
             '<form class="search" action="tim-kiem.html" role="search">' +
@@ -190,7 +190,7 @@
             return '<div class="nav-group' + (group.full ? " nav-group--full" : "") + '">' +
                 (group.title ? '<div class="nav-group__title">' + esc(group.title) + "</div>" : "") + items + "</div>";
         }).join("") +
-        '<div class="sidebar__foot nav-group--full">© 2026 Skyline Media<br>Mockup giao diện SKYLIFE</div>';
+        '<div class="sidebar__foot nav-group--full">© 2026 Skyline Media<br>Mockup giao diện SKYLINE</div>';
     }
 
     // Thanh tab dưới cùng trên mobile (kiểu app)
@@ -214,7 +214,7 @@
         var s = D.site;
         return '<div class="footer__grid">' +
                 '<div class="footer__brand">' +
-                    '<a class="logo" href="index.html"><span class="logo__mark">' + icon("plane") + '</span><span class="logo__text">SKYLIFE</span></a>' +
+                    '<a class="logo" href="index.html"><span class="logo__mark">' + icon("plane") + '</span><span class="logo__text">SKYLINE</span></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
                 '<div class="footer__col"><h4>Chuyên mục</h4>' +
@@ -235,7 +235,7 @@
 
     /* ---------------- Mini player (giữ bài đang nghe khi chuyển trang) ---------------- */
 
-    var PLAYER_KEY = "skylife-now-playing";
+    var PLAYER_KEY = "skyline-now-playing";
 
     function storage(get, value) {
         try {
@@ -271,7 +271,7 @@
 
     /* ---------------- Giỏ hàng (đếm số, lưu trên trình duyệt) ---------------- */
 
-    var CART_KEY = "skylife-cart";
+    var CART_KEY = "skyline-cart";
 
     function cartCount(add) {
         var n = 0;
