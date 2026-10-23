@@ -48,19 +48,33 @@ window.DATA = {
       ]
     },
     {
-      "id": "mua-sam",
-      "name": "Mua sắm",
-      "icon": "bag",
-      "title": "Mua sắm & tiện ích cho khách bay",
-      "desc": "Hàng miễn thuế, đặc sản vùng miền, dịch vụ sân bay và ưu đãi du lịch, giao tận nơi khi hạ cánh.",
-      "cover": "muasam-cover",
+      "id": "kinh-doanh",
+      "name": "Kinh doanh",
+      "icon": "briefcase",
+      "title": "Vé bay, miễn thuế & mua sắm",
+      "desc": "Đặt vé, mua hàng miễn thuế, đặc sản và dịch vụ sân bay ngay trên chuyến bay, nhận hàng khi hạ cánh.",
+      "cover": "kinhdoanh-cover",
       "filters": [
         "Tất cả",
-        "Ưu đãi bay",
+        "Vé bay",
         "Miễn thuế",
+        "Mua sắm",
         "Đặc sản",
-        "Dịch vụ sân bay",
-        "Du lịch"
+        "Dịch vụ sân bay"
+      ]
+    },
+    {
+      "id": "tour-bay",
+      "name": "Tour bay",
+      "icon": "globe",
+      "title": "Tour bay trọn gói",
+      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay SKYLINE.",
+      "cover": "tour-cover",
+      "filters": [
+        "Tất cả",
+        "Trong nước",
+        "Quốc tế",
+        "Combo bay + khách sạn"
       ]
     }
   ],
@@ -96,6 +110,14 @@ window.DATA = {
       "verified": true,
       "followers": 76500,
       "desc": "Cửa hàng miễn thuế: mỹ phẩm, nước hoa, đồng hồ, rượu vang. Đặt trước, nhận tại cửa ra máy bay."
+    },
+    {
+      "id": "sky-tour",
+      "name": "SkyTour Việt Nam",
+      "type": "Doanh nghiệp lữ hành",
+      "verified": true,
+      "followers": 42300,
+      "desc": "Vé máy bay, tour trọn gói và combo bay + khách sạn trong nước và quốc tế."
     },
     {
       "id": "song-cham",
@@ -289,7 +311,8 @@ window.DATA = {
       "views": 296000,
       "date": "2 ngày trước",
       "products": [
-        "p06"
+        "p06",
+        "p09"
       ],
       "desc": "So sánh ghế, suất ăn và phòng chờ của 5 hãng bay nội địa."
     },
@@ -306,6 +329,23 @@ window.DATA = {
       "date": "1 tháng trước",
       "products": [],
       "desc": "Đặc nhiệm giải cứu con tin trên đường băng bị phong tỏa."
+    },
+    {
+      "id": "v13",
+      "kind": "video",
+      "cat": "xem",
+      "group": "Series Việt",
+      "genre": "Phong cách sống",
+      "title": "Mùa Thu Kyoto Trong 5 Ngày",
+      "channel": "sky-tour",
+      "duration": "18:40",
+      "views": 214000,
+      "date": "1 ngày trước",
+      "products": [
+        "p12",
+        "p11"
+      ],
+      "desc": "Lịch trình 5 ngày ngắm lá đỏ Kyoto – Osaka, chi phí và mẹo đặt vé sớm."
     },
     {
       "id": "a01",
@@ -334,7 +374,7 @@ window.DATA = {
       "views": 128000,
       "date": "1 tuần trước",
       "products": [
-        "p07"
+        "p12"
       ],
       "desc": "Chuyện xin visa, đặt vé rẻ và lịch trình 10 ngày ở Kansai."
     },
@@ -428,6 +468,7 @@ window.DATA = {
   "products": [
     {
       "id": "p01",
+      "section": "kinh-doanh",
       "name": "Hộp quà Đặc sản Huế 6 món",
       "cat": "Đặc sản",
       "channel": "dac-san-3-mien",
@@ -439,6 +480,7 @@ window.DATA = {
     },
     {
       "id": "p02",
+      "section": "kinh-doanh",
       "name": "Nước hoa Aviator Eau de Parfum 100ml",
       "cat": "Miễn thuế",
       "channel": "duty-free-sg",
@@ -450,6 +492,7 @@ window.DATA = {
     },
     {
       "id": "p03",
+      "section": "kinh-doanh",
       "name": "Cà phê Buôn Ma Thuột rang mộc 500g",
       "cat": "Đặc sản",
       "channel": "dac-san-3-mien",
@@ -457,12 +500,13 @@ window.DATA = {
       "oldPrice": null,
       "rating": 4.9,
       "sold": 5320,
-      "desc": "Robusta Cầu Đất – Buôn Ma Thuột rang mộc, xay theo yêu cầu."
+      "desc": "Robusta Buôn Ma Thuột rang mộc, xay theo yêu cầu."
     },
     {
       "id": "p04",
+      "section": "kinh-doanh",
       "name": "Gối cổ memory foam du lịch",
-      "cat": "Ưu đãi bay",
+      "cat": "Mua sắm",
       "channel": "bay-vui",
       "price": 189000,
       "oldPrice": 259000,
@@ -472,6 +516,7 @@ window.DATA = {
     },
     {
       "id": "p05",
+      "section": "kinh-doanh",
       "name": "Đồng hồ Pilot Chronograph",
       "cat": "Miễn thuế",
       "channel": "duty-free-sg",
@@ -483,6 +528,7 @@ window.DATA = {
     },
     {
       "id": "p06",
+      "section": "kinh-doanh",
       "name": "Vé phòng chờ thương gia Tân Sơn Nhất",
       "cat": "Dịch vụ sân bay",
       "channel": "lounge-plus",
@@ -494,9 +540,10 @@ window.DATA = {
     },
     {
       "id": "p07",
+      "section": "tour-bay",
       "name": "Tour Phong Nha 2 ngày 1 đêm",
-      "cat": "Du lịch",
-      "channel": "bay-vui",
+      "cat": "Trong nước",
+      "channel": "sky-tour",
       "price": 1890000,
       "oldPrice": 2290000,
       "rating": 4.7,
@@ -505,6 +552,7 @@ window.DATA = {
     },
     {
       "id": "p08",
+      "section": "kinh-doanh",
       "name": "Fast-track an ninh + đưa đón sân bay",
       "cat": "Dịch vụ sân bay",
       "channel": "lounge-plus",
@@ -513,6 +561,102 @@ window.DATA = {
       "rating": 4.6,
       "sold": 980,
       "desc": "Làm thủ tục ưu tiên, qua an ninh nhanh, xe đón tận cửa."
+    },
+    {
+      "id": "p09",
+      "section": "kinh-doanh",
+      "name": "Vé TP.HCM – Hà Nội khứ hồi",
+      "cat": "Vé bay",
+      "channel": "sky-tour",
+      "price": 1590000,
+      "oldPrice": 2100000,
+      "rating": 4.6,
+      "sold": 8120,
+      "desc": "Giá đã gồm thuế phí, 7kg xách tay + 20kg ký gửi. Bay tháng 11–12/2026."
+    },
+    {
+      "id": "p10",
+      "section": "kinh-doanh",
+      "name": "Vé TP.HCM – Phú Quốc một chiều",
+      "cat": "Vé bay",
+      "channel": "sky-tour",
+      "price": 890000,
+      "oldPrice": 1190000,
+      "rating": 4.5,
+      "sold": 4630,
+      "desc": "Giá đã gồm thuế phí, 7kg xách tay. Đổi ngày miễn phí 1 lần."
+    },
+    {
+      "id": "p11",
+      "section": "kinh-doanh",
+      "name": "Vé Hà Nội – Osaka khứ hồi",
+      "cat": "Vé bay",
+      "channel": "sky-tour",
+      "price": 6900000,
+      "oldPrice": 8400000,
+      "rating": 4.7,
+      "sold": 1270,
+      "desc": "Bay thẳng, 23kg ký gửi, suất ăn trên chuyến bay. Mùa lá đỏ tháng 11."
+    },
+    {
+      "id": "p12",
+      "section": "tour-bay",
+      "name": "Tour Nhật Bản mùa lá đỏ 5N4Đ",
+      "cat": "Quốc tế",
+      "channel": "sky-tour",
+      "price": 18900000,
+      "oldPrice": 21500000,
+      "rating": 4.9,
+      "sold": 380,
+      "desc": "Osaka – Kyoto – Nara – núi Phú Sĩ. Gồm vé bay, khách sạn 4 sao, visa và hướng dẫn viên."
+    },
+    {
+      "id": "p13",
+      "section": "tour-bay",
+      "name": "Combo Phú Quốc 3N2Đ: vé bay + resort 5 sao",
+      "cat": "Combo bay + khách sạn",
+      "channel": "sky-tour",
+      "price": 4290000,
+      "oldPrice": 5600000,
+      "rating": 4.8,
+      "sold": 1520,
+      "desc": "Vé khứ hồi, 2 đêm resort 5 sao có bữa sáng, đưa đón sân bay."
+    },
+    {
+      "id": "p14",
+      "section": "tour-bay",
+      "name": "Tour Đà Lạt săn mây 3N2Đ",
+      "cat": "Trong nước",
+      "channel": "sky-tour",
+      "price": 2490000,
+      "oldPrice": 2990000,
+      "rating": 4.6,
+      "sold": 970,
+      "desc": "Đón sân bay Liên Khương, đồi chè Cầu Đất, săn mây, khách sạn trung tâm."
+    },
+    {
+      "id": "p15",
+      "section": "tour-bay",
+      "name": "Tour Hàn Quốc Seoul – Nami 5N4Đ",
+      "cat": "Quốc tế",
+      "channel": "sky-tour",
+      "price": 12900000,
+      "oldPrice": 14900000,
+      "rating": 4.7,
+      "sold": 610,
+      "desc": "Seoul – đảo Nami – Everland. Gồm vé bay, khách sạn, visa, bảo hiểm du lịch."
+    },
+    {
+      "id": "p16",
+      "section": "tour-bay",
+      "name": "Combo Đà Nẵng 4N3Đ: vé bay + khách sạn biển",
+      "cat": "Combo bay + khách sạn",
+      "channel": "sky-tour",
+      "price": 3690000,
+      "oldPrice": 4400000,
+      "rating": 4.6,
+      "sold": 2210,
+      "desc": "Vé khứ hồi, 3 đêm khách sạn 4 sao view biển Mỹ Khê."
     }
   ],
   "users": [
@@ -600,11 +744,11 @@ window.DATA = {
     },
     {
       "user": "u7",
-      "media": "a02",
+      "media": "p12",
       "likes": 377,
       "replies": 12,
       "time": "3 ngày trước",
-      "text": "Nhờ tập này mà mình đặt được vé Osaka giá rẻ, cảm ơn chị host."
+      "text": "Đi tour lá đỏ năm ngoái, hướng dẫn viên nhiệt tình, khách sạn sạch. Năm nay rủ cả nhà đi tiếp."
     },
     {
       "user": "u8",
@@ -619,7 +763,7 @@ window.DATA = {
     {
       "id": "n01",
       "title": "Skyline Media đưa 40 phim mới lên hệ thống giải trí tháng 11",
-      "cat": "Line-up",
+      "cat": "Line-up phim",
       "date": "20/10/2026",
       "excerpt": "Danh sách phim chiếu trên các chuyến bay nội địa và quốc tế trong tháng 11 có nhiều tác phẩm Việt vừa ra rạp."
     },
@@ -639,24 +783,386 @@ window.DATA = {
     },
     {
       "id": "n04",
-      "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay",
-      "cat": "Kinh doanh",
-      "date": "02/10/2026",
-      "excerpt": "Mô hình gian hàng trên SKYLINE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày."
+      "title": "Khám phá Côn Đảo: 45 phút bay, một thế giới khác",
+      "cat": "Khám phá",
+      "date": "06/10/2026",
+      "excerpt": "Biển xanh, rùa đẻ trứng và những cung đường ven núi: lịch trình 3 ngày cho người lần đầu đến Côn Đảo."
     },
     {
       "id": "n05",
+      "title": "Những sân bay đẹp nhất châu Á bạn nên ghé một lần",
+      "cat": "Khám phá",
+      "date": "02/10/2026",
+      "excerpt": "Từ thác nước trong nhà ở Singapore đến khu vườn Nhật ở Haneda: quá cảnh cũng thành trải nghiệm."
+    },
+    {
+      "id": "n06",
       "title": "Phim Việt chiếm 35% lượt xem trên máy bay quý III",
-      "cat": "Line-up",
+      "cat": "Line-up phim",
       "date": "28/09/2026",
       "excerpt": "Phim gia đình và hài lãng mạn được khách nội địa chọn xem nhiều nhất."
     },
     {
-      "id": "n06",
-      "title": "Hướng dẫn đăng ký kênh doanh nghiệp trên SKYLINE",
+      "id": "n07",
+      "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay",
       "cat": "Kinh doanh",
-      "date": "20/09/2026",
-      "excerpt": "Các bước xác minh, đăng sản phẩm và gắn sản phẩm vào video, podcast."
+      "date": "24/09/2026",
+      "excerpt": "Mô hình gian hàng trên SKYLINE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày."
+    },
+    {
+      "id": "n08",
+      "title": "Khám phá Kyoto mùa lá đỏ: đi đâu, ăn gì, ở đâu",
+      "cat": "Khám phá",
+      "date": "18/09/2026",
+      "excerpt": "Cẩm nang 5 ngày cho mùa thu Kyoto, kèm lịch lá đỏ dự kiến tháng 11."
     }
-  ]
+  ],
+  "flights": [
+    {
+      "code": "VN 220",
+      "from": "SGN",
+      "to": "HAN",
+      "dep": "08:00",
+      "arr": "10:10",
+      "status": "Đang bay",
+      "progress": 0.62
+    },
+    {
+      "code": "VJ 133",
+      "from": "HAN",
+      "to": "SGN",
+      "dep": "08:35",
+      "arr": "10:45",
+      "status": "Đang bay",
+      "progress": 0.41
+    },
+    {
+      "code": "QH 1521",
+      "from": "SGN",
+      "to": "DAD",
+      "dep": "09:10",
+      "arr": "10:30",
+      "status": "Đang bay",
+      "progress": 0.18
+    },
+    {
+      "code": "VN 1821",
+      "from": "SGN",
+      "to": "PQC",
+      "dep": "09:40",
+      "arr": "10:45",
+      "status": "Đúng giờ",
+      "progress": 0
+    },
+    {
+      "code": "VN 300",
+      "from": "SGN",
+      "to": "NRT",
+      "dep": "00:05",
+      "arr": "07:50",
+      "status": "Đã hạ cánh",
+      "progress": 1
+    },
+    {
+      "code": "VJ 885",
+      "from": "HAN",
+      "to": "ICN",
+      "dep": "10:20",
+      "arr": "16:30",
+      "status": "Trễ 25 phút",
+      "progress": 0
+    },
+    {
+      "code": "VN 611",
+      "from": "SGN",
+      "to": "BKK",
+      "dep": "07:15",
+      "arr": "08:45",
+      "status": "Đang bay",
+      "progress": 0.85
+    },
+    {
+      "code": "QH 9871",
+      "from": "DAD",
+      "to": "SIN",
+      "dep": "11:00",
+      "arr": "14:05",
+      "status": "Đúng giờ",
+      "progress": 0
+    }
+  ],
+  "airports": {
+    "HAN": {
+      "city": "Hà Nội",
+      "x": 36,
+      "y": 18,
+      "temp": 24,
+      "weather": "cloud"
+    },
+    "DAD": {
+      "city": "Đà Nẵng",
+      "x": 46,
+      "y": 44,
+      "temp": 27,
+      "weather": "rain"
+    },
+    "SGN": {
+      "city": "TP.HCM",
+      "x": 42,
+      "y": 72,
+      "temp": 32,
+      "weather": "sun"
+    },
+    "PQC": {
+      "city": "Phú Quốc",
+      "x": 30,
+      "y": 78,
+      "temp": 31,
+      "weather": "sun"
+    },
+    "BKK": {
+      "city": "Bangkok",
+      "x": 18,
+      "y": 58,
+      "temp": 33,
+      "weather": "sun"
+    },
+    "SIN": {
+      "city": "Singapore",
+      "x": 30,
+      "y": 96,
+      "temp": 30,
+      "weather": "rain"
+    },
+    "ICN": {
+      "city": "Seoul",
+      "x": 82,
+      "y": 6,
+      "temp": 12,
+      "weather": "cloud"
+    },
+    "NRT": {
+      "city": "Tokyo",
+      "x": 96,
+      "y": 14,
+      "temp": 15,
+      "weather": "sun"
+    }
+  },
+  "experiences": [
+    {
+      "user": "u3",
+      "route": "SGN → FRA",
+      "rating": 5,
+      "time": "3 giờ trước",
+      "likes": 214,
+      "replies": 18,
+      "photo": "exp-1",
+      "text": "Chuyến bay đêm 12 tiếng nhẹ nhàng hơn mình nghĩ. Đặt sẵn suất ăn chay, xem 2 phim, nghe podcast ngủ ngon rồi sáng ra đã thấy Frankfurt."
+    },
+    {
+      "user": "u2",
+      "route": "HAN → PQC",
+      "rating": 4,
+      "time": "1 ngày trước",
+      "likes": 96,
+      "replies": 7,
+      "photo": "exp-2",
+      "text": "Mua hộp đặc sản ngay trên máy bay để làm quà, hạ cánh có người đưa tận cửa ra. Chỉ tiếc Wi-Fi hơi chậm lúc giờ cao điểm."
+    },
+    {
+      "user": "u7",
+      "route": "SGN → KIX",
+      "rating": 5,
+      "time": "2 ngày trước",
+      "likes": 341,
+      "replies": 29,
+      "photo": "exp-3",
+      "text": "Đi tour lá đỏ của SkyTour, mọi thứ trọn gói từ vé bay đến visa. Hướng dẫn viên chu đáo, lịch trình không bị gấp."
+    },
+    {
+      "user": "u4",
+      "route": "DAD → SGN",
+      "rating": 3,
+      "time": "4 ngày trước",
+      "likes": 58,
+      "replies": 12,
+      "photo": null,
+      "text": "Chuyến bay trễ 40 phút, nhưng app báo trước nên mình kịp vào phòng chờ. Mong có thêm thông báo cửa ra qua tin nhắn."
+    }
+  ],
+  "surveys": [
+    {
+      "id": "s1",
+      "question": "Bạn muốn xem nội dung nào nhiều hơn trên chuyến bay?",
+      "votes": 4820,
+      "options": [
+        {
+          "label": "Phim chiếu rạp mới",
+          "pct": 46
+        },
+        {
+          "label": "Series ngắn dưới 30 phút",
+          "pct": 24
+        },
+        {
+          "label": "Podcast & sách nói",
+          "pct": 18
+        },
+        {
+          "label": "Nội dung du lịch điểm đến",
+          "pct": 12
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "question": "Bạn thường mua gì khi đang bay?",
+      "votes": 3105,
+      "options": [
+        {
+          "label": "Quà đặc sản",
+          "pct": 38
+        },
+        {
+          "label": "Hàng miễn thuế",
+          "pct": 29
+        },
+        {
+          "label": "Vé bay chặng tiếp theo",
+          "pct": 19
+        },
+        {
+          "label": "Chưa từng mua",
+          "pct": 14
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "question": "Tiện ích nào bạn cần nhất khi ra sân bay?",
+      "votes": 2264,
+      "options": [
+        {
+          "label": "Theo dõi chuyến bay trực tiếp",
+          "pct": 41
+        },
+        {
+          "label": "Fast-track an ninh",
+          "pct": 27
+        },
+        {
+          "label": "Phòng chờ",
+          "pct": 20
+        },
+        {
+          "label": "Đưa đón sân bay",
+          "pct": 12
+        }
+      ]
+    }
+  ],
+  "me": {
+    "name": "Minh Khoa",
+    "tier": "Hội viên Vàng",
+    "miles": 24500,
+    "flight": {
+      "code": "VN 220",
+      "from": "SGN",
+      "to": "HAN",
+      "date": "25/10/2026",
+      "dep": "08:00",
+      "arr": "10:10",
+      "gate": "12",
+      "seat": "3A",
+      "cabin": "Thương gia",
+      "boarding": "07:20"
+    },
+    "history": [
+      {
+        "id": "v01",
+        "progress": 0.62
+      },
+      {
+        "id": "a04",
+        "progress": 0.35
+      },
+      {
+        "id": "v03",
+        "progress": 0.8
+      },
+      {
+        "id": "v13",
+        "progress": 0.2
+      }
+    ],
+    "orders": [
+      {
+        "id": "SL-48213",
+        "product": "p01",
+        "status": "Giao tại sân bay đến",
+        "date": "25/10/2026"
+      },
+      {
+        "id": "SL-47950",
+        "product": "p09",
+        "status": "Đã xuất vé",
+        "date": "20/10/2026"
+      },
+      {
+        "id": "SL-46102",
+        "product": "p02",
+        "status": "Đã nhận hàng",
+        "date": "02/10/2026"
+      }
+    ],
+    "following": [
+      "skyline",
+      "sky-tour",
+      "song-cham",
+      "duty-free-sg"
+    ],
+    "saved": [
+      "v02",
+      "v08",
+      "a01",
+      "a02",
+      "v13",
+      "v04"
+    ],
+    "wishlist": [
+      "p05",
+      "p12",
+      "p13",
+      "p02"
+    ],
+    "playlists": [
+      {
+        "name": "Xem trên chuyến bay dài",
+        "items": [
+          "v01",
+          "v03",
+          "v12",
+          "v08"
+        ]
+      },
+      {
+        "name": "Ngủ ngon khi bay đêm",
+        "items": [
+          "a04",
+          "a07",
+          "a01"
+        ]
+      },
+      {
+        "name": "Cảm hứng du lịch",
+        "items": [
+          "v13",
+          "v06",
+          "a02",
+          "v11"
+        ]
+      }
+    ]
+  }
 };

@@ -5,20 +5,28 @@ nội dung là dữ liệu mẫu trong `data/content.json`, ảnh minh họa l�
 
 ## 1. Các trang
 
+**Menu dọc** (kiểu YouTube): Home · Xem · Nghe · Mới tải · Bạn · Sưu tập.
+**Menu ngang** (chuyên mục, rê chuột xổ tiểu mục): Tiện ích · Tin tức · Kinh doanh · Ý kiến · Tour bay.
+
 | File | Trang |
 |---|---|
-| `index.html` | Trang chủ (bố cục theo bản vẽ tay: 3 ô trái, khối nổi bật, cột bình luận Hay/Nhiều, hàng 4 thẻ, hàng 3 khối) |
-| `chuyen-muc.html?c=xem` / `nghe` / `mua-sam` | 3 chuyên mục, đầu trang có khối nổi bật lớn giống trang chủ |
-| `xem.html?id=...` | Xem video / nghe audio, sản phẩm gắn trong video, bình luận, danh sách tiếp theo |
-| `san-pham.html?id=...` | Chi tiết sản phẩm, chọn nơi nhận hàng (cửa ra máy bay / sân bay đến / tận nhà) |
-| `kenh.html?id=...` | Kênh nhà sáng tạo / doanh nghiệp: video, nghe, cửa hàng, giới thiệu |
-| `line-up-moi.html` | Line-up phim mới theo tháng (giữ từ site cũ) |
-| `tin-tuc.html`, `bai-viet.html?id=...` | Tin tức |
-| `lien-he.html` | Liên hệ & hợp tác |
-| `tim-kiem.html?q=...` | Tìm kiếm |
+| `index.html` | Home (bố cục theo bản vẽ tay: 3 ô trái, khối nổi bật, cột bình luận Hay/Nhiều, hàng 4 thẻ, hàng 3 khối) |
+| `chuyen-muc.html?c=xem` / `nghe` | Xem, Nghe (menu dọc) |
+| `chuyen-muc.html?c=kinh-doanh` / `tour-bay` | Kinh doanh (vé bay, miễn thuế, mua sắm, đặc sản, dịch vụ sân bay), Tour bay. Lọc tiểu mục bằng `&f=` |
+| `tien-ich.html?tab=...` | Tiện ích: ra tàu bay, Flightradar, thời tiết điểm đến, Wi-Fi, phòng chờ & fast-track |
+| `y-kien.html?tab=...` | Ý kiến: trải nghiệm, khảo sát, góp ý |
+| `tin-tuc.html?f=...`, `bai-viet.html?id=...` | Tin tức (Khám phá, Sự kiện, Mẹo bay, Line-up phim…) |
+| `moi-tai.html` | Mới tải (gồm tab Line-up phim tháng, giữ từ site cũ) |
+| `ban.html` | Bạn: hồ sơ, chuyến bay sắp tới, đơn hàng, tiếp tục xem, kênh theo dõi |
+| `suu-tap.html` | Sưu tập: playlist, đã lưu, yêu thích, đã xem |
+| `xem.html?id=...` | Xem video / nghe audio, sản phẩm gắn trong video, bình luận |
+| `san-pham.html?id=...` | Sản phẩm, vé bay, tour (vé/tour có chọn ngày, số khách) |
+| `kenh.html?id=...` | Kênh nhà sáng tạo / doanh nghiệp |
+| `lien-he.html`, `tim-kiem.html?q=...` | Liên hệ, tìm kiếm |
 
-Header, sidebar, thanh tab mobile, footer và mini player dùng chung, do `js/layout.js` vẽ.
-Nội dung từng trang do `js/main.js` vẽ, chọn theo `<body data-page="...">`.
+Header, 2 menu, thanh tab mobile, footer và mini player dùng chung, do `js/layout.js` vẽ
+(danh sách mục menu ở `TOPNAV` và `SIDENAV`). Nội dung từng trang do `js/main.js` vẽ, chọn theo `<body data-page="...">`.
+Bảng màu ở `scss/_variables.scss`.
 
 ## 2. Chạy thử trên máy
 
@@ -31,7 +39,7 @@ python3 -m http.server 8000
 
 ```
 /var/www/skyline/
-├── *.html            10 trang
+├── *.html            14 trang
 ├── css/style.css
 ├── js/data.js, js/layout.js, js/main.js
 └── images/favicon.svg

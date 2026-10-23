@@ -14,9 +14,8 @@
     gap: 16px;
     height: $header-h;
     padding: 0 16px;
-    background: rgba($white, 0.94);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid $color-border;
+    background: rgba($bg, 0.92);
+    backdrop-filter: blur(14px);
 
     &__left,
     &__right {
@@ -33,12 +32,20 @@
     &__sell {
         margin-right: 4px;
     }
+    &__me {
+        margin-left: 6px;
+        border-radius: 50%;
+        transition: box-shadow 0.2s;
+        &:hover {
+            box-shadow: 0 0 0 2px $brand-400;
+        }
+    }
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-left: 4px;
 
     &__mark {
@@ -48,18 +55,24 @@
         width: 34px;
         height: 34px;
         border-radius: 10px;
-        background: $gradient-sky;
-        color: $white;
+        background: $gradient-brand;
+        color: $on-brand;
+        box-shadow: $shadow-brand;
         .icon {
             width: 20px;
             height: 20px;
+            stroke-width: 2;
         }
     }
     &__text {
+        font-family: $font-display;
         font-size: 22px;
         font-weight: 800;
-        letter-spacing: 0.12em;
-        color: $sky-800;
+        letter-spacing: 0.08em;
+        background: $gradient-brand-text;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 }
 
@@ -67,36 +80,38 @@
     display: flex;
     flex: 0 1 620px;
     height: 42px;
-    border: 1.5px solid $ink-200;
     border-radius: 999px;
-    background: $white;
+    background: $field;
+    box-shadow: 0 0 0 1px $color-border-strong inset;
     overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: box-shadow 0.2s;
 
     &:focus-within {
-        border-color: $sky-500;
-        box-shadow: 0 0 0 3px rgba($sky-500, 0.15);
+        box-shadow: 0 0 0 1px $brand-400 inset, 0 0 0 4px rgba($brand-400, 0.12);
     }
     &__input {
         flex: 1;
         min-width: 0;
-        padding: 0 18px;
+        padding: 0 20px;
+        &::placeholder {
+            color: $dim;
+        }
     }
     &__btn {
         width: 60px;
-        border-left: 1.5px solid $ink-200;
-        background: $ink-50;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: $surface-2;
+        color: $text-2;
         &:hover {
-            background: $ink-100;
+            color: $brand-700;
         }
     }
     &--page {
         max-width: 720px;
         height: 50px;
-        margin: 8px 0 16px;
+        margin: 0 0 18px;
     }
 }
 
@@ -104,22 +119,137 @@
     display: flex;
     padding: 3px;
     border-radius: 999px;
-    background: $ink-100;
+    background: $surface-2;
     font-size: 12px;
     font-weight: 700;
     a {
         padding: 4px 9px;
         border-radius: 999px;
-        color: $ink-500;
+        color: $muted;
         &.active {
-            background: $white;
-            color: $ink-900;
-            box-shadow: $shadow-sm;
+            background: $gradient-brand;
+            color: $on-brand;
         }
     }
 }
 
-/* ================= Sidebar ================= */
+/* ================= Menu ngang: chuyên mục (kiểu thanh chip YouTube) ================= */
+
+.topnav {
+    position: fixed;
+    top: $header-h;
+    left: $sidebar-w;
+    right: 0;
+    z-index: 95;
+    height: $topnav-h;
+    padding: 0 16px;
+    background: rgba($bg, 0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid $color-border;
+    transition: left 0.25s $ease;
+
+    &__track {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 100%;
+    }
+    &__item {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: $surface-2;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        color: $text-2;
+        transition: background-color 0.2s, color 0.2s;
+        .icon {
+            width: 18px;
+            height: 18px;
+            color: $brand-400;
+        }
+    }
+    &__caret {
+        width: 16px !important;
+        height: 16px !important;
+        margin-right: -4px;
+        color: $muted !important;
+        transition: transform 0.2s;
+    }
+    &__item:hover &__link,
+    &__item:focus-within &__link {
+        background: $surface-3;
+        color: $ink;
+    }
+    &__item:hover &__caret,
+    &__item:focus-within &__caret {
+        transform: rotate(180deg);
+    }
+    &__item.active &__link {
+        background: $gradient-brand;
+        color: $on-brand;
+        .icon,
+        .topnav__caret {
+            color: $on-brand !important;
+        }
+    }
+
+    // Tiểu mục xổ xuống khi rê chuột / focus
+    &__menu {
+        position: absolute;
+        top: calc(100% - 4px);
+        left: 0;
+        min-width: 260px;
+        padding: 8px;
+        border-radius: 14px;
+        background: $surface;
+        box-shadow: 0 0 0 1px $color-border-strong, $shadow-lg;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(6px);
+        transition: opacity 0.18s, transform 0.18s $ease, visibility 0.18s;
+
+        a {
+            display: grid;
+            gap: 1px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: background-color 0.15s;
+            &:hover {
+                background: $surface-2;
+                strong {
+                    color: $brand-700;
+                }
+            }
+        }
+        strong {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        small {
+            font-size: 12px;
+            color: $muted;
+        }
+    }
+    &__item:hover &__menu,
+    &__item:focus-within &__menu {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+}
+
+/* ================= Sidebar (menu dọc) ================= */
 
 .sidebar {
     position: fixed;
@@ -142,35 +272,48 @@
         border-bottom: 0;
     }
     &__title {
-        padding: 6px 12px 6px;
-        font-size: 12px;
+        padding: 6px 12px;
+        font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: $ink-500;
+        color: $brand-600;
     }
 }
 
 .nav-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 16px;
-    height: 42px;
+    height: 44px;
     padding: 0 12px;
     border-radius: $radius-sm;
     font-weight: 500;
-    color: $ink-700;
-    transition: background-color 0.15s;
+    color: $text-2;
+    transition: background-color 0.15s, color 0.15s;
 
     &:hover {
-        background: $ink-100;
+        background: $surface;
+        color: $ink;
     }
     &.active {
-        background: $sky-100;
-        color: $sky-800;
+        background: linear-gradient(90deg, rgba($brand-400, 0.16), rgba($brand-400, 0.04));
+        color: $brand-700;
         font-weight: 700;
         .icon {
-            stroke-width: 2.2;
+            color: $brand-400;
+            stroke-width: 2;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+            background: $gradient-brand;
         }
     }
     &__label {
@@ -187,7 +330,7 @@
 .sidebar__foot {
     padding: 16px 12px 0;
     font-size: 12px;
-    color: $ink-300;
+    color: $dim;
 }
 
 // Sidebar thu gọn (chỉ icon + chữ nhỏ) giống YouTube
@@ -209,28 +352,34 @@
     .nav-item {
         flex-direction: column;
         justify-content: center;
-        gap: 4px;
-        height: 70px;
+        gap: 5px;
+        height: 72px;
         padding: 0 2px;
-        font-size: 10px;
+        font-size: 11px;
         text-align: center;
         &__label {
             max-width: 100%;
         }
         &.active {
             background: transparent;
-            color: $sky-700;
+            &::before {
+                display: none;
+            }
             .icon {
                 padding: 4px 10px;
-                width: 44px;
+                width: 46px;
                 height: 30px;
                 border-radius: 999px;
-                background: $sky-100;
+                background: rgba($brand-400, 0.16);
             }
         }
     }
     .shell {
         margin-left: $sidebar-mini-w;
+    }
+    .topnav,
+    .mini-player {
+        left: $sidebar-mini-w;
     }
 }
 
@@ -242,10 +391,11 @@ body.sidebar-mini {
 
 .shell {
     margin-left: $sidebar-w;
-    padding-top: $header-h;
+    padding-top: $header-h + $topnav-h;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: $gradient-glow no-repeat;
     transition: margin-left 0.25s $ease;
 }
 .page {
@@ -263,14 +413,18 @@ body.has-player .shell {
 
 .footer {
     margin-top: 24px;
-    padding: 40px 24px 20px;
-    background: $sky-900;
-    color: rgba($white, 0.75);
-    font-size: 14px;
+    padding: 44px 24px 20px;
+    background: $overlay;
+    border-top: 1px solid rgba($brand-500, 0.35);
+    color: rgba($white, 0.65);
 
     .logo__text {
-        color: $white;
+        background: $gradient-brand-text-light;
+        -webkit-background-clip: text;
+        background-clip: text;
     }
+    font-size: 14px;
+
     &__grid {
         display: grid;
         grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
@@ -279,7 +433,7 @@ body.has-player .shell {
         margin: 0 auto;
     }
     &__brand p {
-        margin-top: 12px;
+        margin-top: 14px;
         max-width: 300px;
     }
     &__col {
@@ -288,11 +442,14 @@ body.has-player .shell {
         gap: 10px;
         h4 {
             margin-bottom: 4px;
-            color: $white;
+            color: $brand-300;
+            font-size: 12px;
             font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
         a:hover {
-            color: $white;
+            color: $brand-200;
         }
     }
     &__contact p,
@@ -303,16 +460,17 @@ body.has-player .shell {
             width: 18px;
             height: 18px;
             margin-top: 1px;
-            color: $sky-300;
+            color: $brand-500;
         }
     }
     &__bottom {
         max-width: 1680px;
         margin: 32px auto 0;
         padding-top: 16px;
-        border-top: 1px solid rgba($white, 0.12);
+        border-top: 1px solid rgba($white, 0.1);
         font-size: 12px;
-        color: rgba($white, 0.5);
+        letter-spacing: 0.06em;
+        color: rgba($white, 0.4);
     }
 }
 
@@ -335,21 +493,12 @@ body.has-player .shell {
     gap: 16px;
     height: $player-h;
     padding: 0 16px;
-    background: $sky-900;
-    color: $white;
-    box-shadow: 0 -6px 20px rgba($ink-900, 0.2);
+    background: rgba($surface, 0.96);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba($brand-500, 0.3);
+    box-shadow: 0 -10px 30px rgba($black, 0.4);
     transition: left 0.25s $ease;
 
-    .icon-btn:hover {
-        background: rgba($white, 0.12);
-    }
-    .icon-btn--primary {
-        background: $white;
-        color: $sky-900;
-        &:hover {
-            background: $sky-100;
-        }
-    }
     &__info {
         display: flex;
         align-items: center;
@@ -372,7 +521,7 @@ body.has-player .shell {
             text-overflow: ellipsis;
         }
         small {
-            color: rgba($white, 0.65);
+            color: $muted;
         }
     }
     &__controls {
@@ -384,13 +533,13 @@ body.has-player .shell {
         flex: 1;
         height: 4px;
         border-radius: 2px;
-        background: rgba($white, 0.2);
+        background: rgba($ink, 0.12);
         overflow: hidden;
         span {
             display: block;
             width: 0;
             height: 100%;
-            background: $sky-300;
+            background: $gradient-brand;
         }
     }
     &.is-playing &__progress span {
@@ -401,11 +550,8 @@ body.has-player .shell {
     }
     &__time {
         font-size: 12px;
-        color: rgba($white, 0.65);
+        color: $muted;
     }
-}
-body.sidebar-mini .mini-player {
-    left: $sidebar-mini-w;
 }
 
 @keyframes progress {
@@ -427,16 +573,16 @@ body.sidebar-mini .mini-player {
     max-width: calc(100% - 32px);
     padding: 12px 18px;
     border-radius: 12px;
-    background: $ink-900;
+    background: $ink;
     color: $white;
     font-weight: 500;
-    box-shadow: $shadow-lg;
+    box-shadow: 0 0 0 1px rgba($brand-400, 0.35), $shadow-lg;
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, 20px);
     transition: opacity 0.25s, transform 0.25s $ease;
     .icon {
-        color: #69db7c;
+        color: $brand-400;
     }
     &.show {
         opacity: 1;

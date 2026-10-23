@@ -10,28 +10,30 @@
     }
 }
 
-/* ================= ≤ 1280px: sidebar thu gọn, bấm ☰ mở dạng ngăn kéo ================= */
+/* ================= ≤ 1280px: menu dọc thu gọn, bấm ☰ mở dạng ngăn kéo ================= */
 
 @include maxw($bp-xl) {
     body:not(.sidebar-open) {
         @include layout.sidebar-mini;
     }
-    .mini-player {
-        left: $sidebar-mini-w;
-    }
     body.sidebar-open {
         .shell {
             margin-left: $sidebar-mini-w;
         }
+        .topnav,
+        .mini-player {
+            left: $sidebar-mini-w;
+        }
         .sidebar {
             box-shadow: $shadow-lg;
+            z-index: 99;
         }
         .sidebar-backdrop {
             display: block;
             position: fixed;
             inset: $header-h 0 0 0;
-            z-index: 80;
-            background: rgba($ink-900, 0.4);
+            z-index: 98;
+            background: rgba($overlay, 0.6);
         }
     }
     .top-grid {
@@ -39,6 +41,12 @@
     }
     .header__sell span {
         display: none;
+    }
+    .top-grid .hero__desc {
+        display: none;
+    }
+    .utility__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -84,7 +92,11 @@
     .watch,
     .product-detail,
     .article-layout,
-    .contact {
+    .contact,
+    .split,
+    .radar-layout,
+    .util-grid,
+    .me-grid {
         grid-template-columns: minmax(0, 1fr);
     }
     .article-side {
@@ -111,30 +123,51 @@
         font-size: 14px;
     }
     .container {
-        padding: 12px 12px 32px;
+        padding: 16px 12px 36px;
     }
 
     .header {
         gap: 8px;
         padding: 0 8px;
         .search,
-        .header__sell,
-        .header__login span {
+        .header__sell {
             display: none;
         }
         &__search-mobile {
             display: inline-flex;
         }
     }
-    .header__login {
-        width: 40px;
-        padding: 0;
-    }
     .logo__text {
-        font-size: 18px;
+        font-size: 19px;
     }
 
-    // Sidebar ẩn hẳn, ☰ mở ngăn kéo đầy đủ
+    // Menu ngang: vuốt ngang, bỏ dropdown (tiểu mục hiện thành chip/tab trong trang)
+    .topnav,
+    body:not(.sidebar-open) .topnav,
+    body.sidebar-open .topnav {
+        left: 0;
+        padding: 0;
+    }
+    .topnav__track {
+        gap: 8px;
+        padding: 0 12px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    .topnav__menu,
+    .topnav__caret {
+        display: none !important;
+    }
+    .topnav__link {
+        height: 34px;
+        padding: 0 13px;
+        font-size: 13px;
+    }
+
+    // Menu dọc ẩn hẳn, ☰ mở ngăn kéo đầy đủ
     body:not(.sidebar-open) .sidebar,
     .sidebar {
         transform: translateX(-100%);
@@ -164,8 +197,9 @@
         grid-template-columns: repeat(5, 1fr);
         height: $tabbar-h;
         padding-bottom: env(safe-area-inset-bottom);
-        background: rgba($white, 0.97);
-        border-top: 1px solid $color-border;
+        background: rgba($bg, 0.96);
+        backdrop-filter: blur(14px);
+        border-top: 1px solid rgba($brand-500, 0.2);
         &__item {
             display: grid;
             justify-items: center;
@@ -173,19 +207,20 @@
             gap: 3px;
             font-size: 11px;
             font-weight: 500;
-            color: $ink-500;
+            color: $muted;
             &.active {
-                color: $sky-700;
+                color: $brand-700;
                 font-weight: 700;
                 .icon {
-                    stroke-width: 2.3;
+                    stroke-width: 2.2;
                 }
             }
         }
     }
 
     .mini-player,
-    body .mini-player {
+    body .mini-player,
+    body:not(.sidebar-open) .mini-player {
         left: 0;
         bottom: $tabbar-h;
         gap: 8px;
@@ -213,29 +248,30 @@
     }
 
     .page-head {
+        gap: 14px;
         h1 {
-            font-size: 20px;
+            font-size: 24px;
         }
         p {
             font-size: 13px;
         }
         &__icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
         }
     }
     .section {
-        margin-top: 28px;
+        margin-top: 32px;
     }
     .section-head h2 {
-        font-size: 18px;
+        font-size: 21px;
     }
 
     .hero {
         aspect-ratio: 4 / 5;
         &__content {
-            padding: 18px;
+            padding: 20px;
         }
         &__desc {
             font-size: 13px;
@@ -260,7 +296,7 @@
         }
         &__row {
             grid-template-columns: minmax(0, 1fr);
-            gap: 20px;
+            gap: 22px;
         }
     }
     .bottom-grid {
@@ -277,13 +313,17 @@
         }
     }
     .product-card__body {
-        padding: 8px 10px 10px;
+        padding: 10px 10px 12px;
     }
     .shelf {
         grid-auto-columns: 78%;
         gap: 12px;
+        .product-card {
+            min-width: 0;
+        }
     }
-    .news-grid {
+    .news-grid,
+    .news-grid--2 {
         grid-template-columns: minmax(0, 1fr);
     }
     .channel-grid {
@@ -291,11 +331,11 @@
     }
     .poster-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px 12px;
+        gap: 20px 12px;
     }
 
     .watch__title {
-        font-size: 18px;
+        font-size: 21px;
     }
     .watch__bar,
     .watch .actions {
@@ -305,19 +345,19 @@
         overflow-x: auto;
     }
     .video-player {
-        margin: -12px -12px 0;
+        margin: -16px -12px 0;
         border-radius: 0;
     }
     .audio-player {
         grid-template-columns: minmax(0, 1fr);
-        gap: 16px;
-        padding: 18px;
+        gap: 18px;
+        padding: 20px;
         &__cover {
             max-width: 220px;
             margin: 0 auto;
         }
         &__main h2 {
-            font-size: 20px;
+            font-size: 24px;
         }
     }
     .media-row .thumb {
@@ -328,26 +368,26 @@
         padding: 14px;
         gap: 18px;
         &__info h1 {
-            font-size: 20px;
+            font-size: 24px;
         }
         &__buy {
             position: sticky;
             bottom: $tabbar-h + 8px;
             z-index: 5;
             .btn {
-                height: 44px;
+                height: 46px;
                 padding: 0 12px;
                 font-size: 15px;
             }
         }
     }
     .price--lg strong {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .channel {
         &__cover {
-            height: 120px;
+            height: 130px;
         }
         &__head {
             flex-direction: column;
@@ -357,7 +397,7 @@
             }
         }
         &__info h1 {
-            font-size: 22px;
+            font-size: 24px;
         }
     }
     .avatar--xl {
@@ -366,17 +406,59 @@
         font-size: 28px;
     }
 
+    .pass {
+        &__main {
+            padding: 16px;
+        }
+        &__route strong {
+            font-size: 30px;
+        }
+        &__info {
+            grid-template-columns: repeat(3, auto);
+        }
+        &__stub {
+            display: none;
+        }
+    }
+    .flight-row {
+        grid-template-columns: auto 1fr auto;
+        &__time {
+            display: none;
+        }
+    }
+    .rate span small {
+        display: none;
+    }
+    .composer__tools {
+        flex-wrap: wrap;
+        input {
+            flex-basis: 100%;
+        }
+    }
+    .profile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 20px;
+        &__info h1 {
+            font-size: 26px;
+        }
+        &__actions {
+            align-self: stretch;
+        }
+    }
+
     .news-lead {
         aspect-ratio: 4 / 3;
         &__body {
-            padding: 16px;
+            padding: 18px;
             small {
                 display: none;
             }
         }
     }
     .article h1 {
-        font-size: 24px;
+        font-size: 28px;
     }
     .article > p {
         font-size: 16px;
@@ -386,10 +468,10 @@
         grid-template-columns: minmax(0, 1fr);
     }
     .footer {
-        padding: 28px 16px 16px;
+        padding: 30px 16px 16px;
         &__grid {
             grid-template-columns: minmax(0, 1fr);
-            gap: 20px;
+            gap: 22px;
         }
     }
 }

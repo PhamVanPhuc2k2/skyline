@@ -1,65 +1,88 @@
 // =================================================================
-// Bảng màu SKYLINE: nền sáng kiểu nền tảng video, xanh bầu trời làm màu chính,
-// cam cho mua sắm / giá / khuyến mãi.
+// Bảng màu SKYLINE: hiện đại, sáng, tươi.
+// Nền trắng xám lạnh, chữ navy, màu chính gradient xanh bầu trời → indigo (chủ đề bay),
+// cam san hô cho giá / giảm giá / mua hàng.
+// Footer và bản đồ Flightradar giữ nền navy tối để tạo chiều sâu.
 // =================================================================
 
-// Xanh bầu trời (màu chính)
-$sky-900: #062a52;
-$sky-800: #0a3d75;
-$sky-700: #0b559e;
-$sky-600: #0b6bcb;
-$sky-500: #1a85f0;
-$sky-300: #7dbcff;
-$sky-100: #dcecff;
-$sky-50: #eef6ff;
+// Nền & bề mặt
+$bg: #f5f7fb; // nền trang
+$surface: #ffffff; // thẻ, panel
+$surface-2: #eef2f8; // nền nhạt: chip, hover, ô phụ
+$surface-3: #e2e8f0; // hover đậm hơn
+$surface-4: #cbd5e1; // sao chưa chọn, viền đậm
+$field: #ffffff; // ô nhập liệu
 
-// Cam (mua sắm, giá, khuyến mãi)
-$orange-600: #e8590c;
-$orange-500: #f76707;
-$orange-100: #fff0e3;
+// Navy (chữ, lớp phủ ảnh, footer)
+$ink: #0f172a; // chữ chính
+$overlay: #0b1220; // lớp phủ trên ảnh, footer, radar
+$on-brand: #ffffff; // chữ trên nền màu chính
 
-// Trung tính
+// Màu chính: xanh bầu trời → indigo
+$brand-100: #e8f0ff;
+$brand-200: #d3e2ff;
+$brand-300: #93c5fd; // trên nền tối
+$brand-400: #3b82f6; // màu chính
+$brand-500: #2563eb;
+$brand-600: #1d4ed8;
+$brand-700: #1e4fd1; // chữ / link trên nền sáng
+
+// Màu nhấn: cam san hô (giá, giảm giá, mua hàng)
+$accent: #ff5a36;
+$accent-600: #e8461f;
+
+// Chữ phụ
+$text-2: #334155;
+$muted: #64748b;
+$dim: #94a3b8;
+
+// Trạng thái
+$ruby: $accent;
+$emerald: #10b981;
+$amber: #f59e0b;
+$sky: #0284c7; // "đang bay" trên nền sáng
+$sky-bright: #7dd3fc; // máy bay trên bản đồ tối
+
 $white: #fff;
 $black: #000;
-$ink-900: #0f1c33;
-$ink-700: #2b3a52;
-$ink-500: #5d6b82;
-$ink-300: #a3afc2;
-$ink-200: #d5dce7;
-$ink-100: #e8edf4;
-$ink-50: #f5f7fb;
-$star: #f5a524;
-$green: #2b8a3e;
 
 // Vai trò
-$color-bg: $ink-50;
-$color-surface: $white;
-$color-text: $ink-900;
-$color-text-muted: $ink-500;
-$color-border: $ink-100;
-$color-primary: $sky-600;
-$color-accent: $orange-500;
+$color-bg: $bg;
+$color-surface: $surface;
+$color-surface-2: $surface-2;
+$color-text: $ink;
+$color-text-muted: $muted;
+$color-border: rgba($ink, 0.07);
+$color-border-strong: rgba($ink, 0.14);
+$color-primary: $brand-400;
 
 // Gradient
-$gradient-sky: linear-gradient(135deg, $sky-500 0%, $sky-700 100%);
-$gradient-hero: linear-gradient(0deg, rgba($ink-900, 0.92) 0%, rgba($ink-900, 0.55) 45%, rgba($ink-900, 0) 80%);
+$gradient-brand: linear-gradient(135deg, #38bdf8 0%, #3b82f6 48%, #6366f1 100%);
+$gradient-brand-text: linear-gradient(90deg, #0ea5e9 0%, #4f46e5 100%); // logo trên nền sáng
+$gradient-brand-text-light: linear-gradient(90deg, #7dd3fc 0%, #a5b4fc 100%); // logo trên nền tối
+$gradient-hero: linear-gradient(0deg, rgba($overlay, 0.9) 0%, rgba($overlay, 0.5) 40%, rgba($overlay, 0) 78%);
+$gradient-surface: linear-gradient(160deg, #ffffff 0%, #fbfcfe 100%);
+$gradient-glow: radial-gradient(ellipse at 30% 0%, rgba(#38bdf8, 0.12) 0%, rgba(#6366f1, 0.06) 35%, rgba(#6366f1, 0) 65%);
 
-// Typography
+// Typography (sans hiện đại cho cả tiêu đề)
 $font-body: "Be Vietnam Pro", system-ui, sans-serif;
+$font-display: "Be Vietnam Pro", system-ui, sans-serif;
 
 // Kích thước khung
 $header-h: 64px;
+$topnav-h: 52px;
 $sidebar-w: 232px;
 $sidebar-mini-w: 76px;
-$tabbar-h: 60px;
+$tabbar-h: 62px;
 $player-h: 68px;
-$radius: 14px;
+$radius: 16px;
 $radius-sm: 10px;
 
 // Bóng & hiệu ứng
-$shadow-sm: 0 1px 2px rgba($ink-900, 0.06), 0 1px 3px rgba($ink-900, 0.08);
-$shadow-md: 0 6px 20px rgba($ink-900, 0.1);
-$shadow-lg: 0 14px 40px rgba($ink-900, 0.18);
+$shadow-sm: 0 1px 2px rgba($ink, 0.04), 0 2px 8px rgba($ink, 0.04);
+$shadow-md: 0 10px 30px rgba($ink, 0.08);
+$shadow-lg: 0 20px 50px rgba($ink, 0.16);
+$shadow-brand: 0 8px 22px rgba($brand-400, 0.32);
 $ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
 // Breakpoints (giống landing_page)

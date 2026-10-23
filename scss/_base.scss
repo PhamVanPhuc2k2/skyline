@@ -4,6 +4,7 @@ html {
     box-sizing: border-box;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    color-scheme: light;
 }
 *,
 *:before,
@@ -18,10 +19,11 @@ html {
 body {
     font-family: $font-body;
     font-size: 15px;
-    line-height: 1.45;
+    line-height: 1.5;
     color: $color-text;
-    background-color: $color-bg;
+    background: $color-bg;
     text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
 }
 input,
 textarea,
@@ -49,16 +51,25 @@ img {
 strong {
     font-weight: 700;
 }
+::selection {
+    background: rgba($brand-400, 0.35);
+}
 :focus-visible {
-    outline: 2px solid $sky-500;
+    outline: 2px solid $brand-400;
     outline-offset: 2px;
+}
+* {
+    scrollbar-color: $surface-4 transparent;
 }
 
 .container {
     width: 100%;
     max-width: 1680px;
     margin: 0 auto;
-    padding: 20px 24px 48px;
+    padding: 24px 24px 56px;
+    &--narrow {
+        max-width: 860px;
+    }
 }
 .muted {
     color: $color-text-muted;
@@ -66,12 +77,15 @@ strong {
 .center {
     text-align: center;
 }
+.mt-16 {
+    margin-top: 16px;
+}
 .link {
     font-size: 13px;
     font-weight: 600;
-    color: $color-primary;
+    color: $brand-700;
     &:hover {
-        text-decoration: underline;
+        color: $brand-700;
     }
 }
 
@@ -83,7 +97,7 @@ strong {
     flex-shrink: 0;
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.8;
+    stroke-width: 1.7;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
@@ -96,10 +110,11 @@ strong {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    color: $white;
+    color: $brand-100;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.02em;
+    box-shadow: 0 0 0 1px rgba($brand-300, 0.25) inset;
 
     &--xs {
         width: 24px;
@@ -120,8 +135,8 @@ strong {
         width: 112px;
         height: 112px;
         font-size: 36px;
-        border: 4px solid $white;
-        box-shadow: $shadow-md;
+        font-family: $font-display;
+        box-shadow: 0 0 0 3px $bg, 0 0 0 5px $brand-500, $shadow-md;
     }
 }
 
@@ -129,7 +144,7 @@ strong {
     display: inline-flex;
     margin-left: 4px;
     vertical-align: -3px;
-    color: $sky-600;
+    color: $brand-400;
     .icon {
         width: 16px;
         height: 16px;
@@ -148,7 +163,7 @@ strong {
     border-radius: 999px;
     font-weight: 600;
     white-space: nowrap;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s, filter 0.2s;
 
     &:active {
         transform: scale(0.97);
@@ -163,60 +178,68 @@ strong {
         }
     }
     &--lg {
-        height: 48px;
+        height: 50px;
         padding: 0 26px;
         font-size: 16px;
     }
     &--block {
         width: 100%;
     }
+    // Vàng champagne: hành động chính
     &--primary {
-        background: $color-primary;
-        color: $white;
+        background: $gradient-brand;
+        color: $on-brand;
+        box-shadow: $shadow-brand;
         &:hover {
-            background: $sky-700;
+            filter: brightness(1.08);
+            box-shadow: 0 10px 28px rgba($brand-500, 0.35);
         }
     }
+    // Mua hàng: viền vàng, nền tối (để vàng đặc dành cho hành động chính)
     &--accent {
-        background: $color-accent;
-        color: $white;
+        background: rgba($accent, 0.1);
+        color: $accent-600;
+        box-shadow: 0 0 0 1px rgba($accent, 0.4) inset;
         &:hover {
-            background: $orange-600;
+            background: $accent;
+            color: $white;
         }
     }
     &--outline {
-        border: 1.5px solid $ink-200;
+        box-shadow: 0 0 0 1px $color-border-strong inset;
         &:hover {
-            border-color: $color-primary;
-            color: $color-primary;
+            box-shadow: 0 0 0 1px $brand-400 inset;
+            color: $brand-700;
         }
     }
     &--soft {
-        background: $ink-100;
+        background: $color-surface-2;
         &:hover {
-            background: $ink-200;
+            background: $surface-3;
         }
     }
     &--ghost {
-        color: $color-primary;
+        color: $brand-700;
         &:hover {
-            background: $sky-50;
+            background: rgba($brand-400, 0.1);
         }
     }
     &--glass {
-        background: rgba($white, 0.18);
+        background: rgba($white, 0.1);
         color: $white;
-        backdrop-filter: blur(6px);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 0 1px rgba($white, 0.15) inset;
         &:hover {
-            background: rgba($white, 0.3);
+            background: rgba($white, 0.18);
         }
     }
 
     // Nút Theo dõi đang bật
     &[data-follow].is-on {
-        background: $ink-100;
-        color: $ink-700;
-        border-color: transparent;
+        background: $color-surface-2;
+        color: $text-2;
+        box-shadow: none;
+        filter: none;
     }
 }
 
@@ -229,27 +252,31 @@ strong {
     height: 40px;
     border-radius: 50%;
     flex-shrink: 0;
-    transition: background-color 0.2s;
+    color: $text-2;
+    transition: background-color 0.2s, color 0.2s;
     &:hover {
-        background: $ink-100;
+        background: $color-surface-2;
+        color: $ink;
     }
     .icon {
         width: 22px;
         height: 22px;
     }
     &--primary {
-        background: $color-primary;
-        color: $white;
+        background: $gradient-brand;
+        color: $on-brand;
         .icon {
             fill: currentColor;
         }
         &:hover {
-            background: $sky-700;
+            background: $gradient-brand;
+            color: $on-brand;
+            filter: brightness(1.08);
         }
     }
     &--lg {
-        width: 60px;
-        height: 60px;
+        width: 62px;
+        height: 62px;
         .icon {
             width: 28px;
             height: 28px;
@@ -263,10 +290,10 @@ strong {
         height: 18px;
         padding: 0 5px;
         border-radius: 9px;
-        background: $color-accent;
-        color: $white;
+        background: $gradient-brand;
+        color: $on-brand;
         font-size: 11px;
-        font-weight: 700;
+        font-weight: 800;
         line-height: 18px;
         text-align: center;
     }
@@ -277,8 +304,8 @@ strong {
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: #e03131;
-        border: 2px solid $white;
+        background: $ruby;
+        border: 2px solid $bg;
     }
 }
 
@@ -287,33 +314,39 @@ strong {
 .pill {
     display: inline-flex;
     align-items: center;
+    gap: 5px;
     height: 24px;
-    padding: 0 10px;
+    padding: 0 11px;
     border-radius: 999px;
-    background: $color-primary;
-    color: $white;
+    background: $gradient-brand;
+    color: $on-brand;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    .icon {
+        width: 14px;
+        height: 14px;
+    }
 
     &--soft {
-        background: $sky-50;
-        color: $sky-700;
+        background: rgba($brand-400, 0.12);
+        color: $brand-700;
+        box-shadow: 0 0 0 1px rgba($brand-400, 0.25) inset;
     }
     &--new {
         position: absolute;
         top: 8px;
         left: 8px;
-        background: $color-accent;
     }
 }
 
 .sale-tag {
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 10px;
+    left: 10px;
     padding: 2px 8px;
     border-radius: 6px;
-    background: $color-accent;
+    background: $ruby;
     color: $white;
     font-size: 12px;
     font-weight: 700;
@@ -331,8 +364,8 @@ strong {
     .icon {
         width: 15px;
         height: 15px;
-        fill: $star;
-        stroke: $star;
+        fill: $brand-400;
+        stroke: $brand-400;
     }
 }
 
@@ -340,27 +373,75 @@ strong {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 4px 8px;
+    gap: 2px 8px;
+    small {
+        font-size: 12px;
+        color: $color-text-muted;
+    }
     strong {
-        color: $orange-600;
+        color: $accent;
         font-size: 16px;
     }
     del {
-        color: $ink-300;
+        color: $dim;
         font-size: 13px;
     }
     &--lg {
         align-items: center;
-        margin: 16px 0;
-        padding: 14px 16px;
+        margin: 18px 0;
+        padding: 16px 18px;
         border-radius: $radius-sm;
-        background: $orange-100;
+        background: linear-gradient(90deg, rgba($accent, 0.1), rgba($accent, 0.02));
+        box-shadow: 0 0 0 1px rgba($accent, 0.2) inset;
         strong {
-            font-size: 28px;
+            font-family: $font-display;
+            font-size: 32px;
         }
         del {
             font-size: 15px;
         }
+    }
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    &::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+    &--live {
+        color: $sky;
+        background: rgba($sky, 0.12);
+        &::before {
+            animation: blink 1.4s infinite;
+        }
+    }
+    &--ok {
+        color: $emerald;
+        background: rgba($emerald, 0.12);
+    }
+    &--warn {
+        color: $amber;
+        background: rgba($amber, 0.12);
+    }
+    &--done {
+        color: $muted;
+        background: rgba($muted, 0.12);
+    }
+}
+@keyframes blink {
+    50% {
+        opacity: 0.25;
     }
 }
 
@@ -371,13 +452,13 @@ strong {
     display: block;
     overflow: hidden;
     border-radius: $radius-sm;
-    background: $ink-100;
+    background: $surface-2;
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.4s $ease;
+        transition: transform 0.5s $ease, filter 0.3s;
     }
     &--video {
         aspect-ratio: 16 / 9;
@@ -389,9 +470,9 @@ strong {
         position: absolute;
         right: 6px;
         bottom: 6px;
-        padding: 1px 6px;
+        padding: 1px 7px;
         border-radius: 5px;
-        background: rgba($ink-900, 0.82);
+        background: rgba($overlay, 0.85);
         color: $white;
         font-size: 12px;
         font-weight: 600;
@@ -403,10 +484,10 @@ strong {
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        padding: 2px 7px;
+        padding: 2px 8px;
         border-radius: 5px;
-        background: $color-accent;
-        color: $white;
+        background: rgba($overlay, 0.85);
+        color: $brand-300;
         font-size: 11px;
         font-weight: 600;
         .icon {
@@ -414,10 +495,23 @@ strong {
             height: 13px;
         }
     }
+    &__progress {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 4px;
+        background: rgba($white, 0.2);
+        span {
+            display: block;
+            height: 100%;
+            background: $gradient-brand;
+        }
+    }
 }
 a:hover > .thumb img,
 a.thumb:hover img {
-    transform: scale(1.04);
+    transform: scale(1.05);
 }
 
 /* ---------------- Biểu mẫu ---------------- */
@@ -425,24 +519,30 @@ a.thumb:hover img {
 .field {
     display: grid;
     gap: 6px;
-    margin-bottom: 14px;
-    span {
+    margin-bottom: 16px;
+    > span {
         font-size: 13px;
         font-weight: 600;
-        color: $ink-700;
+        color: $text-2;
     }
     input,
     select,
     textarea {
         width: 100%;
-        padding: 11px 14px;
-        border: 1.5px solid $ink-200;
+        padding: 12px 14px;
         border-radius: $radius-sm;
-        background: $white;
-        transition: border-color 0.2s;
+        background: $field;
+        box-shadow: 0 0 0 1px $color-border-strong inset;
+        transition: box-shadow 0.2s;
         &:focus {
-            border-color: $sky-500;
+            box-shadow: 0 0 0 1px $brand-400 inset, 0 0 0 4px rgba($brand-400, 0.12);
         }
+        &::placeholder {
+            color: $dim;
+        }
+    }
+    select option {
+        background: $surface;
     }
     textarea {
         resize: vertical;
@@ -464,6 +564,6 @@ a.thumb:hover img {
     .icon {
         width: 40px;
         height: 40px;
-        color: $ink-300;
+        color: $dim;
     }
 }
