@@ -430,19 +430,33 @@
                     "<h2>" + esc(m.title) + "</h2>" +
                     "<p>" + esc(ch.name) + "</p>" +
                     '<div class="wave" aria-hidden="true">' + new Array(49).join("<span></span>") + "</div>" +
+                    SL.runway(0, false) +
                     '<div class="audio-player__time"><span>00:00</span><span>' + esc(m.duration) + "</span></div>" +
                     '<div class="audio-player__controls">' +
-                        '<button class="icon-btn" type="button" aria-label="Bài trước">' + icon("prev") + "</button>" +
-                        '<button class="icon-btn icon-btn--primary icon-btn--lg" type="button" data-play="' + m.id + '" aria-label="Phát">' + icon("play") + "</button>" +
-                        '<button class="icon-btn" type="button" aria-label="Bài sau">' + icon("next") + "</button>" +
+                        '<button class="icon-btn" type="button" aria-label="Tua lại 10 giây">' + icon("rewind") + "</button>" +
+                        '<button class="icon-btn icon-btn--primary icon-btn--lg" type="button" data-play="' + m.id + '" data-audio-play aria-label="Phát">' + icon("play") + "</button>" +
+                        '<button class="icon-btn" type="button" aria-label="Tua tới 10 giây">' + icon("forward") + "</button>" +
+                        SL.toggleBtn("sound") +
                     "</div>" +
                     '<p class="hint">Bấm phát để nghe trong nền, nhạc vẫn chạy khi bạn chuyển sang trang khác.</p>' +
                 "</div>" +
               "</div>"
-            : '<div class="video-player" data-video>' +
+            : '<div class="video-player">' +
                 '<img src="' + img(m.id, 1280, 720) + '" alt="">' +
-                '<button class="video-player__play" type="button" aria-label="Phát">' + icon("play") + "</button>" +
-                '<div class="video-player__bar"><span class="video-player__progress"></span><small>00:00 / ' + esc(m.duration) + "</small></div>" +
+                '<span class="video-player__nopic">' + icon("sound") + "Đang tắt hình, chỉ phát âm thanh</span>" +
+                '<button class="video-player__play" type="button" data-video-play aria-label="Phát">' + icon("play") + "</button>" +
+                '<div class="video-player__bar">' +
+                    SL.runway(0, false) +
+                    '<div class="video-player__controls">' +
+                        '<button class="icon-btn" type="button" data-video-play aria-label="Phát">' + icon("play") + "</button>" +
+                        '<button class="icon-btn" type="button" aria-label="Tua lại 10 giây">' + icon("rewind") + "</button>" +
+                        '<button class="icon-btn" type="button" aria-label="Tua tới 10 giây">' + icon("forward") + "</button>" +
+                        "<small>00:00 / " + esc(m.duration) + "</small>" +
+                        '<span class="video-player__spacer"></span>' +
+                        SL.toggleBtn("sound") +
+                        SL.toggleBtn("screen") +
+                    "</div>" +
+                "</div>" +
               "</div>";
 
         page.innerHTML =
@@ -1083,8 +1097,17 @@
                 input.value = Math.max(1, (parseInt(input.value, 10) || 1) + parseInt(el.getAttribute("data-qty"), 10));
                 return;
             }
-            if ((el = e.target.closest("[data-video]"))) {
-                el.classList.toggle("is-playing");
+            // Phát / tạm dừng: video (nút giữa hoặc thanh điều khiển) và trình phát audio
+            if ((el = e.target.closest("[data-video-play], [data-audio-play]"))) {
+                var player = el.closest(".video-player, .audio-player");
+                var playing = player.classList.toggle("is-playing");
+                player.querySelector(".runway").classList.toggle("is-running", playing);
+                player.querySelectorAll(".video-player__controls [data-video-play], [data-audio-play]").forEach(function (b) {
+                    b.innerHTML = icon(playing ? "pause" : "play");
+                    b.setAttribute("aria-label", playing ? "Tạm dừng" : "Phát");
+                });
+                // Audio: nút phát cũng mở mini player (data-play, xử lý ở layout.js) — chỉ khi bắt đầu phát
+                if (el.hasAttribute("data-audio-play") && !playing) e.stopPropagation();
                 return;
             }
             if ((el = e.target.closest("[data-action]"))) {

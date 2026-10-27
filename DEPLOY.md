@@ -28,6 +28,11 @@ Header, 2 menu, thanh tab mobile, footer và mini player dùng chung, do `js/lay
 (danh sách mục menu ở `TOPNAV` và `SIDENAV`). Nội dung từng trang do `js/main.js` vẽ, chọn theo `<body data-page="...">`.
 Bảng màu ở `scss/_variables.scss`.
 
+**Icon Player**: Home, Play, Tạm dừng, Tua ngược/tua 10s, Thanh hình, Thanh âm thanh và thanh Player kiểu đường băng
+lấy từ file thiết kế `_thiet-ke/Player.pdf` (bản gốc `Player.ai`). Khi designer sửa icon: xuất lại PDF vào
+`_thiet-ke/`, chạy `python3 scripts/build_icons.py` (cần `pdftocairo`), script ghi `js/icons.js` và `images/icons/*.svg`.
+Các icon còn lại (tìm kiếm, giỏ hàng, chuông…) là icon nét trong `js/layout.js` vì bộ thiết kế chưa có.
+
 ## 2. Chạy thử trên máy
 
 ```bash
@@ -41,11 +46,11 @@ python3 -m http.server 8000
 /var/www/skyline/
 ├── *.html            14 trang
 ├── css/style.css
-├── js/data.js, js/layout.js, js/main.js
+├── js/data.js, js/icons.js, js/layout.js, js/main.js
 └── images/favicon.svg
 ```
 
-Không đưa lên: `scss/` (mã nguồn CSS), `data/` (nguồn nội dung), `scripts/`.
+Không đưa lên: `scss/` (mã nguồn CSS), `data/` (nguồn nội dung), `scripts/`, `_thiet-ke/` (file thiết kế).
 
 ## 4. Thao tác thường gặp
 

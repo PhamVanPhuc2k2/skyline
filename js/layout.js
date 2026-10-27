@@ -120,8 +120,32 @@
         settings: '<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6a7 7 0 0 0 0 2.4l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>'
     };
 
+    // Icon trình phát theo bộ thiết kế Player (js/icons.js, tách từ _thiet-ke/Player.pdf), tô màu đặc.
+    // Tên cũ trỏ sang icon Player tương ứng để mọi chỗ trong dự án dùng chung bộ mới.
+    var PLAYER = window.PLAYER_ICONS || {};
+    var PLAYER_ALIAS = { prev: "rewind", next: "forward", headphones: "sound" };
+
     function icon(name, cls) {
+        var p = PLAYER[PLAYER_ALIAS[name] || name];
+        if (p) {
+            return '<svg class="icon icon--fill' + (cls ? " " + cls : "") + '" viewBox="' + p.vb + '" aria-hidden="true">' +
+                p.paths.map(function (x) { return '<path fill-rule="' + x.rule + '" d="' + x.d + '"/>'; }).join("") + "</svg>";
+        }
         return '<svg class="icon' + (cls ? " " + cls : "") + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICON_PATHS[name] || "") + "</svg>";
+    }
+
+    // Thanh Player kiểu đường băng: vạch đứt hai bên, đầu thanh là máy bay.
+    // pct: phần đã chạy (0–100); running: đang phát (vạch & máy bay sáng, thanh tự chạy)
+    function runway(pct, running) {
+        return '<div class="runway' + (running ? " is-running" : "") + '" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + (pct || 0) + '">' +
+            '<span class="runway__track"><span class="runway__fill" style="width:' + (pct || 0) + '%">' + icon("plane-thumb", "runway__plane") + "</span></span>" +
+        "</div>";
+    }
+
+    // Nút bật/tắt (âm thanh, hình): đổi màu theo trạng thái, hình icon giữ nguyên như thiết kế on/off
+    function toggleBtn(kind) {
+        var label = kind === "sound" ? "Tắt tiếng" : "Tắt hình";
+        return '<button class="icon-btn toggle-btn" type="button" data-toggle="' + kind + '" aria-pressed="true" aria-label="' + label + '" title="' + label + '">' + icon(kind) + "</button>";
     }
 
     /* ---------------- Menu ngang: 5 chuyên mục + tiểu mục ---------------- */
@@ -169,8 +193,8 @@
     // Menu dọc (kiểu YouTube)
     var SIDENAV = [
         { key: "home", label: "Home", icon: "home", href: "index.html" },
-        { key: "xem", label: "Xem", icon: "play", href: "chuyen-muc.html?c=xem" },
-        { key: "nghe", label: "Nghe", icon: "headphones", href: "chuyen-muc.html?c=nghe" },
+        { key: "xem", label: "Xem", icon: "screen", href: "chuyen-muc.html?c=xem" },
+        { key: "nghe", label: "Nghe", icon: "sound", href: "chuyen-muc.html?c=nghe" },
         { key: "moi-tai", label: "Mới tải", icon: "sparkle", href: "moi-tai.html" },
         { key: "ban", label: "Bạn", icon: "user", href: "ban.html" },
         { key: "suu-tap", label: "Sưu tập", icon: "library", href: "suu-tap.html" }
@@ -314,12 +338,13 @@
                 '<span><strong>' + esc(m.title) + "</strong><small>" + esc(ch.name) + "</small></span>" +
             "</a>" +
             '<div class="mini-player__controls">' +
-                '<button class="icon-btn" type="button" aria-label="Bài trước">' + icon("prev") + "</button>" +
+                '<button class="icon-btn" type="button" aria-label="Tua lại 10 giây">' + icon("rewind") + "</button>" +
                 '<button class="icon-btn icon-btn--primary" type="button" data-action="toggle-play" aria-label="Tạm dừng">' + icon("pause") + "</button>" +
-                '<button class="icon-btn" type="button" aria-label="Bài sau">' + icon("next") + "</button>" +
+                '<button class="icon-btn" type="button" aria-label="Tua tới 10 giây">' + icon("forward") + "</button>" +
             "</div>" +
-            '<div class="mini-player__progress"><span></span></div>' +
+            '<div class="mini-player__progress">' + runway(0, true) + "</div>" +
             '<span class="mini-player__time">' + esc(m.duration) + "</span>" +
+            toggleBtn("sound") +
             '<button class="icon-btn" type="button" data-action="close-player" aria-label="Đóng">' + icon("close") + "</button>";
         bar.hidden = false;
         bar.classList.add("is-playing");
@@ -355,8 +380,20 @@
 
     function bindEvents() {
         document.addEventListener("click", function (e) {
-            var el = e.target.closest("[data-action], [data-play], [data-cart], [data-follow]");
+            var el = e.target.closest("[data-action], [data-play], [data-cart], [data-follow], [data-toggle]");
             if (!el) return;
+
+            if (el.hasAttribute("data-toggle")) {
+                var off = el.classList.toggle("is-off");
+                var kind = el.getAttribute("data-toggle");
+                var label = kind === "sound" ? (off ? "Bật tiếng" : "Tắt tiếng") : (off ? "Bật hình" : "Tắt hình");
+                el.setAttribute("aria-pressed", String(!off));
+                el.setAttribute("aria-label", label);
+                el.setAttribute("title", label);
+                var player = el.closest(".video-player");
+                if (kind === "screen" && player) player.classList.toggle("no-picture", off);
+                return;
+            }
 
             if (el.hasAttribute("data-play")) {
                 e.preventDefault();
@@ -386,7 +423,9 @@
             } else if (action === "toggle-play") {
                 var bar = document.getElementById("mini-player");
                 var playing = bar.classList.toggle("is-playing");
+                bar.querySelector(".runway").classList.toggle("is-running", playing);
                 el.innerHTML = icon(playing ? "pause" : "play");
+                el.setAttribute("aria-label", playing ? "Tạm dừng" : "Phát");
             } else if (action === "close-player") {
                 storage(false, null);
                 document.getElementById("mini-player").hidden = true;
@@ -443,7 +482,9 @@
         link: link,
         icon: icon,
         toast: toast,
-        play: play
+        play: play,
+        runway: runway,
+        toggleBtn: toggleBtn
     };
 
     init();

@@ -12,7 +12,7 @@
     {
       "id": "xem",
       "name": "Xem",
-      "icon": "play",
+      "icon": "screen",
       "title": "Phim & Series trên mọi chuyến bay",
       "desc": "Kho phim chiếu rạp, series và phim tài liệu được tuyển chọn cho màn hình ghế ngồi và thiết bị cá nhân.",
       "cover": "xem-cover",
@@ -21,7 +21,7 @@
     {
       "id": "nghe",
       "name": "Nghe",
-      "icon": "headphones",
+      "icon": "sound",
       "title": "Nghe trọn hành trình",
       "desc": "Âm nhạc, podcast, sách nói và nội dung thư giãn giúp bạn ngủ ngon ở độ cao 10.000 mét.",
       "cover": "nghe-cover",

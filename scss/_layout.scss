@@ -417,14 +417,13 @@ body.has-player .shell {
     background: $overlay;
     border-top: 1px solid rgba($brand-500, 0.35);
     color: rgba($white, 0.65);
+    font-size: 14px;
 
     .logo__text {
         background: $gradient-brand-text-light;
         -webkit-background-clip: text;
         background-clip: text;
     }
-    font-size: 14px;
-
     &__grid {
         display: grid;
         grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
@@ -460,7 +459,7 @@ body.has-player .shell {
             width: 18px;
             height: 18px;
             margin-top: 1px;
-            color: $brand-500;
+            color: $brand-300;
         }
     }
     &__bottom {
@@ -493,12 +492,19 @@ body.has-player .shell {
     gap: 16px;
     height: $player-h;
     padding: 0 16px;
-    background: rgba($surface, 0.96);
+    background: rgba($overlay, 0.97);
     backdrop-filter: blur(14px);
-    border-top: 1px solid rgba($brand-500, 0.3);
-    box-shadow: 0 -10px 30px rgba($black, 0.4);
+    color: $white;
+    box-shadow: 0 -10px 30px rgba($ink, 0.25);
     transition: left 0.25s $ease;
 
+    .icon-btn {
+        color: rgba($white, 0.85);
+        &:hover {
+            background: rgba($white, 0.1);
+            color: $white;
+        }
+    }
     &__info {
         display: flex;
         align-items: center;
@@ -521,7 +527,7 @@ body.has-player .shell {
             text-overflow: ellipsis;
         }
         small {
-            color: $muted;
+            color: rgba($white, 0.55);
         }
     }
     &__controls {
@@ -531,26 +537,91 @@ body.has-player .shell {
     }
     &__progress {
         flex: 1;
-        height: 4px;
-        border-radius: 2px;
-        background: rgba($ink, 0.12);
-        overflow: hidden;
-        span {
-            display: block;
-            width: 0;
-            height: 100%;
-            background: $gradient-brand;
-        }
+        min-width: 0;
     }
-    &.is-playing &__progress span {
+    // Thanh chạy theo thời gian (minh họa) khi đang phát
+    &.is-playing .runway__fill {
         animation: progress 90s linear forwards;
-    }
-    &:not(.is-playing) &__progress span {
-        animation: progress 90s linear forwards paused;
     }
     &__time {
         font-size: 12px;
-        color: $muted;
+        color: rgba($white, 0.6);
+    }
+}
+
+/* ================= Thanh Player kiểu đường băng (theo bộ thiết kế Player) ================= */
+
+.runway {
+    position: relative;
+    padding: 9px 0;
+    // Vạch đứt hai bên đường băng
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        right: 6px;
+        height: 2px;
+        background: repeating-linear-gradient(90deg, $runway-dash 0 14px, transparent 14px 26px);
+        transition: background 0.3s;
+    }
+    &::before {
+        top: 2px;
+    }
+    &::after {
+        bottom: 2px;
+    }
+    &__track {
+        position: relative;
+        display: block;
+        height: 10px;
+        border-radius: 999px;
+        background: $runway-track;
+    }
+    &__fill {
+        position: relative;
+        display: block;
+        min-width: 10px;
+        height: 100%;
+        border-radius: 999px;
+        background: $runway-dash;
+        transition: background 0.3s;
+    }
+    // Máy bay ở đầu thanh
+    &__plane {
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        width: 26px !important;
+        height: 26px !important;
+        color: $runway-dash;
+        transform: translateY(-50%);
+        filter: drop-shadow(0 1px 2px rgba($black, 0.5));
+    }
+    &.is-running {
+        &::before,
+        &::after {
+            background: repeating-linear-gradient(90deg, $white 0 14px, transparent 14px 26px);
+        }
+        .runway__fill {
+            background: $white;
+        }
+        .runway__plane {
+            color: $white;
+        }
+    }
+}
+.video-player.is-playing .runway__fill,
+.audio-player.is-playing .runway__fill {
+    animation: progress 120s linear forwards;
+}
+
+// Nút bật/tắt (âm thanh, hình): trắng khi bật, xám khi tắt — như bản on/off trong thiết kế
+.toggle-btn {
+    color: $white;
+    &.is-off,
+    &.is-off:hover {
+        color: $runway-off;
     }
 }
 
@@ -588,4 +659,19 @@ body.has-player .shell {
         opacity: 1;
         transform: translate(-50%, 0);
     }
+}
+
+// Icon Player chi tiết hơn icon nét: cho to hơn trong thanh điều khiển của trình phát
+.mini-player,
+.video-player__controls,
+.audio-player__controls {
+    .icon-btn .icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+.nav-item .icon--fill,
+.tabbar__item .icon--fill {
+    width: 22px;
+    height: 22px;
 }

@@ -230,17 +230,51 @@
             flex: 1;
             width: auto;
         }
+        // Thanh Player thu gọn thành vạch mảnh trên mép mini player
         &__progress {
             position: absolute;
             left: 0;
             right: 0;
             top: 0;
-            height: 3px;
-            border-radius: 0;
+            .runway {
+                padding: 0;
+                &::before,
+                &::after {
+                    display: none;
+                }
+            }
+            .runway__track,
+            .runway__fill {
+                height: 3px;
+                border-radius: 0;
+            }
+            .runway__plane {
+                width: 18px !important;
+                height: 18px !important;
+            }
         }
         &__time,
+        .toggle-btn,
         &__controls .icon-btn:not(.icon-btn--primary) {
             display: none;
+        }
+    }
+    .video-player__controls {
+        small,
+        [aria-label^="Tua"] {
+            display: none;
+        }
+    }
+    .video-player__bar {
+        padding: 24px 10px 4px;
+    }
+    .video-player__play {
+        top: 38%;
+        width: 64px;
+        height: 64px;
+        .icon {
+            width: 42px;
+            height: 42px;
         }
     }
     .toast {

@@ -101,6 +101,11 @@ strong {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
+// Icon theo bộ thiết kế Player (tô đặc, không viền)
+.icon--fill {
+    fill: currentColor !important;
+    stroke: none !important;
+}
 
 .avatar {
     display: inline-flex;
