@@ -22,13 +22,18 @@
         return c.verified ? '<span class="verified" title="Đã xác minh">' + icon("verified") + "</span>" : "";
     }
 
+    // Biểu tượng logo AIRLIFE đặt trước tiêu đề mỗi chuyên mục / khối nội dung (yêu cầu của khách)
+    function brandMark() {
+        return '<img class="title-mark" src="./images/brand/airlife-mark.svg" alt="" aria-hidden="true">';
+    }
+
     function sectionHead(title, href, more) {
-        return '<div class="section-head"><h2>' + title + "</h2>" +
+        return '<div class="section-head"><h2>' + brandMark() + "<span>" + title + "</span></h2>" +
             (href ? '<a class="section-head__more" href="' + href + '">' + (more || "Xem tất cả") + icon("chevron") + "</a>" : "") + "</div>";
     }
 
-    function pageHead(iconName, title, desc) {
-        return '<header class="page-head"><span class="page-head__icon">' + icon(iconName) + "</span>" +
+    function pageHead(title, desc) {
+        return '<header class="page-head"><img class="page-head__mark" src="./images/brand/airlife-mark.svg" alt="" aria-hidden="true">' +
             "<div><h1>" + esc(title) + "</h1><p>" + esc(desc) + "</p></div></header>";
     }
 
@@ -145,7 +150,7 @@
         var hay = list.slice().sort(function (a, b) { return b.likes - a.likes; });
         var nhieu = list.slice().sort(function (a, b) { return b.replies - a.replies; });
         return '<aside class="panel comment-panel">' +
-            '<div class="panel__head"><h2>' + icon("fire") + (title || "Bình luận nổi bật") + "</h2>" +
+            '<div class="panel__head"><h2>' + brandMark() + (title || "Bình luận nổi bật") + "</h2>" +
                 '<div class="seg" role="tablist">' +
                     '<button class="active" type="button" data-tab="hay">Hay</button>' +
                     '<button type="button" data-tab="nhieu">Nhiều</button>' +
@@ -277,7 +282,7 @@
     function utilityBlock() {
         var live = D.flights.filter(function (f) { return f.status === "Đang bay"; }).slice(0, 3);
         return '<div class="panel utility">' +
-            '<div class="panel__head"><h2>' + icon("radar") + 'Tiện ích</h2><a class="link" href="tien-ich.html">Tất cả</a></div>' +
+            '<div class="panel__head"><h2>' + brandMark() + 'Tiện ích</h2><a class="link" href="tien-ich.html">Tất cả</a></div>' +
             '<form class="flight-form" action="tien-ich.html">' +
                 '<input type="hidden" name="tab" value="flightradar">' +
                 '<input type="text" name="q" placeholder="Số hiệu chuyến bay, VD: VN 220" aria-label="Số hiệu chuyến bay">' +
@@ -299,7 +304,6 @@
         var featured = videos.filter(function (m) { return m.featured; })[0] || videos[0];
         var rest = videos.filter(function (m) { return m !== featured; });
         var topAudio = audios.slice().sort(function (a, b) { return b.views - a.views; });
-        var business = D.products.filter(function (p) { return p.section === "kinh-doanh"; });
         var deals = [byId(D.products, "p09"), byId(D.products, "p02"), byId(D.products, "p01")];
         var tours = D.products.filter(function (p) { return p.section === "tour-bay"; });
 
@@ -315,25 +319,24 @@
                 // Hàng dưới cùng theo bản vẽ: 3 khối rộng hẹp khác nhau
                 '<div class="bottom-grid">' +
                     '<div class="panel">' +
-                        '<div class="panel__head"><h2>' + icon("headphones") + 'Nghe nhiều</h2><a class="link" href="chuyen-muc.html?c=nghe">Tất cả</a></div>' +
+                        '<div class="panel__head"><h2>' + brandMark() + 'Nghe</h2><a class="link" href="chuyen-muc.html?c=nghe">Tất cả</a></div>' +
                         '<div class="rank-list">' + topAudio.slice(0, 4).map(function (m, i) { return mediaRow(m, i + 1); }).join("") + "</div>" +
                     "</div>" +
                     '<div class="panel">' +
-                        '<div class="panel__head"><h2>' + icon("briefcase") + 'Kinh doanh trên chuyến bay</h2><a class="link" href="chuyen-muc.html?c=kinh-doanh">Xem tất cả</a></div>' +
+                        '<div class="panel__head"><h2>' + brandMark() + 'Kinh doanh</h2><a class="link" href="chuyen-muc.html?c=kinh-doanh">Xem tất cả</a></div>' +
                         '<div class="product-grid product-grid--3">' + deals.map(productCard).join("") + "</div>" +
                     "</div>" +
                     utilityBlock() +
                 "</div>" +
 
-                shelf("Tour bay nổi bật", "chuyen-muc.html?c=tour-bay", tours.map(productCard).join("")) +
-                shelf("Mới tải lên", "moi-tai.html", D.media.slice().reverse().slice(0, 8).map(function (m) { return mediaCard(m); }).join("")) +
-                shelf("Mua sắm & miễn thuế", "chuyen-muc.html?c=kinh-doanh", business.filter(function (p) { return p.cat !== "Vé bay"; }).map(productCard).join("")) +
+                shelf("Tour bay", "chuyen-muc.html?c=tour-bay", tours.map(productCard).join("")) +
+                shelf("Mới tải", "moi-tai.html", D.media.slice().reverse().slice(0, 8).map(function (m) { return mediaCard(m); }).join("")) +
 
                 '<div class="split">' +
-                    '<section class="section">' + sectionHead("Khám phá", "tin-tuc.html?f=" + encodeURIComponent("Khám phá")) +
-                        '<div class="news-grid news-grid--2">' + D.news.filter(function (n) { return n.cat === "Khám phá"; }).slice(0, 2).map(newsCard).join("") + "</div>" +
+                    '<section class="section">' + sectionHead("Tin tức", "tin-tuc.html") +
+                        '<div class="news-grid news-grid--2">' + D.news.slice(0, 2).map(newsCard).join("") + "</div>" +
                     "</section>" +
-                    '<section class="section">' + sectionHead("Ý kiến khách bay", "y-kien.html?tab=khao-sat", "Tham gia") +
+                    '<section class="section">' + sectionHead("Ý kiến", "y-kien.html?tab=khao-sat", "Tham gia") +
                         surveyCard(D.surveys[0]) +
                     "</section>" +
                 "</div>" +
@@ -381,7 +384,7 @@
 
         page.innerHTML =
             '<div class="container">' +
-                pageHead(cat.icon, cat.title, cat.desc) +
+                pageHead(cat.name, cat.title + ". " + cat.desc) +
                 top +
                 '<section class="section" id="all">' +
                     sectionHead("Tất cả trong " + esc(cat.name)) +
@@ -480,7 +483,7 @@
                     '<div class="desc-box"><strong>' + SL.compact(m.views) + " lượt " + (audio ? "nghe" : "xem") + " · " + esc(m.date) + " · " + esc(m.genre) + "</strong><p>" + esc(m.desc) + "</p></div>" +
 
                     (products.length
-                        ? '<section class="section section--tight">' + sectionHead(icon("bag") + "Sản phẩm trong " + (audio ? "tập này" : "video")) +
+                        ? '<section class="section section--tight">' + sectionHead("Sản phẩm trong " + (audio ? "tập này" : "video")) +
                             '<div class="product-strip">' + products.map(productMini).join("") + "</div></section>"
                         : "") +
 
@@ -654,7 +657,7 @@
         function grid(list) { return '<div class="media-grid">' + list.map(function (m) { return mediaCard(m); }).join("") + "</div>"; }
         page.innerHTML =
             '<div class="container">' +
-                pageHead("sparkle", "Mới tải", "Video, podcast và phim vừa được cập nhật lên AIRLIFE.") +
+                pageHead("Mới tải", "Video, podcast và phim vừa được cập nhật lên AIRLIFE.") +
                 tabbed([
                     { id: "all", label: "Tất cả", html: grid(latest) },
                     { id: "video", label: "Video", html: grid(latest.filter(function (m) { return m.kind === "video"; })) },
@@ -739,7 +742,7 @@
 
         page.innerHTML =
             '<div class="container">' +
-                pageHead("radar", "Tiện ích", "Mọi thứ cần cho chuyến bay: ra tàu bay, theo dõi chuyến bay, thời tiết, Wi-Fi và dịch vụ sân bay.") +
+                pageHead("Tiện ích", "Mọi thứ cần cho chuyến bay: ra tàu bay, theo dõi chuyến bay, thời tiết, Wi-Fi và dịch vụ sân bay.") +
                 tabbed([
                     { id: "ra-tau-bay", label: "Ra tàu bay", icon: "luggage", html:
                         '<div class="util-grid">' +
@@ -826,7 +829,7 @@
         var me = D.me;
         page.innerHTML =
             '<div class="container container--narrow">' +
-                pageHead("chat", "Ý kiến", "Chia sẻ trải nghiệm chuyến bay, tham gia khảo sát và góp ý để AIRLIFE phục vụ bạn tốt hơn.") +
+                pageHead("Ý kiến", "Chia sẻ trải nghiệm chuyến bay, tham gia khảo sát và góp ý để AIRLIFE phục vụ bạn tốt hơn.") +
                 tabbed([
                     { id: "trai-nghiem", label: "Trải nghiệm", icon: "plane", html:
                         '<form class="panel composer" onsubmit="return false">' +
@@ -911,7 +914,7 @@
         var wish = me.wishlist.map(function (id) { return byId(D.products, id); });
         page.innerHTML =
             '<div class="container">' +
-                pageHead("library", "Sưu tập", "Nội dung đã lưu, playlist của bạn và sản phẩm, tour yêu thích.") +
+                pageHead("Sưu tập", "Nội dung đã lưu, playlist của bạn và sản phẩm, tour yêu thích.") +
                 tabbed([
                     { id: "playlist", label: "Playlist", count: me.playlists.length, html:
                         '<div class="playlist-grid">' + me.playlists.map(function (pl) {
@@ -937,7 +940,7 @@
         var cats = ["Tất cả"].concat(D.news.map(function (n) { return n.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
         page.innerHTML =
             '<div class="container">' +
-                pageHead("news", "Tin tức", "Khám phá điểm đến, sự kiện, mẹo bay và line-up phim trên AIRLIFE.") +
+                pageHead("Tin tức", "Khám phá điểm đến, sự kiện, mẹo bay và line-up phim trên AIRLIFE.") +
                 '<a class="news-lead" href="' + link("news", first.id) + '">' +
                     '<img src="' + img(first.id, 1200, 600) + '" alt="">' +
                     '<span class="news-lead__body"><span class="pill">' + esc(first.cat) + "</span><strong>" + esc(first.title) + "</strong><small>" + esc(first.excerpt) + "</small></span>" +
@@ -985,7 +988,7 @@
         var s = D.site;
         page.innerHTML =
             '<div class="container">' +
-                pageHead("phone", "Liên hệ & hợp tác", "Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên AIRLIFE.") +
+                pageHead("Liên hệ & hợp tác", "Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên AIRLIFE.") +
                 '<div class="contact">' +
                     '<div class="contact__info">' +
                         '<div class="panel info-card">' + icon("map") + "<div><strong>Địa chỉ</strong><p>" + esc(s.address) + "</p></div></div>" +

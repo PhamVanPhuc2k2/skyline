@@ -107,23 +107,19 @@
         margin-top: 4px;
         color: $color-text-muted;
     }
-    &__icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+    // Logo AIRLIFE trước tên chuyên mục
+    &__mark {
         flex-shrink: 0;
-        width: 58px;
-        height: 58px;
-        border-radius: 18px;
-        background: $gradient-brand;
-        color: $on-brand;
-        box-shadow: $shadow-brand;
-        .icon {
-            width: 28px;
-            height: 28px;
-            stroke-width: 1.9;
-        }
+        width: auto;
+        height: 52px;
     }
+}
+
+// Biểu tượng logo AIRLIFE trước tiêu đề khối (section-head, panel__head)
+.title-mark {
+    flex-shrink: 0;
+    width: auto;
+    height: 1.05em;
 }
 
 .breadcrumb {

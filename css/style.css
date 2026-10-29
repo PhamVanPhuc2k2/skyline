@@ -1425,22 +1425,16 @@ body.has-player .shell {
   margin-top: 4px;
   color: #6e6680;
 }
-.page-head__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.page-head__mark {
   flex-shrink: 0;
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #8a55ad 0%, #6c3c8b 55%, #55306f 100%);
-  color: #ffffff;
-  box-shadow: 0 8px 22px rgba(108, 60, 139, 0.3);
+  width: auto;
+  height: 52px;
 }
-.page-head__icon .icon {
-  width: 28px;
-  height: 28px;
-  stroke-width: 1.9;
+
+.title-mark {
+  flex-shrink: 0;
+  width: auto;
+  height: 1.05em;
 }
 
 .breadcrumb {
@@ -4213,10 +4207,8 @@ body.has-player .shell {
   .page-head p {
     font-size: 13px;
   }
-  .page-head__icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
+  .page-head__mark {
+    height: 40px;
   }
   .section {
     margin-top: 32px;
