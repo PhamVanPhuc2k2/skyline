@@ -1,6 +1,7 @@
 {
   "site": {
-    "name": "SKYLINE",
+    "name": "AIRLIFE",
+    "slogan": "Đời sống hàng không",
     "tagline": "Mạng xã hội trên không cho khách bay & doanh nghiệp",
     "company": "Skyline Media",
     "address": "Tầng 7, 53 Phó Đức Chính, Phường Nguyễn Thái Bình, Quận 1, TP. Hồ Chí Minh, Việt Nam",
@@ -41,7 +42,7 @@
       "name": "Tour bay",
       "icon": "globe",
       "title": "Tour bay trọn gói",
-      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay SKYLINE.",
+      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay AIRLIFE.",
       "cover": "tour-cover",
       "filters": ["Tất cả", "Trong nước", "Quốc tế", "Combo bay + khách sạn"]
     }
@@ -125,12 +126,12 @@
 
   "news": [
     { "id": "n01", "title": "Skyline Media đưa 40 phim mới lên hệ thống giải trí tháng 11", "cat": "Line-up phim", "date": "20/10/2026", "excerpt": "Danh sách phim chiếu trên các chuyến bay nội địa và quốc tế trong tháng 11 có nhiều tác phẩm Việt vừa ra rạp." },
-    { "id": "n02", "title": "Ra mắt SKYLINE: xem, nghe, mua sắm ngay trên chuyến bay", "cat": "Sự kiện", "date": "15/10/2026", "excerpt": "Nền tảng mới cho phép hành khách bình luận, theo dõi nhà sáng tạo và đặt hàng giao tại sân bay đến." },
+    { "id": "n02", "title": "Ra mắt AIRLIFE: xem, nghe, mua sắm ngay trên chuyến bay", "cat": "Sự kiện", "date": "15/10/2026", "excerpt": "Nền tảng mới cho phép hành khách bình luận, theo dõi nhà sáng tạo và đặt hàng giao tại sân bay đến." },
     { "id": "n03", "title": "5 mẹo để ngủ ngon trên chuyến bay đường dài", "cat": "Mẹo bay", "date": "10/10/2026", "excerpt": "Chọn ghế, giờ ăn, ánh sáng và âm thanh: những điều nhỏ giúp bạn hạ cánh tỉnh táo." },
     { "id": "n04", "title": "Khám phá Côn Đảo: 45 phút bay, một thế giới khác", "cat": "Khám phá", "date": "06/10/2026", "excerpt": "Biển xanh, rùa đẻ trứng và những cung đường ven núi: lịch trình 3 ngày cho người lần đầu đến Côn Đảo." },
     { "id": "n05", "title": "Những sân bay đẹp nhất châu Á bạn nên ghé một lần", "cat": "Khám phá", "date": "02/10/2026", "excerpt": "Từ thác nước trong nhà ở Singapore đến khu vườn Nhật ở Haneda: quá cảnh cũng thành trải nghiệm." },
     { "id": "n06", "title": "Phim Việt chiếm 35% lượt xem trên máy bay quý III", "cat": "Line-up phim", "date": "28/09/2026", "excerpt": "Phim gia đình và hài lãng mạn được khách nội địa chọn xem nhiều nhất." },
-    { "id": "n07", "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay", "cat": "Kinh doanh", "date": "24/09/2026", "excerpt": "Mô hình gian hàng trên SKYLINE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày." },
+    { "id": "n07", "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay", "cat": "Kinh doanh", "date": "24/09/2026", "excerpt": "Mô hình gian hàng trên AIRLIFE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày." },
     { "id": "n08", "title": "Khám phá Kyoto mùa lá đỏ: đi đâu, ăn gì, ở đâu", "cat": "Khám phá", "date": "18/09/2026", "excerpt": "Cẩm nang 5 ngày cho mùa thu Kyoto, kèm lịch lá đỏ dự kiến tháng 11." }
   ],
 

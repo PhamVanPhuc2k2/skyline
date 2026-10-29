@@ -42,37 +42,20 @@
     }
 }
 
+// Logo AIRLIFE (images/brand/, tạo bởi scripts/build_logo.py từ bản hướng dẫn thương hiệu).
+// Chỉ đặt chiều cao, chiều rộng tự theo tỉ lệ gốc của logo.
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
     margin-left: 4px;
 
-    &__mark {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
-        background: $gradient-brand;
-        color: $on-brand;
-        box-shadow: $shadow-brand;
-        .icon {
-            width: 20px;
-            height: 20px;
-            stroke-width: 2;
-        }
+    &__img {
+        display: block;
+        width: auto;
+        height: 38px;
     }
-    &__text {
-        font-family: $font-display;
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        background: $gradient-brand-text;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+    &--footer &__img {
+        height: 64px;
     }
 }
 
@@ -419,11 +402,6 @@ body.has-player .shell {
     color: rgba($white, 0.65);
     font-size: 14px;
 
-    .logo__text {
-        background: $gradient-brand-text-light;
-        -webkit-background-clip: text;
-        background-clip: text;
-    }
     &__grid {
         display: grid;
         grid-template-columns: 1.4fr 1fr 1fr 1.6fr;

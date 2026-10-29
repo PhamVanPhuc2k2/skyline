@@ -1,4 +1,4 @@
-# SKYLINE: mockup giao diện mới cho skyline.vn
+# AIRLIFE – Đời sống hàng không: mockup giao diện mới (thay cho skyline.vn)
 
 Web **tĩnh** (HTML/CSS/JS), không cần Node, PHP hay database. Đây là bản mockup để khách duyệt bố cục;
 nội dung là dữ liệu mẫu trong `data/content.json`, ảnh minh họa lấy từ picsum.photos (cần internet).
@@ -28,6 +28,12 @@ Header, 2 menu, thanh tab mobile, footer và mini player dùng chung, do `js/lay
 (danh sách mục menu ở `TOPNAV` và `SIDENAV`). Nội dung từng trang do `js/main.js` vẽ, chọn theo `<body data-page="...">`.
 Bảng màu ở `scss/_variables.scss`.
 
+**Logo AIRLIFE & màu thương hiệu**: lấy từ bản hướng dẫn `_thiet-ke/brand-airlife.pdf`. Chạy
+`python3 scripts/build_logo.py` để tạo lại bộ logo trong `images/brand/` (SVG + PNG, đúng hình & tỉ lệ trong PDF,
+tô lại bằng mã màu quy định: tím #6C3C8B, dải cam #C86E3A → #F8AC3F):
+`airlife-logo` (có slogan "Đời sống hàng không"), `airlife-logo-no-slogan` (header), `airlife-logo-white` (nền tối, footer),
+`airlife-mark` (biểu tượng đuôi + cánh, dùng làm `images/favicon.svg`). Bảng màu site trong `scss/_variables.scss` theo 2 màu này.
+
 **Icon Player**: Home, Play, Tạm dừng, Tua ngược/tua 10s, Thanh hình, Thanh âm thanh và thanh Player kiểu đường băng
 lấy từ file thiết kế `_thiet-ke/Player.pdf` (bản gốc `Player.ai`). Khi designer sửa icon: xuất lại PDF vào
 `_thiet-ke/`, chạy `python3 scripts/build_icons.py` (cần `pdftocairo`), script ghi `js/icons.js` và `images/icons/*.svg`.
@@ -43,11 +49,11 @@ python3 -m http.server 8000
 ## 3. Đưa lên server
 
 ```
-/var/www/skyline/
+/var/www/airlife/
 ├── *.html            14 trang
 ├── css/style.css
 ├── js/data.js, js/icons.js, js/layout.js, js/main.js
-└── images/favicon.svg
+└── images/favicon.svg, images/brand/*.svg
 ```
 
 Không đưa lên: `scss/` (mã nguồn CSS), `data/` (nguồn nội dung), `scripts/`, `_thiet-ke/` (file thiết kế).

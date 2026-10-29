@@ -1,40 +1,43 @@
 // =================================================================
-// Bảng màu SKYLINE: hiện đại, sáng, tươi.
-// Nền trắng xám lạnh, chữ navy, màu chính gradient xanh bầu trời → indigo (chủ đề bay),
-// cam san hô cho giá / giảm giá / mua hàng.
-// Footer và bản đồ Flightradar giữ nền navy tối để tạo chiều sâu.
+// Bảng màu AIRLIFE: theo bản hướng dẫn thương hiệu (_thiet-ke/brand-airlife.pdf)
+//   Màu 1  tím #6C3C8B (C75 M100 Y8 K1)
+//   Màu 2  dải cam #C86E3A (C17 M68 Y99 K5) → #F8AC3F (C1 M37 Y92 K0), điểm giữa ở 1/2 thanh
+// Nền trắng xám sáng, tím là màu chính (nút, menu đang chọn, link), dải cam cho giá / giảm giá / mua hàng.
+// Footer và bản đồ Flightradar giữ nền tối để tạo chiều sâu.
 // =================================================================
 
 // Nền & bề mặt
-$bg: #f5f7fb; // nền trang
+$bg: #f7f5fa; // nền trang
 $surface: #ffffff; // thẻ, panel
-$surface-2: #eef2f8; // nền nhạt: chip, hover, ô phụ
-$surface-3: #e2e8f0; // hover đậm hơn
-$surface-4: #cbd5e1; // sao chưa chọn, viền đậm
+$surface-2: #f1edf5; // nền nhạt: chip, hover, ô phụ
+$surface-3: #e5dfec; // hover đậm hơn
+$surface-4: #cfc6da; // sao chưa chọn, viền đậm
 $field: #ffffff; // ô nhập liệu
 
 // Navy (chữ, lớp phủ ảnh, footer)
-$ink: #0f172a; // chữ chính
-$overlay: #0b1220; // lớp phủ trên ảnh, footer, radar
+$ink: #1d1530; // chữ chính
+$overlay: #1a1029; // lớp phủ trên ảnh, footer, radar
 $on-brand: #ffffff; // chữ trên nền màu chính
 
-// Màu chính: xanh bầu trời → indigo
-$brand-100: #e8f0ff;
-$brand-200: #d3e2ff;
-$brand-300: #93c5fd; // trên nền tối
-$brand-400: #3b82f6; // màu chính
-$brand-500: #2563eb;
-$brand-600: #1d4ed8;
-$brand-700: #1e4fd1; // chữ / link trên nền sáng
+// Màu chính: tím thương hiệu
+$brand-100: #f4eef8;
+$brand-200: #e7daf0;
+$brand-300: #c9a8de; // trên nền tối
+$brand-400: #6c3c8b; // Màu 1 của logo
+$brand-500: #5d3279;
+$brand-600: #4e2966;
+$brand-700: #5a2f76; // chữ / link trên nền sáng
 
-// Màu nhấn: cam san hô (giá, giảm giá, mua hàng)
-$accent: #ff5a36;
-$accent-600: #e8461f;
+// Màu nhấn: dải cam của logo (giá, giảm giá, mua hàng)
+$orange-dark: #c86e3a; // Màu 2, đầu đậm
+$orange-light: #f8ac3f; // Màu 2, đầu sáng
+$accent: $orange-dark;
+$accent-600: #b05d2c;
 
 // Chữ phụ
-$text-2: #334155;
-$muted: #64748b;
-$dim: #94a3b8;
+$text-2: #3d3550;
+$muted: #6e6680;
+$dim: #a39cb2;
 
 // Trạng thái
 $ruby: $accent;
@@ -62,12 +65,12 @@ $color-border-strong: rgba($ink, 0.14);
 $color-primary: $brand-400;
 
 // Gradient
-$gradient-brand: linear-gradient(135deg, #38bdf8 0%, #3b82f6 48%, #6366f1 100%);
-$gradient-brand-text: linear-gradient(90deg, #0ea5e9 0%, #4f46e5 100%); // logo trên nền sáng
-$gradient-brand-text-light: linear-gradient(90deg, #7dd3fc 0%, #a5b4fc 100%); // logo trên nền tối
+$gradient-brand: linear-gradient(135deg, #8a55ad 0%, #6c3c8b 55%, #55306f 100%);
+$gradient-brand-text: linear-gradient(90deg, #6c3c8b 0%, #c86e3a 100%); // chữ nhấn trên nền sáng
+$gradient-brand-text-light: linear-gradient(90deg, #ffffff 0%, #f8ac3f 100%); // chữ nhấn trên nền tối
 $gradient-hero: linear-gradient(0deg, rgba($overlay, 0.9) 0%, rgba($overlay, 0.5) 40%, rgba($overlay, 0) 78%);
 $gradient-surface: linear-gradient(160deg, #ffffff 0%, #fbfcfe 100%);
-$gradient-glow: radial-gradient(ellipse at 30% 0%, rgba(#38bdf8, 0.12) 0%, rgba(#6366f1, 0.06) 35%, rgba(#6366f1, 0) 65%);
+$gradient-glow: radial-gradient(ellipse at 25% 0%, rgba(#6c3c8b, 0.1) 0%, rgba(#f8ac3f, 0.05) 40%, rgba(#f8ac3f, 0) 65%);
 
 // Typography (sans hiện đại cho cả tiêu đề)
 $font-body: "Be Vietnam Pro", system-ui, sans-serif;
@@ -87,7 +90,8 @@ $radius-sm: 10px;
 $shadow-sm: 0 1px 2px rgba($ink, 0.04), 0 2px 8px rgba($ink, 0.04);
 $shadow-md: 0 10px 30px rgba($ink, 0.08);
 $shadow-lg: 0 20px 50px rgba($ink, 0.16);
-$shadow-brand: 0 8px 22px rgba($brand-400, 0.32);
+$shadow-brand: 0 8px 22px rgba($brand-400, 0.3);
+$gradient-orange: linear-gradient(90deg, $orange-dark 0%, $orange-light 100%); // Màu 2
 $ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
 // Breakpoints (giống landing_page)

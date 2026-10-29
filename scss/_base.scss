@@ -206,7 +206,7 @@ strong {
         color: $accent-600;
         box-shadow: 0 0 0 1px rgba($accent, 0.4) inset;
         &:hover {
-            background: $accent;
+            background: $gradient-orange;
             color: $white;
         }
     }
@@ -351,7 +351,7 @@ strong {
     left: 10px;
     padding: 2px 8px;
     border-radius: 6px;
-    background: $ruby;
+    background: $gradient-orange;
     color: $white;
     font-size: 12px;
     font-weight: 700;

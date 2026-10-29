@@ -254,7 +254,7 @@
         var a = airport(f.from), b = airport(f.to);
         return '<div class="pass">' +
             '<div class="pass__main">' +
-                '<div class="pass__top"><span class="logo__text">SKYLINE</span><span class="pill pill--soft">' + esc(f.cabin) + "</span></div>" +
+                '<div class="pass__top"><img class="pass__logo" src="./images/brand/airlife-logo-no-slogan.svg" alt="AIRLIFE" width="96" height="26"><span class="pill pill--soft">' + esc(f.cabin) + "</span></div>" +
                 '<div class="pass__route">' +
                     "<div><strong>" + f.from + "</strong><small>" + esc(a.city) + "</small><b>" + f.dep + "</b></div>" +
                     '<span class="pass__line">' + icon("plane") + "</span>" +
@@ -350,7 +350,7 @@
         var cat = byId(D.categories, SL.param("c")) || D.categories[0];
         var activeFilter = SL.param("f") || "Tất cả";
         var isShop = cat.id === "kinh-doanh" || cat.id === "tour-bay";
-        document.title = cat.name + " | SKYLINE";
+        document.title = cat.name + " | AIRLIFE";
 
         var top, grid;
         if (isShop) {
@@ -420,7 +420,7 @@
         var next = D.media.filter(function (x) { return x.cat === m.cat && x.id !== m.id; });
         var comments = D.comments.filter(function (c) { return c.media === m.id; })
             .concat(D.comments.filter(function (c) { return c.media !== m.id; }).slice(0, 4));
-        document.title = m.title + " | SKYLINE";
+        document.title = m.title + " | AIRLIFE";
 
         var player = audio
             ? '<div class="audio-player">' +
@@ -529,7 +529,7 @@
         var inMedia = D.media.filter(function (m) { return (m.products || []).indexOf(p.id) > -1; });
         var reviews = D.comments.filter(function (c) { return c.media === p.id; }).concat(D.comments.slice(0, 3));
         var related = D.products.filter(function (x) { return x.id !== p.id && x.section === p.section; }).slice(0, 4);
-        document.title = p.name + " | SKYLINE";
+        document.title = p.name + " | AIRLIFE";
 
         var options = booking
             ? '<div class="field-row">' +
@@ -585,8 +585,8 @@
                     '<section class="panel">' +
                         "<h2>" + (booking ? "Chi tiết" : "Mô tả sản phẩm") + "</h2><p>" + esc(p.desc) + "</p>" +
                         "<p>" + (booking
-                            ? "Đặt bởi " + esc(ch.name) + " trên SKYLINE. Xác nhận qua email và tin nhắn trong 15 phút; đổi hoặc hủy theo điều kiện của từng hạng dịch vụ."
-                            : "Sản phẩm được bán bởi " + esc(ch.name) + " trên SKYLINE. Đặt hàng ngay trong chuyến bay qua màn hình ghế ngồi hoặc điện thoại kết nối Wi-Fi trên máy bay; thanh toán bằng thẻ, ví điện tử hoặc khi nhận hàng.") + "</p>" +
+                            ? "Đặt bởi " + esc(ch.name) + " trên AIRLIFE. Xác nhận qua email và tin nhắn trong 15 phút; đổi hoặc hủy theo điều kiện của từng hạng dịch vụ."
+                            : "Sản phẩm được bán bởi " + esc(ch.name) + " trên AIRLIFE. Đặt hàng ngay trong chuyến bay qua màn hình ghế ngồi hoặc điện thoại kết nối Wi-Fi trên máy bay; thanh toán bằng thẻ, ví điện tử hoặc khi nhận hàng.") + "</p>" +
                         '<h2 class="mt">Đánh giá từ khách bay</h2>' +
                         '<ul class="comment-list">' + reviews.map(function (c) { return commentItem(c, false); }).join("") + "</ul>" +
                     "</section>" +
@@ -615,7 +615,7 @@
         var products = D.products.filter(function (p) { return p.channel === ch.id; });
         var none = emptyState("Kênh chưa đăng nội dung ở mục này.");
         function grid(list) { return list.length ? '<div class="media-grid">' + list.map(function (m) { return mediaCard(m); }).join("") + "</div>" : none; }
-        document.title = ch.name + " | SKYLINE";
+        document.title = ch.name + " | AIRLIFE";
 
         page.innerHTML =
             '<div class="channel">' +
@@ -654,7 +654,7 @@
         function grid(list) { return '<div class="media-grid">' + list.map(function (m) { return mediaCard(m); }).join("") + "</div>"; }
         page.innerHTML =
             '<div class="container">' +
-                pageHead("sparkle", "Mới tải", "Video, podcast và phim vừa được cập nhật lên SKYLINE.") +
+                pageHead("sparkle", "Mới tải", "Video, podcast và phim vừa được cập nhật lên AIRLIFE.") +
                 tabbed([
                     { id: "all", label: "Tất cả", html: grid(latest) },
                     { id: "video", label: "Video", html: grid(latest.filter(function (m) { return m.kind === "video"; })) },
@@ -826,7 +826,7 @@
         var me = D.me;
         page.innerHTML =
             '<div class="container container--narrow">' +
-                pageHead("chat", "Ý kiến", "Chia sẻ trải nghiệm chuyến bay, tham gia khảo sát và góp ý để SKYLINE phục vụ bạn tốt hơn.") +
+                pageHead("chat", "Ý kiến", "Chia sẻ trải nghiệm chuyến bay, tham gia khảo sát và góp ý để AIRLIFE phục vụ bạn tốt hơn.") +
                 tabbed([
                     { id: "trai-nghiem", label: "Trải nghiệm", icon: "plane", html:
                         '<form class="panel composer" onsubmit="return false">' +
@@ -842,7 +842,7 @@
                         '<div class="survey-list">' + D.surveys.map(surveyCard).join("") + "</div>" },
                     { id: "gop-y", label: "Góp ý", icon: "edit", html:
                         '<form class="panel feedback" onsubmit="return false">' +
-                            "<h2>Gửi góp ý cho SKYLINE</h2>" +
+                            "<h2>Gửi góp ý cho AIRLIFE</h2>" +
                             '<label class="field"><span>Bạn góp ý về</span><select>' +
                                 "<option>Nội dung giải trí (phim, nhạc, podcast)</option><option>Kinh doanh: vé bay, mua sắm, đơn hàng</option><option>Tour bay</option><option>Tiện ích: Flightradar, Wi-Fi, phòng chờ</option><option>Website / ứng dụng</option><option>Khác</option>" +
                             "</select></label>" +
@@ -937,7 +937,7 @@
         var cats = ["Tất cả"].concat(D.news.map(function (n) { return n.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
         page.innerHTML =
             '<div class="container">' +
-                pageHead("news", "Tin tức", "Khám phá điểm đến, sự kiện, mẹo bay và line-up phim trên SKYLINE.") +
+                pageHead("news", "Tin tức", "Khám phá điểm đến, sự kiện, mẹo bay và line-up phim trên AIRLIFE.") +
                 '<a class="news-lead" href="' + link("news", first.id) + '">' +
                     '<img src="' + img(first.id, 1200, 600) + '" alt="">' +
                     '<span class="news-lead__body"><span class="pill">' + esc(first.cat) + "</span><strong>" + esc(first.title) + "</strong><small>" + esc(first.excerpt) + "</small></span>" +
@@ -953,7 +953,7 @@
     function renderArticle() {
         var n = byId(D.news, SL.param("id"));
         if (!n) return notFound();
-        document.title = n.title + " | SKYLINE";
+        document.title = n.title + " | AIRLIFE";
         var related = D.news.filter(function (x) { return x.id !== n.id; }).slice(0, 4);
         page.innerHTML =
             '<div class="container article-layout">' +
@@ -965,7 +965,7 @@
                     '<img class="article__cover" src="' + img(n.id, 1200, 640) + '" alt="">' +
                     "<p>Nội dung bài viết minh họa cho mockup. Phần thân bài sẽ do biên tập viên nhập trong CMS, gồm đoạn văn, ảnh, video và có thể gắn sản phẩm, tour hoặc nội dung liên quan ngay trong bài.</p>" +
                     "<h2>Điểm nổi bật</h2>" +
-                    "<p>SKYLINE kết hợp nội dung giải trí trên chuyến bay với tính năng mạng xã hội: hành khách có thể xem, nghe, bình luận, theo dõi kênh yêu thích và mua sắm ngay khi đang bay.</p>" +
+                    "<p>AIRLIFE kết hợp nội dung giải trí trên chuyến bay với tính năng mạng xã hội: hành khách có thể xem, nghe, bình luận, theo dõi kênh yêu thích và mua sắm ngay khi đang bay.</p>" +
                     '<blockquote>“Mỗi chuyến bay là vài giờ khách hàng sẵn sàng khám phá nội dung mới.”</blockquote>' +
                     "<p>Doanh nghiệp có thể mở kênh, đăng video giới thiệu sản phẩm và gắn sản phẩm vào nội dung để khách đặt hàng chỉ với một chạm.</p>" +
                     '<div class="article__share"><span>Chia sẻ</span><button class="icon-btn" type="button" aria-label="Chia sẻ">' + icon("share") + '</button><button class="icon-btn" type="button" aria-label="Lưu">' + icon("save") + "</button></div>" +
@@ -985,7 +985,7 @@
         var s = D.site;
         page.innerHTML =
             '<div class="container">' +
-                pageHead("phone", "Liên hệ & hợp tác", "Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên SKYLINE.") +
+                pageHead("phone", "Liên hệ & hợp tác", "Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên AIRLIFE.") +
                 '<div class="contact">' +
                     '<div class="contact__info">' +
                         '<div class="panel info-card">' + icon("map") + "<div><strong>Địa chỉ</strong><p>" + esc(s.address) + "</p></div></div>" +
@@ -1001,7 +1001,7 @@
                         "</div>" +
                         '<label class="field"><span>Email</span><input type="email" placeholder="ban@congty.vn"></label>' +
                         '<label class="field"><span>Bạn quan tâm</span><select>' +
-                            "<option>Mở kênh / gian hàng doanh nghiệp</option><option>Bán vé bay, tour trên SKYLINE</option><option>Cung cấp nội dung (phim, podcast…)</option><option>Quảng cáo trên chuyến bay</option><option>Hợp tác hãng bay</option><option>Khác</option>" +
+                            "<option>Mở kênh / gian hàng doanh nghiệp</option><option>Bán vé bay, tour trên AIRLIFE</option><option>Cung cấp nội dung (phim, podcast…)</option><option>Quảng cáo trên chuyến bay</option><option>Hợp tác hãng bay</option><option>Khác</option>" +
                         "</select></label>" +
                         '<label class="field"><span>Nội dung</span><textarea rows="5" placeholder="Mô tả ngắn nhu cầu của bạn"></textarea></label>' +
                         '<button class="btn btn--primary btn--lg" type="submit" data-action="send-contact">Gửi yêu cầu</button>' +
@@ -1025,7 +1025,7 @@
         var channels = q ? D.channels.filter(function (c) { return hit(c.name + " " + c.type); }) : [];
         var news = q ? D.news.filter(function (n) { return hit(n.title + " " + n.cat); }) : [];
         var total = media.length + products.length + channels.length + news.length;
-        document.title = (q ? q + " - " : "") + "Tìm kiếm | SKYLINE";
+        document.title = (q ? q + " - " : "") + "Tìm kiếm | AIRLIFE";
 
         page.innerHTML =
             '<div class="container">' +
@@ -1113,9 +1113,9 @@
             if ((el = e.target.closest("[data-action]"))) {
                 var msg = {
                     "send-contact": "Đã gửi yêu cầu. Skyline Media sẽ liên hệ lại trong 24 giờ.",
-                    "send-feedback": "Cảm ơn góp ý của bạn! SKYLINE sẽ phản hồi qua email.",
+                    "send-feedback": "Cảm ơn góp ý của bạn! AIRLIFE sẽ phản hồi qua email.",
                     "post": "Đã đăng trải nghiệm của bạn.",
-                    "buy-wifi": "Đã chọn gói Wi-Fi. Kết nối mạng SKYLINE-WIFI trên máy bay để sử dụng."
+                    "buy-wifi": "Đã chọn gói Wi-Fi. Kết nối mạng AIRLIFE-WIFI trên máy bay để sử dụng."
                 }[el.getAttribute("data-action")];
                 if (msg) SL.toast(msg);
             }

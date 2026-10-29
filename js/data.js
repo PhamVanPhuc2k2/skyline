@@ -4,7 +4,8 @@
  */
 window.DATA = {
   "site": {
-    "name": "SKYLINE",
+    "name": "AIRLIFE",
+    "slogan": "Đời sống hàng không",
     "tagline": "Mạng xã hội trên không cho khách bay & doanh nghiệp",
     "company": "Skyline Media",
     "address": "Tầng 7, 53 Phó Đức Chính, Phường Nguyễn Thái Bình, Quận 1, TP. Hồ Chí Minh, Việt Nam",
@@ -68,7 +69,7 @@ window.DATA = {
       "name": "Tour bay",
       "icon": "globe",
       "title": "Tour bay trọn gói",
-      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay SKYLINE.",
+      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay AIRLIFE.",
       "cover": "tour-cover",
       "filters": [
         "Tất cả",
@@ -769,7 +770,7 @@ window.DATA = {
     },
     {
       "id": "n02",
-      "title": "Ra mắt SKYLINE: xem, nghe, mua sắm ngay trên chuyến bay",
+      "title": "Ra mắt AIRLIFE: xem, nghe, mua sắm ngay trên chuyến bay",
       "cat": "Sự kiện",
       "date": "15/10/2026",
       "excerpt": "Nền tảng mới cho phép hành khách bình luận, theo dõi nhà sáng tạo và đặt hàng giao tại sân bay đến."
@@ -807,7 +808,7 @@ window.DATA = {
       "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay",
       "cat": "Kinh doanh",
       "date": "24/09/2026",
-      "excerpt": "Mô hình gian hàng trên SKYLINE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày."
+      "excerpt": "Mô hình gian hàng trên AIRLIFE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày."
     },
     {
       "id": "n08",

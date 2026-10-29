@@ -42,7 +42,7 @@
     }
 
     // Màu avatar cố định theo tên (không cần ảnh đại diện thật)
-    var AVATAR_COLORS = ["#3b82f6", "#6366f1", "#0ea5e9", "#14b8a6", "#f97316", "#ec4899", "#8b5cf6", "#10b981"];
+    var AVATAR_COLORS = ["#6c3c8b", "#c86e3a", "#8a55ad", "#e0913a", "#2f8f83", "#b4527a", "#4e5fb0", "#3f8a5a"];
     function avatar(name, size) {
         var sum = 0;
         for (var i = 0; i < name.length; i++) sum += name.charCodeAt(i);
@@ -167,7 +167,7 @@
         ] },
         { key: "tin-tuc", label: "Tin tức", icon: "news", href: "tin-tuc.html", subs: [
             sub("Khám phá", q("tin-tuc.html", "f", "Khám phá"), "Điểm đến, sân bay, văn hóa"),
-            sub("Sự kiện", q("tin-tuc.html", "f", "Sự kiện"), "Tin hoạt động SKYLINE"),
+            sub("Sự kiện", q("tin-tuc.html", "f", "Sự kiện"), "Tin hoạt động AIRLIFE"),
             sub("Mẹo bay", q("tin-tuc.html", "f", "Mẹo bay"), "Bay thông minh, thoải mái"),
             sub("Line-up phim", q("tin-tuc.html", "f", "Line-up phim"), "Phim mới trên chuyến bay")
         ] },
@@ -181,7 +181,7 @@
         { key: "y-kien", label: "Ý kiến", icon: "chat", href: "y-kien.html", subs: [
             sub("Trải nghiệm", "y-kien.html?tab=trai-nghiem", "Chia sẻ chuyến bay của bạn"),
             sub("Khảo sát", "y-kien.html?tab=khao-sat", "Bình chọn, xem kết quả"),
-            sub("Góp ý", "y-kien.html?tab=gop-y", "Gửi phản hồi cho SKYLINE")
+            sub("Góp ý", "y-kien.html?tab=gop-y", "Gửi phản hồi cho AIRLIFE")
         ] },
         { key: "tour-bay", label: "Tour bay", icon: "globe", href: "chuyen-muc.html?c=tour-bay", subs: [
             sub("Trong nước", "chuyen-muc.html?c=tour-bay&f=" + encodeURIComponent("Trong nước"), "Phú Quốc, Đà Lạt, Phong Nha…"),
@@ -227,9 +227,8 @@
         var me = D.me;
         return '<div class="header__left">' +
                 '<button class="icon-btn header__toggle" type="button" aria-label="Mở menu" data-action="toggle-sidebar">' + icon("menu") + "</button>" +
-                '<a class="logo" href="index.html">' +
-                    '<span class="logo__mark">' + icon("plane") + "</span>" +
-                    '<span class="logo__text">SKYLINE</span>' +
+                '<a class="logo" href="index.html" aria-label="AIRLIFE – Trang chủ">' +
+                    '<img class="logo__img" src="./images/brand/airlife-logo-no-slogan.svg" alt="AIRLIFE" width="148" height="40">' +
                 "</a>" +
             "</div>" +
             '<form class="search" action="tim-kiem.html" role="search">' +
@@ -279,7 +278,7 @@
                 '<a class="nav-item" href="kenh.html?id=duty-free-sg">' + icon("store") + '<span class="nav-item__label">Kênh doanh nghiệp</span></a>' +
                 '<a class="nav-item" href="lien-he.html">' + icon("phone") + '<span class="nav-item__label">Liên hệ</span></a>' +
             "</div>" +
-            '<div class="sidebar__foot nav-group--full">© 2026 Skyline Media<br>Mockup giao diện SKYLINE</div>';
+            '<div class="sidebar__foot nav-group--full">© 2026 Skyline Media<br>Mockup giao diện AIRLIFE</div>';
     }
 
     // Thanh tab dưới cùng trên mobile (kiểu app): 5 mục đầu của menu dọc
@@ -295,7 +294,7 @@
         var s = D.site;
         return '<div class="footer__grid">' +
                 '<div class="footer__brand">' +
-                    '<a class="logo" href="index.html"><span class="logo__mark">' + icon("plane") + '</span><span class="logo__text">SKYLINE</span></a>' +
+                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE – Đời sống hàng không" width="234" height="64"></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
                 '<div class="footer__col"><h4>Chuyên mục</h4>' +
@@ -311,12 +310,12 @@
                     '<p><a href="mailto:' + esc(s.email) + '">' + icon("mail") + esc(s.email) + "</a></p>" +
                 "</div>" +
             "</div>" +
-            '<div class="footer__bottom">@2026 SKYLINE MEDIA. All rights reserved.</div>';
+            '<div class="footer__bottom">© 2026 AIRLIFE · Vận hành bởi Skyline Media. All rights reserved.</div>';
     }
 
     /* ---------------- Mini player (giữ bài đang nghe khi chuyển trang) ---------------- */
 
-    var PLAYER_KEY = "skyline-now-playing";
+    var PLAYER_KEY = "airlife-now-playing";
 
     function storage(get, value) {
         try {
@@ -353,7 +352,7 @@
 
     /* ---------------- Giỏ hàng (đếm số, lưu trên trình duyệt) ---------------- */
 
-    var CART_KEY = "skyline-cart";
+    var CART_KEY = "airlife-cart";
 
     function cartCount(add) {
         var n = 0;

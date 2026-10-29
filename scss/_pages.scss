@@ -570,9 +570,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .logo__text {
-            font-size: 16px;
-        }
+    }
+    &__logo {
+        width: auto;
+        height: 26px;
     }
     &__route {
         display: flex;
