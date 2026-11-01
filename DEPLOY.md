@@ -1,4 +1,4 @@
-# AIRLIFE – Đời sống hàng không: mockup giao diện mới (thay cho skyline.vn)
+# AIRLIFE – Tăng giá trị cuộc sống: mockup giao diện mới (thay cho skyline.vn)
 
 Web **tĩnh** (HTML/CSS/JS), không cần Node, PHP hay database. Đây là bản mockup để khách duyệt bố cục;
 nội dung là dữ liệu mẫu trong `data/content.json`, ảnh minh họa lấy từ picsum.photos (cần internet).
@@ -28,11 +28,20 @@ Header, 2 menu, thanh tab mobile, footer và mini player dùng chung, do `js/lay
 (danh sách mục menu ở `TOPNAV` và `SIDENAV`). Nội dung từng trang do `js/main.js` vẽ, chọn theo `<body data-page="...">`.
 Bảng màu ở `scss/_variables.scss`.
 
-**Logo AIRLIFE & màu thương hiệu**: lấy từ bản hướng dẫn `_thiet-ke/brand-airlife.pdf`. Chạy
-`python3 scripts/build_logo.py` để tạo lại bộ logo trong `images/brand/` (SVG + PNG, đúng hình & tỉ lệ trong PDF,
-tô lại bằng mã màu quy định: tím #6C3C8B, dải cam #C86E3A → #F8AC3F):
-`airlife-logo` (có slogan "Đời sống hàng không"), `airlife-logo-no-slogan` (header), `airlife-logo-white` (nền tối, footer),
-`airlife-mark` (biểu tượng đuôi + cánh, dùng làm `images/favicon.svg`). Bảng màu site trong `scss/_variables.scss` theo 2 màu này.
+**Logo AIRLIFE & màu thương hiệu**: lấy từ bộ logo `_thiet-ke/logo-airlife-4.pdf` (file `Logo Airlife_4.pdf` của khách,
+thay cho bản hướng dẫn 1 trang trước đó). Chạy `python3 scripts/build_logo.py` để tạo lại bộ file trong `images/brand/`
+(SVG + PNG, đúng hình & tỉ lệ trong PDF, tô lại bằng mã màu quy định: tím #6C3C8B, dải cam #C86E3A → #F8AC3F).
+Slogan: **"Tăng giá trị cuộc sống"**. Bộ logo có 3 kiểu, mỗi kiểu dùng cho một ngữ cảnh:
+
+| Kiểu | File | Dùng ở đâu |
+|---|---|---|
+| Logo 1 (chính, ngang, chữ AIRLIFE) | `airlife-logo`, `airlife-logo-white` (nền tối) | Footer, tài liệu, nơi có chỗ rộng. Header dùng `airlife-logo-no-slogan` (bỏ slogan vì chữ nhỏ không đọc được; bản hướng dẫn không có bản Off Slogan của Logo 1) |
+| Logo 2 (đuôi máy bay, chữ AIRLIFE.VN dọc) | `airlife-logo2`, `airlife-logo2-slogan`, `airlife-mark` | Chỗ vuông / hẹp: favicon, avatar, icon app, **biểu tượng trước tên chuyên mục** |
+| Logo 3 (đuôi máy bay, chữ AIRLIFE.VN ngang) | `airlife-logo3`, `airlife-logo3-slogan` | Chỗ vuông / hẹp khi cần đọc được chữ AIRLIFE.VN (cỡ lớn hơn Logo 2) |
+
+Màu chữ theo logo: **chuyên mục = tím (Màu 1)**, **tiểu mục = cam (Màu 2)**, định nghĩa ở `$tier-main` / `$tier-sub` trong
+`scss/_variables.scss`. Bảng màu site cũng theo 2 màu này. Tên chuyên mục đặt cạnh logo dựng như logo chính
+(`.lockup` trong `scss/_components.scss`): chữ nằm trên đường chân đuôi máy bay.
 
 **Icon Player**: Home, Play, Tạm dừng, Tua ngược/tua 10s, Thanh hình, Thanh âm thanh và thanh Player kiểu đường băng
 lấy từ file thiết kế `_thiet-ke/Player.pdf` (bản gốc `Player.ai`). Khi designer sửa icon: xuất lại PDF vào

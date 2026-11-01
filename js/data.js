@@ -5,7 +5,7 @@
 window.DATA = {
   "site": {
     "name": "AIRLIFE",
-    "slogan": "Đời sống hàng không",
+    "slogan": "Tăng giá trị cuộc sống",
     "tagline": "Mạng xã hội trên không cho khách bay & doanh nghiệp",
     "company": "Skyline Media",
     "address": "Tầng 7, 53 Phó Đức Chính, Phường Nguyễn Thái Bình, Quận 1, TP. Hồ Chí Minh, Việt Nam",

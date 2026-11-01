@@ -138,7 +138,7 @@
         }
     }
     .logo__img {
-        height: 30px;
+        height: 34px;
     }
 
     // Menu ngang: vuốt ngang, bỏ dropdown (tiểu mục hiện thành chip/tab trong trang)
@@ -282,22 +282,22 @@
     }
 
     .page-head {
-        gap: 14px;
-        h1 {
-            font-size: 24px;
-        }
+        --fs: 28px;
+        --mh: 60px;
         p {
             font-size: 13px;
-        }
-        &__mark {
-            height: 40px;
         }
     }
     .section {
         margin-top: 32px;
     }
-    .section-head h2 {
-        font-size: 21px;
+    .section-head {
+        --fs: 22px;
+        --mh: 48px;
+    }
+    .panel__head {
+        --fs: 17px;
+        --mh: 38px;
     }
 
     .hero {

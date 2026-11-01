@@ -52,7 +52,7 @@
     &__img {
         display: block;
         width: auto;
-        height: 38px;
+        height: 44px;
     }
     &--footer &__img {
         height: 64px;
@@ -154,7 +154,7 @@
         font-size: 14px;
         font-weight: 600;
         white-space: nowrap;
-        color: $text-2;
+        color: $tier-main;
         transition: background-color 0.2s, color 0.2s;
         .icon {
             width: 18px;
@@ -172,7 +172,7 @@
     &__item:hover &__link,
     &__item:focus-within &__link {
         background: $surface-3;
-        color: $ink;
+        color: $tier-main;
     }
     &__item:hover &__caret,
     &__item:focus-within &__caret {
@@ -210,14 +210,12 @@
             transition: background-color 0.15s;
             &:hover {
                 background: $surface-2;
-                strong {
-                    color: $brand-700;
-                }
             }
         }
         strong {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
+            color: $tier-sub;
         }
         small {
             font-size: 12px;
@@ -260,7 +258,7 @@
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: $brand-600;
+        color: $tier-main;
     }
 }
 

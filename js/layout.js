@@ -228,7 +228,7 @@
         return '<div class="header__left">' +
                 '<button class="icon-btn header__toggle" type="button" aria-label="Mở menu" data-action="toggle-sidebar">' + icon("menu") + "</button>" +
                 '<a class="logo" href="index.html" aria-label="AIRLIFE – Trang chủ">' +
-                    '<img class="logo__img" src="./images/brand/airlife-logo-no-slogan.svg" alt="AIRLIFE" width="148" height="40">' +
+                    '<img class="logo__img" src="./images/brand/airlife-logo-no-slogan.svg" alt="AIRLIFE" width="164" height="44">' +
                 "</a>" +
             "</div>" +
             '<form class="search" action="tim-kiem.html" role="search">' +
@@ -294,7 +294,7 @@
         var s = D.site;
         return '<div class="footer__grid">' +
                 '<div class="footer__brand">' +
-                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE – Đời sống hàng không" width="234" height="64"></a>' +
+                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE – Tăng giá trị cuộc sống" width="233" height="64"></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
                 '<div class="footer__col"><h4>Chuyên mục</h4>' +

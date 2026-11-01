@@ -9,28 +9,47 @@
     }
 }
 
-.section-head {
+// Logo AIRLIFE + tên chuyên mục thành một khối, dựng như logo chính: đuôi máy bay bên trái,
+// chữ nằm trên đường chân đuôi (đúng vị trí chữ AIRLIFE trong logo), sát đuôi, màu tím (Màu 1).
+// --mh = chiều cao logo, --fs = cỡ chữ; chữ cao ~ 1/2 logo như tỉ lệ logo chính.
+.lockup {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    gap: 4px;
+    font-family: $font-display;
+    font-size: var(--fs);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    &__text {
+        white-space: nowrap;
+        color: $tier-main;
+        // Đường chân đuôi nằm ở ~80% chiều cao logo: nâng chữ lên để chân chữ chạm đường đó
+        padding-bottom: calc(var(--mh) * 0.2 - var(--fs) * 0.13);
+    }
+}
+.title-mark {
+    flex-shrink: 0;
+    width: auto;
+    height: var(--mh);
+}
+
+.section-head {
+    --fs: 28px;
+    --mh: 60px;
+    display: flex;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 16px;
     h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: $font-display;
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        .icon {
-            color: $brand-400;
-        }
+        @extend .lockup;
     }
     &__more {
         display: inline-flex;
         align-items: center;
         gap: 2px;
+        padding-bottom: calc(var(--mh) * 0.2 - var(--fs) * 0.13);
         font-size: 14px;
         font-weight: 600;
         color: $brand-700;
@@ -51,20 +70,23 @@
     box-shadow: 0 0 0 1px $color-border, $shadow-sm;
 
     &__head {
+        --fs: 19px;
+        --mh: 42px;
         display: flex;
-        align-items: center;
+        flex-wrap: wrap;
+        align-items: flex-end;
         justify-content: space-between;
         gap: 8px;
         margin-bottom: 14px;
+        // Link "Tất cả" thẳng hàng với chân chữ tiêu đề
+        > .link {
+            padding-bottom: calc(var(--mh) * 0.2 - var(--fs) * 0.13);
+        }
+        > .seg {
+            align-self: center;
+        }
         h2 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            .icon {
-                color: $brand-400;
-            }
+            @extend .lockup;
         }
     }
     > h2 {
@@ -91,35 +113,33 @@
     letter-spacing: -0.02em;
 }
 
+// Đầu trang chuyên mục: cùng cách dựng với .lockup, tên chuyên mục (h1) chạm đường chân đuôi, mô tả nằm ngay dưới
 .page-head {
+    --fs: 40px;
+    --mh: 84px;
     display: flex;
-    align-items: center;
-    gap: 18px;
+    align-items: flex-start;
+    gap: 6px;
     margin: 0 0 24px;
     h1 {
         font-family: $font-display;
-        font-size: 32px;
+        font-size: var(--fs);
         font-weight: 800;
         letter-spacing: -0.02em;
-        line-height: 1.15;
+        line-height: 1;
+        color: $tier-main;
+        margin-top: calc(var(--mh) * 0.8 - var(--fs) * 0.87);
     }
     p {
-        margin-top: 4px;
+        margin-top: 8px;
         color: $color-text-muted;
     }
     // Logo AIRLIFE trước tên chuyên mục
     &__mark {
         flex-shrink: 0;
         width: auto;
-        height: 52px;
+        height: var(--mh);
     }
-}
-
-// Biểu tượng logo AIRLIFE trước tiêu đề khối (section-head, panel__head)
-.title-mark {
-    flex-shrink: 0;
-    width: auto;
-    height: 1.05em;
 }
 
 .breadcrumb {
@@ -158,17 +178,15 @@
     border-radius: 9px;
     background: $surface-2;
     font-size: 14px;
-    font-weight: 500;
-    color: $text-2;
+    font-weight: 600;
+    color: $tier-sub;
     transition: background-color 0.15s, color 0.15s;
     &:hover {
         background: $surface-3;
-        color: $ink;
     }
     &.active {
-        background: $ink;
+        background: $gradient-orange;
         color: $white;
-        font-weight: 600;
     }
 }
 
@@ -227,17 +245,17 @@
             bottom: -1px;
             height: 2px;
             border-radius: 2px;
-            background: $gradient-brand;
+            background: $gradient-orange;
             transform: scaleX(0);
             transition: transform 0.2s $ease;
         }
         &:hover {
-            color: $ink;
+            color: $tier-sub;
         }
         &.active {
-            color: $brand-700;
+            color: $tier-sub;
             .icon {
-                color: $brand-400;
+                color: $tier-sub;
             }
             &::after {
                 transform: scaleX(1);
@@ -507,7 +525,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: $brand-500;
+        color: $tier-sub;
     }
     &__name {
         display: -webkit-box;
@@ -604,7 +622,7 @@
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: $brand-500;
+        color: $tier-sub;
     }
     h3 {
         margin-top: 6px;

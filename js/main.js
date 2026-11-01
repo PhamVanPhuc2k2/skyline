@@ -27,8 +27,13 @@
         return '<img class="title-mark" src="./images/brand/airlife-mark.svg" alt="" aria-hidden="true">';
     }
 
+    // Logo + tên chuyên mục: chữ phải đặt trong span để CSS canh chân chữ theo đường chân đuôi máy bay
+    function lockup(title) {
+        return brandMark() + '<span class="lockup__text">' + title + "</span>";
+    }
+
     function sectionHead(title, href, more) {
-        return '<div class="section-head"><h2>' + brandMark() + "<span>" + title + "</span></h2>" +
+        return '<div class="section-head"><h2>' + lockup(title) + "</h2>" +
             (href ? '<a class="section-head__more" href="' + href + '">' + (more || "Xem tất cả") + icon("chevron") + "</a>" : "") + "</div>";
     }
 
@@ -150,7 +155,7 @@
         var hay = list.slice().sort(function (a, b) { return b.likes - a.likes; });
         var nhieu = list.slice().sort(function (a, b) { return b.replies - a.replies; });
         return '<aside class="panel comment-panel">' +
-            '<div class="panel__head"><h2>' + brandMark() + (title || "Bình luận nổi bật") + "</h2>" +
+            '<div class="panel__head"><h2>' + lockup(title || "Bình luận nổi bật") + "</h2>" +
                 '<div class="seg" role="tablist">' +
                     '<button class="active" type="button" data-tab="hay">Hay</button>' +
                     '<button type="button" data-tab="nhieu">Nhiều</button>' +
@@ -282,7 +287,7 @@
     function utilityBlock() {
         var live = D.flights.filter(function (f) { return f.status === "Đang bay"; }).slice(0, 3);
         return '<div class="panel utility">' +
-            '<div class="panel__head"><h2>' + brandMark() + 'Tiện ích</h2><a class="link" href="tien-ich.html">Tất cả</a></div>' +
+            '<div class="panel__head"><h2>' + lockup("Tiện ích") + '</h2><a class="link" href="tien-ich.html">Tất cả</a></div>' +
             '<form class="flight-form" action="tien-ich.html">' +
                 '<input type="hidden" name="tab" value="flightradar">' +
                 '<input type="text" name="q" placeholder="Số hiệu chuyến bay, VD: VN 220" aria-label="Số hiệu chuyến bay">' +
@@ -319,11 +324,11 @@
                 // Hàng dưới cùng theo bản vẽ: 3 khối rộng hẹp khác nhau
                 '<div class="bottom-grid">' +
                     '<div class="panel">' +
-                        '<div class="panel__head"><h2>' + brandMark() + 'Nghe</h2><a class="link" href="chuyen-muc.html?c=nghe">Tất cả</a></div>' +
+                        '<div class="panel__head"><h2>' + lockup("Nghe") + '</h2><a class="link" href="chuyen-muc.html?c=nghe">Tất cả</a></div>' +
                         '<div class="rank-list">' + topAudio.slice(0, 4).map(function (m, i) { return mediaRow(m, i + 1); }).join("") + "</div>" +
                     "</div>" +
                     '<div class="panel">' +
-                        '<div class="panel__head"><h2>' + brandMark() + 'Kinh doanh</h2><a class="link" href="chuyen-muc.html?c=kinh-doanh">Xem tất cả</a></div>' +
+                        '<div class="panel__head"><h2>' + lockup("Kinh doanh") + '</h2><a class="link" href="chuyen-muc.html?c=kinh-doanh">Xem tất cả</a></div>' +
                         '<div class="product-grid product-grid--3">' + deals.map(productCard).join("") + "</div>" +
                     "</div>" +
                     utilityBlock() +

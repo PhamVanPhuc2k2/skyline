@@ -94,6 +94,12 @@ $shadow-brand: 0 8px 22px rgba($brand-400, 0.3);
 $gradient-orange: linear-gradient(90deg, $orange-dark 0%, $orange-light 100%); // Màu 2
 $ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
+// Màu chữ phân cấp theo 2 màu của logo:
+//   chuyên mục = Màu 1 (tím)
+//   tiểu mục   = Màu 2 (cam); dùng đầu đậm của dải màu, hơi đậm hơn #C86E3A để chữ nhỏ đủ tương phản trên nền trắng
+$tier-main: $brand-400;
+$tier-sub: $accent-600;
+
 // Breakpoints (giống landing_page)
 $bp-2xl: 1536px;
 $bp-xl: 1280px;
