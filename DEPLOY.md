@@ -47,7 +47,7 @@ Màu chữ theo logo: **chuyên mục = tím (Màu 1)**, **tiểu mục = cam (M
 (bản gốc `Player.ai`); máy bay ở đầu thanh lấy từ `_thiet-ke/thanh-player.ai` (file `Thanh Player.ai`). Khi designer sửa: xuất lại file
 vào `_thiet-ke/`, chạy `python3 scripts/build_icons.py` (cần `pdftocairo`), script ghi `js/icons.js` và `images/icons/*.svg`.
 Thanh Player vẽ bằng CSS (`.runway` trong `scss/_layout.scss`) theo số đo trong `thanh-player.ai`: đường băng, hàng vạch + hàng chấm đèn hai bên,
-phần đã chạy trắng, máy bay ở đầu; chưa chạy thì vạch/chấm xám, đang chạy thì trắng.
+phần đã chạy trắng, máy bay ở đầu; chưa chạy thì vạch/chấm xám, đang chạy thì vạch trắng và chấm đèn thành **điểm sáng lung linh** (lõi trắng, quầng sáng, 8 tia, theo ảnh mẫu của khách, hai hàng sáng đều). Điểm sáng vẽ vector ở `images/runway-spark.svg` (sửa trực tiếp file này nếu muốn đổi hình); không lấy ảnh bitmap từ file `.ai` vì thu nhỏ sẽ bị nhoè.
 Icon thanh hình (trình phát video) / thanh âm thanh (trình phát audio, mini player) là chỉ báo trạng thái: xám khi chưa chạy, trắng khi đang chạy.
 Các icon còn lại (tìm kiếm, giỏ hàng, chuông…) là icon nét trong `js/layout.js` vì bộ thiết kế chưa có.
 
@@ -65,7 +65,7 @@ python3 -m http.server 8000
 ├── *.html            14 trang
 ├── css/style.css
 ├── js/data.js, js/icons.js, js/layout.js, js/main.js
-└── images/favicon.svg, images/brand/*.svg
+└── images/favicon.svg, images/runway-spark.svg, images/brand/*.svg
 ```
 
 Không đưa lên: `scss/` (mã nguồn CSS), `data/` (nguồn nội dung), `scripts/`, `_thiet-ke/` (file thiết kế).

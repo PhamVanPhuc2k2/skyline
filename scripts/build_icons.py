@@ -74,7 +74,7 @@ def shorten(d, ox, oy):
 # Thanh Player.ai: máy bay ở đầu thanh (bản "đang chạy", trắng). Kích thước thiết kế 63,5 × 58,9 pt, giữ đúng tỉ lệ này
 # để CSS đặt máy bay lên thanh theo số đo của thiết kế (xem scss/_pages.scss, khối .runway).
 RUNWAY_SRC = ROOT / "_thiet-ke" / "thanh-player.ai"
-RUNWAY_PLANE = (665.8, 759.5, 729.3, 818.4)
+RUNWAY_PLANE = (653.3, 813.2, 716.8, 872.0)
 
 
 def extract_runway_plane():

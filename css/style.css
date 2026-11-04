@@ -757,7 +757,7 @@ a.thumb:hover img {
   height: 44px;
 }
 .logo--footer .logo__img {
-  height: 64px;
+  height: 44px;
 }
 
 .search {
@@ -1216,20 +1216,18 @@ body.has-player .shell {
   position: absolute;
   left: calc(7 * var(--s) * 1px);
   right: calc(7 * var(--s) * 1px);
-  height: calc(36.2 * var(--s) * 1px);
+  height: calc(55.2 * var(--s) * 1px);
   background-repeat: round no-repeat, round no-repeat;
-  transition: filter 0.3s;
+  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
 }
 .runway::before {
-  top: 0;
+  top: calc(-19 * var(--s) * 1px);
   background-image: radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%), linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%);
-  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
-  background-position: 0 0, 0 calc(25.5 * var(--s) * 1px);
+  background-position: 0 calc(19 * var(--s) * 1px), 0 calc(44.5 * var(--s) * 1px);
 }
 .runway::after {
-  bottom: 0;
+  bottom: calc(-19 * var(--s) * 1px);
   background-image: linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%), radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%);
-  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
   background-position: 0 0, 0 calc(25.5 * var(--s) * 1px);
 }
 .runway__track {
@@ -1260,6 +1258,16 @@ body.has-player .shell {
 .runway.is-running {
   --rw-light: #fff;
 }
+.runway.is-running::before {
+  background-image: url("../images/runway-spark.svg"), linear-gradient(90deg, transparent 25.1%, #fff 25.1% 74.9%, transparent 74.9%);
+  background-size: calc(60.3 * var(--s) * 1px) calc(36 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
+  background-position: 0 calc(6.35 * var(--s) * 1px), 0 calc(44.5 * var(--s) * 1px);
+}
+.runway.is-running::after {
+  background-image: linear-gradient(90deg, transparent 25.1%, #fff 25.1% 74.9%, transparent 74.9%), url("../images/runway-spark.svg");
+  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(36 * var(--s) * 1px);
+  background-position: 0 0, 0 calc(12.85 * var(--s) * 1px);
+}
 .runway.is-running .runway__fill {
   background: #fff;
   animation: runway-run 120s linear forwards;
@@ -1267,11 +1275,11 @@ body.has-player .shell {
 
 .video-player .runway,
 .audio-player .runway {
-  --s: 0.28;
+  --s: 0.36;
 }
 
 .mini-player .runway {
-  --s: 0.18;
+  --s: 0.2;
 }
 
 @keyframes runway-run {

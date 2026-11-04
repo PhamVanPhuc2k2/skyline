@@ -53,6 +53,9 @@ $black: #000;
 $runway-track: #3f4247; // nền thanh
 $runway-dash: #a3a7b2; // vạch & máy bay khi chưa chạy
 $runway-off: #b7b7b7; // icon on/off ở trạng thái tắt
+// Điểm sáng trên thanh Player khi đang chạy: lõi trắng, quầng sáng, 8 tia; vẽ vector (images/runway-spark.svg)
+// theo ảnh mẫu của khách để luôn sắc nét. Ô rộng 60,3 pt (chu kỳ hàng đèn), cao 36 pt, điểm sáng nằm giữa.
+$runway-spark: url("../images/runway-spark.svg");
 
 // Vai trò
 $color-bg: $bg;

@@ -55,7 +55,7 @@
         height: 44px;
     }
     &--footer &__img {
-        height: 64px;
+        height: 44px;
     }
 }
 
@@ -537,31 +537,30 @@ body.has-player .shell {
     --rw-light: #{$runway-dash};
     position: relative;
     height: rw(138.1);
-    // Hai hàng đèn: trên (chấm rồi vạch) và dưới (vạch rồi chấm); ô lặp co giãn để luôn tròn số ô theo chiều rộng
+    // Hai hàng đèn: trên (chấm rồi vạch) và dưới (vạch rồi chấm); ô lặp co giãn để luôn tròn số ô theo chiều rộng.
+    // Hộp đèn nhô ra ngoài thiết kế 19 pt mỗi phía để điểm sáng (cao 36 pt, tâm trùng tâm chấm đèn) không bị cắt.
     &::before,
     &::after {
         content: "";
         position: absolute;
         left: rw(7);
         right: rw(7);
-        height: rw(36.2);
+        height: rw(55.2);
         background-repeat: round no-repeat, round no-repeat;
-        transition: filter 0.3s;
+        background-size: rw(60.3) rw(10.7), rw(60.3) rw(10.7);
     }
     &::before {
-        top: 0;
+        top: rw(-19);
         background-image:
             radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%),
             linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%);
-        background-size: rw(60.3) rw(10.7), rw(60.3) rw(10.7);
-        background-position: 0 0, 0 rw(25.5);
+        background-position: 0 rw(19), 0 rw(44.5);
     }
     &::after {
-        bottom: 0;
+        bottom: rw(-19);
         background-image:
             linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%),
             radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%);
-        background-size: rw(60.3) rw(10.7), rw(60.3) rw(10.7);
         background-position: 0 0, 0 rw(25.5);
     }
     &__track {
@@ -592,19 +591,33 @@ body.has-player .shell {
     }
     &.is-running {
         --rw-light: #{$white};
+        // Đang chạy: chấm đèn thành điểm sáng sắc nét (lõi trắng, quầng sáng, 8 tia, theo ảnh mẫu của khách), hai hàng sáng đều
+        &::before,
+        &::after {
+        }
+        &::before {
+            background-image: $runway-spark, linear-gradient(90deg, transparent 25.1%, #fff 25.1% 74.9%, transparent 74.9%);
+            background-size: rw(60.3) rw(36), rw(60.3) rw(10.7);
+            background-position: 0 rw(6.35), 0 rw(44.5);
+        }
+        &::after {
+            background-image: linear-gradient(90deg, transparent 25.1%, #fff 25.1% 74.9%, transparent 74.9%), $runway-spark;
+            background-size: rw(60.3) rw(10.7), rw(60.3) rw(36);
+            background-position: 0 0, 0 rw(12.85);
+        }
         .runway__fill {
             background: $white;
             animation: runway-run 120s linear forwards;
         }
     }
 }
-// Mỗi nơi dùng một cỡ: video & audio ~39 px cao, mini player ~25 px
+// Mỗi nơi dùng một cỡ: video & audio ~50 px cao (điểm sáng ~17 px), mini player ~28 px
 .video-player .runway,
 .audio-player .runway {
-    --s: 0.28;
+    --s: 0.36;
 }
 .mini-player .runway {
-    --s: 0.18;
+    --s: 0.2;
 }
 
 @keyframes runway-run {

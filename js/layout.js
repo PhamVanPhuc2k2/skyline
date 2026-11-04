@@ -296,7 +296,7 @@
         var s = D.site;
         return '<div class="footer__grid">' +
                 '<div class="footer__brand">' +
-                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE" width="209" height="56"></a>' +
+                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE" width="164" height="44"></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
                 '<div class="footer__col"><h4>Chuyên mục</h4>' +
