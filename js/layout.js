@@ -134,18 +134,20 @@
         return '<svg class="icon' + (cls ? " " + cls : "") + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICON_PATHS[name] || "") + "</svg>";
     }
 
-    // Thanh Player kiểu đường băng: vạch đứt hai bên, đầu thanh là máy bay.
-    // pct: phần đã chạy (0–100); running: đang phát (vạch & máy bay sáng, thanh tự chạy)
+    // Thanh Player kiểu đường băng (Thanh Player.ai): đường băng tối, hai bên có hàng vạch và hàng chấm đèn,
+    // phần đã chạy tô trắng, đầu thanh là máy bay. Hình vẽ bằng CSS (.runway, scss/_layout.scss) để kéo giãn theo chiều rộng.
+    // pct: phần đã chạy (0–100); running: đang phát (vạch, chấm và máy bay chuyển trắng, thanh tự chạy)
     function runway(pct, running) {
         return '<div class="runway' + (running ? " is-running" : "") + '" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + (pct || 0) + '">' +
-            '<span class="runway__track"><span class="runway__fill" style="width:' + (pct || 0) + '%">' + icon("plane-thumb", "runway__plane") + "</span></span>" +
+            '<span class="runway__track"><span class="runway__fill" style="--p:' + ((pct || 0) / 100) + '">' + icon("plane-thumb", "runway__plane") + "</span></span>" +
         "</div>";
     }
 
-    // Nút bật/tắt (âm thanh, hình): đổi màu theo trạng thái, hình icon giữ nguyên như thiết kế on/off
-    function toggleBtn(kind) {
-        var label = kind === "sound" ? "Tắt tiếng" : "Tắt hình";
-        return '<button class="icon-btn toggle-btn" type="button" data-toggle="' + kind + '" aria-pressed="true" aria-label="' + label + '" title="' + label + '">' + icon(kind) + "</button>";
+    // Icon thanh hình / thanh âm thanh: chỉ báo trạng thái của player, không phải nút.
+    // Xám (bản "off") khi player chưa chạy, trắng (bản "on") khi đang chạy: màu đổi theo class .is-playing của player.
+    function stateIcon(kind) {
+        var label = kind === "sound" ? "Âm thanh" : "Hình";
+        return '<span class="state-icon" title="' + label + '" aria-hidden="true">' + icon(kind) + "</span>";
     }
 
     /* ---------------- Menu ngang: 5 chuyên mục + tiểu mục ---------------- */
@@ -228,7 +230,7 @@
         return '<div class="header__left">' +
                 '<button class="icon-btn header__toggle" type="button" aria-label="Mở menu" data-action="toggle-sidebar">' + icon("menu") + "</button>" +
                 '<a class="logo" href="index.html" aria-label="AIRLIFE – Trang chủ">' +
-                    '<img class="logo__img" src="./images/brand/airlife-logo-no-slogan.svg" alt="AIRLIFE" width="164" height="44">' +
+                    '<img class="logo__img" src="./images/brand/airlife-logo.svg" alt="AIRLIFE – Tăng giá trị cuộc sống" width="167" height="46">' +
                 "</a>" +
             "</div>" +
             '<form class="search" action="tim-kiem.html" role="search">' +
@@ -294,7 +296,7 @@
         var s = D.site;
         return '<div class="footer__grid">' +
                 '<div class="footer__brand">' +
-                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE – Tăng giá trị cuộc sống" width="233" height="64"></a>' +
+                    '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE" width="209" height="56"></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
                 '<div class="footer__col"><h4>Chuyên mục</h4>' +
@@ -343,7 +345,7 @@
             "</div>" +
             '<div class="mini-player__progress">' + runway(0, true) + "</div>" +
             '<span class="mini-player__time">' + esc(m.duration) + "</span>" +
-            toggleBtn("sound") +
+            stateIcon("sound") +
             '<button class="icon-btn" type="button" data-action="close-player" aria-label="Đóng">' + icon("close") + "</button>";
         bar.hidden = false;
         bar.classList.add("is-playing");
@@ -379,20 +381,8 @@
 
     function bindEvents() {
         document.addEventListener("click", function (e) {
-            var el = e.target.closest("[data-action], [data-play], [data-cart], [data-follow], [data-toggle]");
+            var el = e.target.closest("[data-action], [data-play], [data-cart], [data-follow]");
             if (!el) return;
-
-            if (el.hasAttribute("data-toggle")) {
-                var off = el.classList.toggle("is-off");
-                var kind = el.getAttribute("data-toggle");
-                var label = kind === "sound" ? (off ? "Bật tiếng" : "Tắt tiếng") : (off ? "Bật hình" : "Tắt hình");
-                el.setAttribute("aria-pressed", String(!off));
-                el.setAttribute("aria-label", label);
-                el.setAttribute("title", label);
-                var player = el.closest(".video-player");
-                if (kind === "screen" && player) player.classList.toggle("no-picture", off);
-                return;
-            }
 
             if (el.hasAttribute("data-play")) {
                 e.preventDefault();
@@ -483,7 +473,7 @@
         toast: toast,
         play: play,
         runway: runway,
-        toggleBtn: toggleBtn
+        stateIcon: stateIcon
     };
 
     init();

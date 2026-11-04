@@ -515,97 +515,126 @@ body.has-player .shell {
         flex: 1;
         min-width: 0;
     }
-    // Thanh chạy theo thời gian (minh họa) khi đang phát
-    &.is-playing .runway__fill {
-        animation: progress 90s linear forwards;
-    }
     &__time {
         font-size: 12px;
         color: rgba($white, 0.6);
     }
 }
 
-/* ================= Thanh Player kiểu đường băng (theo bộ thiết kế Player) ================= */
+/* ================= Thanh Player kiểu đường băng (theo file thiết kế Thanh Player.ai) =================
+   Số đo lấy từ file thiết kế (đơn vị pt), nhân với --s (px/pt) để đổi cỡ theo từng nơi dùng:
+     - đường băng (track) cao 42,1; cách trên/dưới 11,7 là hàng vạch (30 × 10,7, chu kỳ 60,3);
+       cách thêm 14,8 là hàng chấm đèn (⌀ 10,7). Tổng cao 138,1, hai bên chừa 7 pt để vạch/chấm không chạm mép.
+     - máy bay 63,55 × 58,82 nhô ra khỏi đường băng 8,4 mỗi phía, mũi nhô ra khỏi phần đã chạy 50,3.
+   Chưa chạy: vạch, chấm xám #A3A7B2, chưa tô; đang chạy (.is-running): vạch, chấm và phần đã chạy trắng. */
+
+@function rw($pt) {
+    @return calc(#{$pt} * var(--s) * 1px);
+}
 
 .runway {
+    --s: 0.28;
+    --rw-light: #{$runway-dash};
     position: relative;
-    padding: 9px 0;
-    // Vạch đứt hai bên đường băng
+    height: rw(138.1);
+    // Hai hàng đèn: trên (chấm rồi vạch) và dưới (vạch rồi chấm); ô lặp co giãn để luôn tròn số ô theo chiều rộng
     &::before,
     &::after {
         content: "";
         position: absolute;
-        left: 6px;
-        right: 6px;
-        height: 2px;
-        background: repeating-linear-gradient(90deg, $runway-dash 0 14px, transparent 14px 26px);
-        transition: background 0.3s;
+        left: rw(7);
+        right: rw(7);
+        height: rw(36.2);
+        background-repeat: round no-repeat, round no-repeat;
+        transition: filter 0.3s;
     }
     &::before {
-        top: 2px;
+        top: 0;
+        background-image:
+            radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%),
+            linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%);
+        background-size: rw(60.3) rw(10.7), rw(60.3) rw(10.7);
+        background-position: 0 0, 0 rw(25.5);
     }
     &::after {
-        bottom: 2px;
+        bottom: 0;
+        background-image:
+            linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%),
+            radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%);
+        background-size: rw(60.3) rw(10.7), rw(60.3) rw(10.7);
+        background-position: 0 0, 0 rw(25.5);
     }
     &__track {
-        position: relative;
-        display: block;
-        height: 10px;
-        border-radius: 999px;
+        position: absolute;
+        top: rw(47.9);
+        left: 0;
+        right: 0;
+        height: rw(42.1);
+        border-radius: rw(21);
         background: $runway-track;
     }
     &__fill {
         position: relative;
         display: block;
-        min-width: 10px;
         height: 100%;
-        border-radius: 999px;
+        width: calc((100% - #{rw(50.3)}) * var(--p, 0));
+        border-radius: inherit;
         background: $runway-dash;
-        transition: background 0.3s;
     }
-    // Máy bay ở đầu thanh
+    // Máy bay ở đầu phần đã chạy (chưa chạy thì nằm ở đầu đường băng)
     &__plane {
         position: absolute;
-        right: -12px;
-        top: 50%;
-        width: 26px !important;
-        height: 26px !important;
-        color: $runway-dash;
-        transform: translateY(-50%);
-        filter: drop-shadow(0 1px 2px rgba($black, 0.5));
+        left: calc(100% - #{rw(13.2)});
+        top: rw(-8.4);
+        width: rw(63.55) !important;
+        height: rw(58.82) !important;
+        color: $white;
     }
     &.is-running {
-        &::before,
-        &::after {
-            background: repeating-linear-gradient(90deg, $white 0 14px, transparent 14px 26px);
-        }
+        --rw-light: #{$white};
         .runway__fill {
             background: $white;
-        }
-        .runway__plane {
-            color: $white;
+            animation: runway-run 120s linear forwards;
         }
     }
 }
-.video-player.is-playing .runway__fill,
-.audio-player.is-playing .runway__fill {
-    animation: progress 120s linear forwards;
+// Mỗi nơi dùng một cỡ: video & audio ~39 px cao, mini player ~25 px
+.video-player .runway,
+.audio-player .runway {
+    --s: 0.28;
+}
+.mini-player .runway {
+    --s: 0.18;
 }
 
-// Nút bật/tắt (âm thanh, hình): trắng khi bật, xám khi tắt — như bản on/off trong thiết kế
-.toggle-btn {
-    color: $white;
-    &.is-off,
-    &.is-off:hover {
-        color: $runway-off;
-    }
-}
-
-@keyframes progress {
+@keyframes runway-run {
     to {
-        width: 100%;
+        width: calc(100% - #{rw(50.3)});
     }
 }
+
+// Icon thanh hình / thanh âm thanh (theo file Excel yêu cầu): chỉ báo trạng thái, không phải nút.
+// Xám khi player chưa chạy (bản "off"), trắng khi đang chạy (bản "on").
+.state-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: $runway-off;
+    transition: color 0.3s;
+    .icon {
+        width: 32px;
+        height: 32px;
+    }
+}
+.video-player.is-playing .state-icon,
+.audio-player.is-playing .state-icon,
+.mini-player.is-playing .state-icon {
+    color: $white;
+}
+.audio-player .state-icon .icon {
+    width: 44px;
+    height: 44px;
+}
+
 
 /* ================= Thông báo nhanh ================= */
 

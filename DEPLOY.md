@@ -35,7 +35,7 @@ Slogan: **"Tăng giá trị cuộc sống"**. Bộ logo có 3 kiểu, mỗi ki�
 
 | Kiểu | File | Dùng ở đâu |
 |---|---|---|
-| Logo 1 (chính, ngang, chữ AIRLIFE) | `airlife-logo`, `airlife-logo-white` (nền tối) | Footer, tài liệu, nơi có chỗ rộng. Header dùng `airlife-logo-no-slogan` (bỏ slogan vì chữ nhỏ không đọc được; bản hướng dẫn không có bản Off Slogan của Logo 1) |
+| Logo 1 (chính, ngang, chữ AIRLIFE) | `airlife-logo`, `airlife-logo-white` (nền tối) | **Header** dùng `airlife-logo` (có slogan dưới logo). **Chân trang** dùng `airlife-logo-white` (trắng toàn bộ, kể cả LIFE và cánh, chữ AIRLIFE.VN khoét thủng; bản có slogan: `airlife-logo-white-slogan`). `airlife-logo-no-slogan` dùng ở chỗ nhỏ như thẻ lên máy bay |
 | Logo 2 (đuôi máy bay, chữ AIRLIFE.VN dọc) | `airlife-logo2`, `airlife-logo2-slogan`, `airlife-mark` | Chỗ vuông / hẹp: favicon, avatar, icon app, **biểu tượng trước tên chuyên mục** |
 | Logo 3 (đuôi máy bay, chữ AIRLIFE.VN ngang) | `airlife-logo3`, `airlife-logo3-slogan` | Chỗ vuông / hẹp khi cần đọc được chữ AIRLIFE.VN (cỡ lớn hơn Logo 2) |
 
@@ -43,9 +43,12 @@ Màu chữ theo logo: **chuyên mục = tím (Màu 1)**, **tiểu mục = cam (M
 `scss/_variables.scss`. Bảng màu site cũng theo 2 màu này. Tên chuyên mục đặt cạnh logo dựng như logo chính
 (`.lockup` trong `scss/_components.scss`): chữ nằm trên đường chân đuôi máy bay.
 
-**Icon Player**: Home, Play, Tạm dừng, Tua ngược/tua 10s, Thanh hình, Thanh âm thanh và thanh Player kiểu đường băng
-lấy từ file thiết kế `_thiet-ke/Player.pdf` (bản gốc `Player.ai`). Khi designer sửa icon: xuất lại PDF vào
-`_thiet-ke/`, chạy `python3 scripts/build_icons.py` (cần `pdftocairo`), script ghi `js/icons.js` và `images/icons/*.svg`.
+**Icon & thanh Player**: Home, Play, Tạm dừng, Tua ngược/tua 10s, Thanh hình, Thanh âm thanh lấy từ `_thiet-ke/Player.pdf`
+(bản gốc `Player.ai`); máy bay ở đầu thanh lấy từ `_thiet-ke/thanh-player.ai` (file `Thanh Player.ai`). Khi designer sửa: xuất lại file
+vào `_thiet-ke/`, chạy `python3 scripts/build_icons.py` (cần `pdftocairo`), script ghi `js/icons.js` và `images/icons/*.svg`.
+Thanh Player vẽ bằng CSS (`.runway` trong `scss/_layout.scss`) theo số đo trong `thanh-player.ai`: đường băng, hàng vạch + hàng chấm đèn hai bên,
+phần đã chạy trắng, máy bay ở đầu; chưa chạy thì vạch/chấm xám, đang chạy thì trắng.
+Icon thanh hình (trình phát video) / thanh âm thanh (trình phát audio, mini player) là chỉ báo trạng thái: xám khi chưa chạy, trắng khi đang chạy.
 Các icon còn lại (tìm kiếm, giỏ hàng, chuông…) là icon nét trong `js/layout.js` vì bộ thiết kế chưa có.
 
 ## 2. Chạy thử trên máy

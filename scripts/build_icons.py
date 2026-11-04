@@ -31,7 +31,6 @@ REGIONS = {
     "sound": (1110, 560, 1365, 795),     # Thanh âm thanh (bật/tắt tiếng)
     "pause": (200, 560, 370, 775),       # Nút tạm dừng
     "play": (485, 560, 715, 775),        # Nút Play
-    "plane-thumb": (650, 1095, 690, 1130),  # Đầu máy bay trên thanh Player
 }
 PAD = 0.04  # lề quanh icon trong viewBox
 
@@ -72,6 +71,25 @@ def shorten(d, ox, oy):
     return re.sub(r"\s+", " ", re.sub(r"-?\d+\.?\d*", fix, d)).strip()
 
 
+# Thanh Player.ai: máy bay ở đầu thanh (bản "đang chạy", trắng). Kích thước thiết kế 63,5 × 58,9 pt, giữ đúng tỉ lệ này
+# để CSS đặt máy bay lên thanh theo số đo của thiết kế (xem scss/_pages.scss, khối .runway).
+RUNWAY_SRC = ROOT / "_thiet-ke" / "thanh-player.ai"
+RUNWAY_PLANE = (665.8, 759.5, 729.3, 818.4)
+
+
+def extract_runway_plane():
+    if not RUNWAY_SRC.exists():
+        sys.exit(f"Không thấy {RUNWAY_SRC.relative_to(ROOT)}")
+    tmp = Path(tempfile.mkdtemp()) / "runway.svg"
+    subprocess.run(["pdftocairo", "-svg", str(RUNWAY_SRC), str(tmp)], check=True)
+    for p in paths_of(tmp.read_text(encoding="utf-8")):
+        b = p["bbox"]
+        if all(abs(x - y) <= 0.5 for x, y in zip(b, RUNWAY_PLANE)):
+            return {"vb": f"0 0 {b[2] - b[0]:.2f} {b[3] - b[1]:.2f}",
+                    "paths": [{"d": shorten(p["d"], b[0], b[1]), "rule": p["rule"]}]}
+    sys.exit("Không tìm thấy máy bay trong Thanh Player.ai (kiểm tra RUNWAY_PLANE nếu thiết kế đổi)")
+
+
 def main():
     if not SRC.exists():
         sys.exit(f"Không thấy {SRC.relative_to(ROOT)}")
@@ -95,8 +113,13 @@ def main():
             f'<path fill-rule="{p["rule"]}" d="{p["d"]}"/>' for p in items) + "</svg>\n"
         (OUT_DIR / f"{name}.svg").write_text(svg, encoding="utf-8")
 
+    icons["plane-thumb"] = extract_runway_plane()
+    (OUT_DIR / "plane-thumb.svg").write_text(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{icons["plane-thumb"]["vb"]}" fill="currentColor">' + "".join(
+            f'<path fill-rule="{p["rule"]}" d="{p["d"]}"/>' for p in icons["plane-thumb"]["paths"]) + "</svg>\n", encoding="utf-8")
+
     ICONS_JS.write_text(
-        "/**\n * TỰ ĐỘNG TẠO bởi scripts/build_icons.py từ _thiet-ke/Player.pdf — không sửa tay file này.\n */\n"
+        "/**\n * TỰ ĐỘNG TẠO bởi scripts/build_icons.py từ _thiet-ke/Player.pdf và _thiet-ke/thanh-player.ai — không sửa tay file này.\n */\n"
         "window.PLAYER_ICONS = " + json.dumps(icons, ensure_ascii=False) + ";\n", encoding="utf-8")
     print(f"Đã tách {len(icons)} icon: {', '.join(icons)} -> images/icons/, js/icons.js ({ICONS_JS.stat().st_size / 1024:.0f} KB)")
 

@@ -1194,87 +1194,113 @@ body.has-player .shell {
   flex: 1;
   min-width: 0;
 }
-.mini-player.is-playing .runway__fill {
-  animation: progress 90s linear forwards;
-}
 .mini-player__time {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* ================= Thanh Player kiểu đường băng (theo bộ thiết kế Player) ================= */
+/* ================= Thanh Player kiểu đường băng (theo file thiết kế Thanh Player.ai) =================
+   Số đo lấy từ file thiết kế (đơn vị pt), nhân với --s (px/pt) để đổi cỡ theo từng nơi dùng:
+     - đường băng (track) cao 42,1; cách trên/dưới 11,7 là hàng vạch (30 × 10,7, chu kỳ 60,3);
+       cách thêm 14,8 là hàng chấm đèn (⌀ 10,7). Tổng cao 138,1, hai bên chừa 7 pt để vạch/chấm không chạm mép.
+     - máy bay 63,55 × 58,82 nhô ra khỏi đường băng 8,4 mỗi phía, mũi nhô ra khỏi phần đã chạy 50,3.
+   Chưa chạy: vạch, chấm xám #A3A7B2, chưa tô; đang chạy (.is-running): vạch, chấm và phần đã chạy trắng. */
 .runway {
+  --s: 0.28;
+  --rw-light: #a3a7b2;
   position: relative;
-  padding: 9px 0;
+  height: calc(138.1 * var(--s) * 1px);
 }
 .runway::before, .runway::after {
   content: "";
   position: absolute;
-  left: 6px;
-  right: 6px;
-  height: 2px;
-  background: repeating-linear-gradient(90deg, #a4a8b3 0 14px, transparent 14px 26px);
-  transition: background 0.3s;
+  left: calc(7 * var(--s) * 1px);
+  right: calc(7 * var(--s) * 1px);
+  height: calc(36.2 * var(--s) * 1px);
+  background-repeat: round no-repeat, round no-repeat;
+  transition: filter 0.3s;
 }
 .runway::before {
-  top: 2px;
+  top: 0;
+  background-image: radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%), linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%);
+  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
+  background-position: 0 0, 0 calc(25.5 * var(--s) * 1px);
 }
 .runway::after {
-  bottom: 2px;
+  bottom: 0;
+  background-image: linear-gradient(90deg, transparent 25.1%, var(--rw-light) 25.1% 74.9%, transparent 74.9%), radial-gradient(circle closest-side, var(--rw-light) 92%, transparent 100%);
+  background-size: calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px), calc(60.3 * var(--s) * 1px) calc(10.7 * var(--s) * 1px);
+  background-position: 0 0, 0 calc(25.5 * var(--s) * 1px);
 }
 .runway__track {
-  position: relative;
-  display: block;
-  height: 10px;
-  border-radius: 999px;
+  position: absolute;
+  top: calc(47.9 * var(--s) * 1px);
+  left: 0;
+  right: 0;
+  height: calc(42.1 * var(--s) * 1px);
+  border-radius: calc(21 * var(--s) * 1px);
   background: #3f4247;
 }
 .runway__fill {
   position: relative;
   display: block;
-  min-width: 10px;
   height: 100%;
-  border-radius: 999px;
-  background: #a4a8b3;
-  transition: background 0.3s;
+  width: calc((100% - calc(50.3 * var(--s) * 1px)) * var(--p, 0));
+  border-radius: inherit;
+  background: #a3a7b2;
 }
 .runway__plane {
   position: absolute;
-  right: -12px;
-  top: 50%;
-  width: 26px !important;
-  height: 26px !important;
-  color: #a4a8b3;
-  transform: translateY(-50%);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  left: calc(100% - calc(13.2 * var(--s) * 1px));
+  top: calc(-8.4 * var(--s) * 1px);
+  width: calc(63.55 * var(--s) * 1px) !important;
+  height: calc(58.82 * var(--s) * 1px) !important;
+  color: #fff;
 }
-.runway.is-running::before, .runway.is-running::after {
-  background: repeating-linear-gradient(90deg, #fff 0 14px, transparent 14px 26px);
+.runway.is-running {
+  --rw-light: #fff;
 }
 .runway.is-running .runway__fill {
   background: #fff;
-}
-.runway.is-running .runway__plane {
-  color: #fff;
+  animation: runway-run 120s linear forwards;
 }
 
-.video-player.is-playing .runway__fill,
-.audio-player.is-playing .runway__fill {
-  animation: progress 120s linear forwards;
+.video-player .runway,
+.audio-player .runway {
+  --s: 0.28;
 }
 
-.toggle-btn {
-  color: #fff;
-}
-.toggle-btn.is-off, .toggle-btn.is-off:hover {
-  color: #b7b7b7;
+.mini-player .runway {
+  --s: 0.18;
 }
 
-@keyframes progress {
+@keyframes runway-run {
   to {
-    width: 100%;
+    width: calc(100% - calc(50.3 * var(--s) * 1px));
   }
 }
+.state-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: #b7b7b7;
+  transition: color 0.3s;
+}
+.state-icon .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.video-player.is-playing .state-icon,
+.audio-player.is-playing .state-icon,
+.mini-player.is-playing .state-icon {
+  color: #fff;
+}
+
+.audio-player .state-icon .icon {
+  width: 44px;
+  height: 44px;
+}
+
 /* ================= Thông báo nhanh ================= */
 .toast {
   position: fixed;
@@ -2371,30 +2397,9 @@ body.has-player .shell {
 .video-player__spacer {
   flex: 1;
 }
-.video-player__nopic {
-  position: absolute;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 14px;
-}
-.video-player__nopic .icon {
-  width: 64px;
-  height: 64px;
-}
 .video-player.is-playing .video-player__play {
   opacity: 0;
   pointer-events: none;
-}
-.video-player.no-picture > img {
-  opacity: 0.06;
-}
-.video-player.no-picture .video-player__nopic {
-  display: flex;
 }
 
 .audio-player {
@@ -2465,8 +2470,8 @@ body.has-player .shell {
   width: 36px;
   height: 36px;
 }
-.audio-player__controls .toggle-btn {
-  margin-left: auto;
+.audio-player__controls .audio-player__spacer {
+  flex: 1;
 }
 
 .wave {
@@ -4176,12 +4181,12 @@ body.has-player .shell {
     height: 18px !important;
   }
   .mini-player__time,
-  .mini-player .toggle-btn, .mini-player__controls .icon-btn:not(.icon-btn--primary),
+  .mini-player .state-icon, .mini-player__controls .icon-btn:not(.icon-btn--primary),
   body .mini-player__time,
-  body .mini-player .toggle-btn,
+  body .mini-player .state-icon,
   body .mini-player__controls .icon-btn:not(.icon-btn--primary),
   body:not(.sidebar-open) .mini-player__time,
-  body:not(.sidebar-open) .mini-player .toggle-btn,
+  body:not(.sidebar-open) .mini-player .state-icon,
   body:not(.sidebar-open) .mini-player__controls .icon-btn:not(.icon-btn--primary) {
     display: none;
   }

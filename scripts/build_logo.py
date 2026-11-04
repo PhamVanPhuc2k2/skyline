@@ -8,6 +8,7 @@ Script lấy nguyên vector của từng logo trong PDF (giữ đúng hình và 
 trang, rồi tô lại bằng đúng mã màu quy định trong bản hướng dẫn:
   - Màu 1  #6C3C8B: đuôi máy bay, chữ AIR, slogan
   - Màu 2  dải #C86E3A → #F8AC3F: chữ LIFE (đậm dưới, sáng trên), cánh (đậm phải, sáng trái)
+  - Bản "white" (nền tối): tất cả trắng, chữ AIRLIFE.VN trên đuôi được khoét thủng
 Bộ logo trong PDF có 3 kiểu (mỗi kiểu dùng cho một ngữ cảnh, xem DEPLOY.md):
   Logo 1  ngang, đầy đủ chữ AIRLIFE (logo chính)      -> airlife-logo*
   Logo 2  đuôi máy bay, chữ AIRLIFE.VN dọc (có/không slogan)   -> airlife-logo2*, airlife-mark
@@ -57,7 +58,9 @@ VARIANTS = {
     "airlife-logo": ("logo1", ["tail", "text", "wing", "air", "life", "slogan"], "color", 1600),
     # Logo 1 không có bản "Off Slogan" trong hướng dẫn; bỏ slogan cho chỗ nhỏ (header) vì chữ slogan không đọc được ở cỡ nhỏ
     "airlife-logo-no-slogan": ("logo1", ["tail", "text", "wing", "air", "life"], "color", 1600),
-    "airlife-logo-white": ("logo1", ["tail", "text", "wing", "air", "life", "slogan"], "white", 1600),
+    # Logo trắng cho nền tối (theo file Excel yêu cầu): toàn bộ màu trắng, kể cả LIFE và cánh; không slogan
+    "airlife-logo-white": ("logo1", ["tail", "text", "wing", "air", "life"], "white", 1600),
+    "airlife-logo-white-slogan": ("logo1", ["tail", "text", "wing", "air", "life", "slogan"], "white", 1600),
     "airlife-logo2": ("logo2", ["tail", "text", "wing"], "color", 600),
     "airlife-logo2-slogan": ("logo2-slogan", ["tail", "text", "wing", "slogan"], "color", 1000),
     "airlife-logo3": ("logo3", ["tail", "text", "wing"], "color", 600),
@@ -133,7 +136,7 @@ def build(parts, names, mode, title):
         p = parts[n]
         if n == "text" and mode == "white":
             continue  # chữ trên đuôi được khoét thủng ở phần đuôi (xem dưới)
-        if p["grad"]:
+        if p["grad"] and mode != "white":
             (ax, ay), (bx, by) = p["grad"]
             gid = f"al-{n}"
             defs += (f'<linearGradient id="{gid}" gradientUnits="userSpaceOnUse" x1="{ax - x1:.2f}" y1="{ay - y1:.2f}" x2="{bx - x1:.2f}" y2="{by - y1:.2f}">'

@@ -444,14 +444,14 @@
                         '<button class="icon-btn" type="button" aria-label="Tua lại 10 giây">' + icon("rewind") + "</button>" +
                         '<button class="icon-btn icon-btn--primary icon-btn--lg" type="button" data-play="' + m.id + '" data-audio-play aria-label="Phát">' + icon("play") + "</button>" +
                         '<button class="icon-btn" type="button" aria-label="Tua tới 10 giây">' + icon("forward") + "</button>" +
-                        SL.toggleBtn("sound") +
+                        '<span class="audio-player__spacer"></span>' +
+                        SL.stateIcon("sound") +
                     "</div>" +
                     '<p class="hint">Bấm phát để nghe trong nền, nhạc vẫn chạy khi bạn chuyển sang trang khác.</p>' +
                 "</div>" +
               "</div>"
             : '<div class="video-player">' +
                 '<img src="' + img(m.id, 1280, 720) + '" alt="">' +
-                '<span class="video-player__nopic">' + icon("sound") + "Đang tắt hình, chỉ phát âm thanh</span>" +
                 '<button class="video-player__play" type="button" data-video-play aria-label="Phát">' + icon("play") + "</button>" +
                 '<div class="video-player__bar">' +
                     SL.runway(0, false) +
@@ -461,8 +461,7 @@
                         '<button class="icon-btn" type="button" aria-label="Tua tới 10 giây">' + icon("forward") + "</button>" +
                         "<small>00:00 / " + esc(m.duration) + "</small>" +
                         '<span class="video-player__spacer"></span>' +
-                        SL.toggleBtn("sound") +
-                        SL.toggleBtn("screen") +
+                        SL.stateIcon("screen") +
                     "</div>" +
                 "</div>" +
               "</div>";
