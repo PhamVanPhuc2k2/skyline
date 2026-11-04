@@ -35,7 +35,7 @@ Slogan: **"Tăng giá trị cuộc sống"**. Bộ logo có 3 kiểu, mỗi ki�
 
 | Kiểu | File | Dùng ở đâu |
 |---|---|---|
-| Logo 1 (chính, ngang, chữ AIRLIFE) | `airlife-logo`, `airlife-logo-white` (nền tối) | **Header** dùng `airlife-logo` (có slogan dưới logo). **Chân trang** dùng `airlife-logo-white` (trắng toàn bộ, kể cả LIFE và cánh, chữ AIRLIFE.VN khoét thủng; bản có slogan: `airlife-logo-white-slogan`). `airlife-logo-no-slogan` dùng ở chỗ nhỏ như thẻ lên máy bay |
+| Logo 1 (chính, ngang, chữ AIRLIFE) | `airlife-logo`, `airlife-logo-white` (nền tối) | **Header** dùng `airlife-logo-header` (Logo 1 có slogan; riêng chữ slogan phóng to 1,6 lần theo yêu cầu khách để đọc được ở cỡ header). **Chân trang** dùng `airlife-logo-white` (trắng toàn bộ, kể cả LIFE và cánh, chữ AIRLIFE.VN khoét thủng; bản có slogan: `airlife-logo-white-slogan`). `airlife-logo-no-slogan` dùng ở chỗ nhỏ như thẻ lên máy bay |
 | Logo 2 (đuôi máy bay, chữ AIRLIFE.VN dọc) | `airlife-logo2`, `airlife-logo2-slogan`, `airlife-mark` | Chỗ vuông / hẹp: favicon, avatar, icon app, **biểu tượng trước tên chuyên mục** |
 | Logo 3 (đuôi máy bay, chữ AIRLIFE.VN ngang) | `airlife-logo3`, `airlife-logo3-slogan` | Chỗ vuông / hẹp khi cần đọc được chữ AIRLIFE.VN (cỡ lớn hơn Logo 2) |
 

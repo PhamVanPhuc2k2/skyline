@@ -170,6 +170,31 @@
     { "id": "s3", "question": "Tiện ích nào bạn cần nhất khi ra sân bay?", "votes": 2264, "options": [ { "label": "Theo dõi chuyến bay trực tiếp", "pct": 41 }, { "label": "Fast-track an ninh", "pct": 27 }, { "label": "Phòng chờ", "pct": 20 }, { "label": "Đưa đón sân bay", "pct": 12 } ] }
   ],
 
+  "transcripts": {
+    "v01": [
+      ["00:00", "Đài kiểm soát gọi Sky-07, xác nhận độ cao và hướng bay hiện tại."],
+      ["00:42", "Sky-07 nghe rõ. Độ cao mười hai nghìn mét, hướng ba-sáu-không, mọi thông số ổn định."],
+      ["03:15", "Cảnh báo: động cơ số hai mất áp suất. Tôi đang chuyển sang chế độ lượn."],
+      ["05:48", "Không có đường băng nào trong bán kính ba trăm cây số. Tôi buộc phải hạ cánh xuống vùng băng."],
+      ["09:30", "Bên dưới lớp băng có thứ gì đó. Một cấu trúc kim loại, giống như một căn cứ cũ."],
+      ["14:02", "Ba mươi năm trước, nơi này đã bị xoá khỏi mọi bản đồ quân sự."]
+    ],
+    "a04": [
+      ["00:00", "Chào mừng bạn đến với Ngủ Ngon Trên Chuyến Bay Đêm. Hãy tháo giày, nới lỏng dây an toàn nếu được phép."],
+      ["01:30", "Hít vào thật chậm trong bốn nhịp… giữ hơi trong bốn nhịp… và thở ra trong sáu nhịp."],
+      ["04:10", "Lắng nghe tiếng động cơ đều đều. Hãy để âm thanh ấy trở thành một tấm chăn mềm bao quanh bạn."],
+      ["08:45", "Thả lỏng vai, cánh tay, rồi đến bàn tay. Cảm nhận cơ thể nặng dần trên ghế ngồi."],
+      ["15:00", "Từ đây, chỉ còn âm thanh trắng nhẹ nhàng đi cùng bạn đến khi hạ cánh."]
+    ],
+    "v13": [
+      ["00:00", "Xin chào, mình là hướng dẫn viên của SkyTour. Hôm nay mình đưa các bạn đi Kyoto mùa lá đỏ."],
+      ["01:20", "Từ sân bay Kansai, các bạn đi tàu Haruka khoảng 75 phút là tới ga Kyoto."],
+      ["04:05", "Ngày đầu tiên, chùa Kiyomizu-dera lúc bình minh, khi khách du lịch còn chưa đông."],
+      ["08:40", "Ngày thứ ba, rừng tre Arashiyama và cầu Togetsukyo, đẹp nhất vào khoảng 7 giờ sáng."],
+      ["14:10", "Mẹo nhỏ: đặt vé bay sớm trước 2 tháng để có giá tốt cho mùa lá đỏ tháng 11."]
+    ]
+  },
+
   "me": {
     "name": "Minh Khoa",
     "tier": "Hội viên Vàng",

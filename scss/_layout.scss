@@ -52,7 +52,7 @@
     &__img {
         display: block;
         width: auto;
-        height: 44px;
+        height: 48px;
     }
     &--footer &__img {
         height: 44px;
@@ -147,18 +147,18 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        height: 36px;
-        padding: 0 14px;
+        height: 42px;
+        padding: 0 18px;
         border-radius: 999px;
         background: $surface-2;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 700;
         white-space: nowrap;
         color: $tier-main;
         transition: background-color 0.2s, color 0.2s;
         .icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             color: $brand-400;
         }
     }
@@ -266,11 +266,12 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 16px;
-    height: 44px;
-    padding: 0 12px;
-    border-radius: $radius-sm;
-    font-weight: 500;
+    gap: 14px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     color: $text-2;
     transition: background-color 0.15s, color 0.15s;
 
@@ -290,8 +291,8 @@
             content: "";
             position: absolute;
             left: -12px;
-            top: 10px;
-            bottom: 10px;
+            top: 9px;
+            bottom: 9px;
             width: 3px;
             border-radius: 0 3px 3px 0;
             background: $gradient-brand;
@@ -403,9 +404,37 @@ body.has-player .shell {
     &__grid {
         display: grid;
         grid-template-columns: 1.4fr 1fr 1fr 1.6fr;
-        gap: 32px;
+        grid-template-areas:
+            "brand cat ent contact"
+            "links cat ent contact";
+        gap: 20px 32px;
         max-width: 1680px;
         margin: 0 auto;
+    }
+    &__brand {
+        grid-area: brand;
+    }
+    &__col--cat {
+        grid-area: cat;
+    }
+    &__col--ent {
+        grid-area: ent;
+    }
+    &__contact {
+        grid-area: contact;
+    }
+    &__links {
+        grid-area: links;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        a {
+            color: $brand-200;
+            font-weight: 600;
+        }
+        a:hover {
+            color: $white;
+        }
     }
     &__brand p {
         margin-top: 14px;
@@ -426,6 +455,10 @@ body.has-player .shell {
         a:hover {
             color: $brand-200;
         }
+    }
+    &__contact b {
+        color: rgba($white, 0.85);
+        font-weight: 600;
     }
     &__contact p,
     &__contact a {

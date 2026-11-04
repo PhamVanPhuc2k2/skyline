@@ -42,6 +42,11 @@
             "<div><h1>" + esc(title) + "</h1><p>" + esc(desc) + "</p></div></header>";
     }
 
+    // Tít nằm trong ảnh (khách chọn): cùng một kiểu lớp phủ cho mọi thẻ có ảnh, dòng nhỏ phía trên là chuyên mục / tiểu mục
+    function caption(kicker, title) {
+        return '<span class="caption">' + (kicker ? "<small>" + kicker + "</small>" : "") + "<strong>" + title + "</strong></span>";
+    }
+
     // Thẻ video/audio dạng lưới: video 16:9, audio vuông có nút phát nền.
     // progress (0–1): thanh "đã xem tới đâu" cho mục Tiếp tục xem
     function mediaCard(m, progress) {
@@ -52,15 +57,13 @@
                 '<img src="' + img(m.id, audio ? 400 : 640, audio ? 400 : 360) + '" alt="" loading="lazy">' +
                 '<span class="thumb__time">' + esc(m.duration) + "</span>" +
                 (m.products && m.products.length ? '<span class="thumb__tag">' + icon("bag") + m.products.length + " sản phẩm</span>" : "") +
+                caption(esc(m.group), esc(m.title)) +
                 (typeof progress === "number" ? '<span class="thumb__progress"><span style="width:' + Math.round(progress * 100) + '%"></span></span>' : "") +
             "</a>" +
             (audio ? '<button class="play-fab" type="button" data-play="' + m.id + '" aria-label="Nghe ' + esc(m.title) + '">' + icon("play") + "</button>" : "") +
             '<div class="media-card__body">' +
                 '<a href="' + link("channel", ch.id) + '">' + avatar(ch.name, "sm") + "</a>" +
-                "<div>" +
-                    '<h3 class="media-card__title"><a href="' + link("media", m.id) + '">' + esc(m.title) + "</a></h3>" +
-                    '<p class="media-card__meta">' + meta(m) + "</p>" +
-                "</div>" +
+                '<p class="media-card__meta">' + meta(m) + "</p>" +
             "</div>" +
         "</article>";
     }
@@ -88,7 +91,7 @@
         var sub = isProduct ? esc(item.cat) + " · " + SL.price(item.price) : esc(item.group) + " · " + esc(item.duration);
         return '<a class="tile" href="' + link(isProduct ? "product" : "media", item.id) + '">' +
             '<img src="' + img(item.id, 480, 270) + '" alt="" loading="lazy">' +
-            '<span class="tile__overlay"><small>' + sub + "</small><strong>" + esc(isProduct ? item.name : item.title) + "</strong></span>" +
+            caption(sub, esc(isProduct ? item.name : item.title)) +
             (isProduct ? "" : '<span class="tile__play">' + icon("play") + "</span>") +
         "</a>";
     }
@@ -112,10 +115,9 @@
             '<a class="thumb thumb--square" href="' + link("product", p.id) + '">' +
                 '<img src="' + img(p.id, 400, 400) + '" alt="" loading="lazy">' +
                 (off ? '<span class="sale-tag">-' + off + "%</span>" : "") +
+                caption(esc(p.cat), esc(p.name)) +
             "</a>" +
             '<div class="product-card__body">' +
-                '<span class="product-card__cat">' + esc(p.cat) + "</span>" +
-                '<h3 class="product-card__name"><a href="' + link("product", p.id) + '">' + esc(p.name) + "</a></h3>" +
                 '<div class="price">' + (p.section === "tour-bay" ? "<small>Từ</small>" : "") + "<strong>" + SL.price(p.price) + "</strong>" + (p.oldPrice ? "<del>" + SL.price(p.oldPrice) + "</del>" : "") + "</div>" +
                 '<div class="product-card__meta">' + stars(p.rating) + "<span>" + (isBooking(p) ? "Đã đặt " : "Đã bán ") + SL.compact(p.sold) + "</span></div>" +
                 (isBooking(p)
@@ -155,7 +157,7 @@
         var hay = list.slice().sort(function (a, b) { return b.likes - a.likes; });
         var nhieu = list.slice().sort(function (a, b) { return b.replies - a.replies; });
         return '<aside class="panel comment-panel">' +
-            '<div class="panel__head"><h2>' + lockup(title || "Bình luận nổi bật") + "</h2>" +
+            '<div class="panel__head"><h2>' + lockup(title || "Bình luận") + "</h2>" +
                 '<div class="seg" role="tablist">' +
                     '<button class="active" type="button" data-tab="hay">Hay</button>' +
                     '<button type="button" data-tab="nhieu">Nhiều</button>' +
@@ -248,9 +250,8 @@
 
     function newsCard(n) {
         return '<article class="news-card" data-filter="' + esc(n.cat) + '">' +
-            '<a class="thumb thumb--video" href="' + link("news", n.id) + '"><img src="' + img(n.id, 640, 360) + '" alt="" loading="lazy"></a>' +
-            '<span class="news-card__cat">' + esc(n.cat) + " · " + esc(n.date) + "</span>" +
-            '<h3><a href="' + link("news", n.id) + '">' + esc(n.title) + "</a></h3>" +
+            '<a class="thumb thumb--video" href="' + link("news", n.id) + '"><img src="' + img(n.id, 640, 360) + '" alt="" loading="lazy">' +
+                caption(esc(n.cat) + " · " + esc(n.date), esc(n.title)) + "</a>" +
             "<p>" + esc(n.excerpt) + "</p>" +
         "</article>";
     }
@@ -484,7 +485,7 @@
                             '<button class="btn btn--soft btn--sm" type="button">' + icon("save") + "Lưu</button>" +
                         "</div>" +
                     "</div>" +
-                    '<div class="desc-box"><strong>' + SL.compact(m.views) + " lượt " + (audio ? "nghe" : "xem") + " · " + esc(m.date) + " · " + esc(m.genre) + "</strong><p>" + esc(m.desc) + "</p></div>" +
+                    mediaText(m) +
 
                     (products.length
                         ? '<section class="section section--tight">' + sectionHead("Sản phẩm trong " + (audio ? "tập này" : "video")) +
@@ -501,6 +502,42 @@
                     '<div class="next-list">' + next.map(function (x) { return mediaRow(x); }).join("") + "</div>" +
                 "</aside>" +
             "</div>";
+    }
+
+    // Bản chép lời: lấy trong dữ liệu (data/content.json > transcripts); chưa có thì dựng bản minh hoạ từ mô tả
+    function transcriptOf(m) {
+        if (D.transcripts && D.transcripts[m.id]) return D.transcripts[m.id];
+        var audio = m.kind === "audio";
+        return [
+            ["00:00", (audio ? "Chào mừng bạn đến với " : "") + m.title + "."],
+            ["00:35", m.desc],
+            ["02:10", "Nội dung bản chép lời minh hoạ cho mockup: khi triển khai, phần này lấy từ phụ đề hoặc file text đi kèm video/audio."],
+            ["05:40", "Người xem có thể đọc theo, bấm vào mốc thời gian để tua đến đoạn tương ứng, hoặc tải về file .txt."]
+        ];
+    }
+
+    // Phần văn bản đi kèm video/audio, theo kiểu YouTube: số liệu, mô tả, "Thành phần nội dung" > Bản chép lời
+    function mediaText(m) {
+        var audio = m.kind === "audio";
+        var lines = transcriptOf(m);
+        return '<section class="media-text">' +
+            '<div class="media-text__stats">' +
+                "<div><b>" + SL.compact(Math.round(m.views / 40)) + "</b><small>Lượt thích</small></div>" +
+                "<div><b>" + SL.compact(m.views) + "</b><small>" + (audio ? "Lượt nghe" : "Lượt xem") + "</small></div>" +
+                "<div><b>" + esc(m.date) + "</b><small>Ngày đăng</small></div>" +
+            "</div>" +
+            '<div class="desc-box"><strong>' + esc(m.title) + " · " + esc(m.group) + (m.genre !== m.group ? " · " + esc(m.genre) : "") + "</strong><p>" + esc(m.desc) + "</p></div>" +
+            '<h3 class="media-text__title">Thành phần nội dung</h3>' +
+            '<div class="transcript-card">' +
+                '<span class="transcript-card__icon">' + icon("news") + "</span>" +
+                "<div><strong>Bản chép lời</strong><small>Theo dõi nội dung bằng văn bản" + (audio ? ", không cần tai nghe" : "") + "</small></div>" +
+                '<button class="btn btn--soft btn--sm" type="button" data-action="toggle-transcript">Hiện bản chép lời</button>' +
+                '<button class="btn btn--outline btn--sm" type="button" data-action="download-transcript" data-id="' + m.id + '">' + icon("upload", "icon--down") + "Tải .txt</button>" +
+            "</div>" +
+            '<ol class="transcript" hidden>' + lines.map(function (l) {
+                return '<li><button type="button" class="transcript__time" data-seek="' + esc(l[0]) + '">' + esc(l[0]) + "</button><p>" + esc(l[1]) + "</p></li>";
+            }).join("") + "</ol>" +
+        "</section>";
     }
 
     function productMini(p) {
@@ -675,9 +712,8 @@
         return '<a class="poster" href="' + link("media", m.id) + '">' +
             '<span class="poster__img"><img src="' + img(m.id + "-poster", 400, 600) + '" alt="" loading="lazy">' +
                 (i < 4 ? '<span class="pill pill--new">Mới</span>' : "") +
+                caption(esc(m.group) + " · " + esc(m.genre), esc(m.title)) +
             "</span>" +
-            "<strong>" + esc(m.title) + "</strong>" +
-            "<small>" + esc(m.group) + " · " + esc(m.genre) + "</small>" +
         "</a>";
     }
 
@@ -925,8 +961,8 @@
                             var first = byId(D.media, pl.items[0]);
                             return '<a class="playlist" href="' + link("media", first.id) + '">' +
                                 '<span class="playlist__stack"><img src="' + img(first.id, 640, 360) + '" alt="" loading="lazy">' +
-                                    '<span class="playlist__count">' + icon("library") + pl.items.length + " mục</span></span>" +
-                                "<strong>" + esc(pl.name) + "</strong><small>Phát tất cả</small></a>";
+                                    '<span class="playlist__count">' + icon("library") + pl.items.length + " mục</span>" +
+                                    caption("Phát tất cả", esc(pl.name)) + "</span></a>";
                         }).join("") +
                         '<button class="playlist playlist--new" type="button">' + icon("sparkle") + "<strong>Tạo playlist mới</strong></button></div>" },
                     { id: "saved", label: "Đã lưu", count: saved.length, html: '<div class="media-grid">' + saved.map(function (m) { return mediaCard(m); }).join("") + "</div>" },
@@ -1115,6 +1151,28 @@
                 });
                 // Audio: nút phát cũng mở mini player (data-play, xử lý ở layout.js) — chỉ khi bắt đầu phát
                 if (el.hasAttribute("data-audio-play") && !playing) e.stopPropagation();
+                return;
+            }
+            if ((el = e.target.closest("[data-action='toggle-transcript']"))) {
+                var list = page.querySelector(".transcript");
+                list.hidden = !list.hidden;
+                el.textContent = list.hidden ? "Hiện bản chép lời" : "Ẩn bản chép lời";
+                return;
+            }
+            if ((el = e.target.closest("[data-action='download-transcript']"))) {
+                var m = byId(D.media, el.getAttribute("data-id"));
+                var text = m.title + "\n" + channelOf(m).name + " · " + m.duration + "\n\n" + m.desc + "\n\n" +
+                    transcriptOf(m).map(function (l) { return "[" + l[0] + "] " + l[1]; }).join("\n") + "\n";
+                var a = document.createElement("a");
+                a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
+                a.download = m.title.replace(/[\\/:*?"<>|]/g, "") + ".txt";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                return;
+            }
+            if ((el = e.target.closest("[data-seek]"))) {
+                SL.toast("Tua đến " + el.getAttribute("data-seek"));
                 return;
             }
             if ((el = e.target.closest("[data-action]"))) {

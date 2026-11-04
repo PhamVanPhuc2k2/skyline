@@ -65,7 +65,7 @@
             grid-template-rows: none;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             .tile {
-                aspect-ratio: 16 / 10;
+                aspect-ratio: 16 / 9;
             }
         }
         &__row {
@@ -109,7 +109,18 @@
         max-width: 560px;
     }
     .footer__grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+            "brand brand"
+            "cat ent"
+            "links links"
+            "contact contact";
+    }
+    .footer__links {
+        justify-content: center;
+        padding: 14px 0;
+        border-top: 1px solid rgba($white, 0.1);
+        border-bottom: 1px solid rgba($white, 0.1);
     }
     .lang {
         display: none;
@@ -138,7 +149,7 @@
         }
     }
     .logo__img {
-        height: 34px;
+        height: 38px;
     }
 
     // Menu ngang: vuốt ngang, bỏ dropdown (tiểu mục hiện thành chip/tab trong trang)
@@ -162,9 +173,9 @@
         display: none !important;
     }
     .topnav__link {
-        height: 34px;
-        padding: 0 13px;
-        font-size: 13px;
+        height: 38px;
+        padding: 0 14px;
+        font-size: 15px;
     }
 
     // Menu dọc ẩn hẳn, ☰ mở ngăn kéo đầy đủ
@@ -291,27 +302,47 @@
     .section {
         margin-top: 32px;
     }
-    .section-head {
-        --fs: 22px;
-        --mh: 48px;
-    }
+    .section-head,
     .panel__head {
-        --fs: 17px;
-        --mh: 38px;
+        --fs: 18px;
+        --mh: 40px;
     }
 
+    // Khối nổi bật trên mobile: 16:9 như mọi ảnh video (trước là 4:5, chiếm gần hết màn hình)
     .hero {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 16 / 9;
         &__content {
-            padding: 20px;
+            padding: 14px;
         }
+        &__kicker,
         &__desc {
-            font-size: 13px;
+            display: none;
+        }
+        &__title {
+            margin-top: 6px;
+            font-size: 20px;
+        }
+        &__actions {
+            margin-top: 10px;
+            gap: 8px;
+        }
+        .pill {
+            height: 20px;
+            font-size: 11px;
         }
         .btn {
-            height: 38px;
-            padding: 0 14px;
-            font-size: 14px;
+            height: 32px;
+            padding: 0 12px;
+            font-size: 13px;
+        }
+    }
+    .caption {
+        padding: 28px 8px 8px;
+        small {
+            font-size: 10px;
+        }
+        strong {
+            font-size: 13px;
         }
     }
     .top-grid {
@@ -322,13 +353,14 @@
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
             .tile {
-                flex: 0 0 72%;
+                flex: 0 0 60%;
+                aspect-ratio: 16 / 9;
                 scroll-snap-align: start;
             }
         }
         &__row {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 22px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px 10px;
         }
     }
     .bottom-grid {
@@ -347,8 +379,25 @@
     .product-card__body {
         padding: 10px 10px 12px;
     }
+    .media-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 10px;
+    }
+    .media-card__body {
+        gap: 6px;
+        margin-top: 6px;
+        .avatar {
+            width: 24px;
+            height: 24px;
+            font-size: 10px;
+        }
+    }
+    .media-card__meta {
+        font-size: 11px;
+        line-height: 1.35;
+    }
     .shelf {
-        grid-auto-columns: 78%;
+        grid-auto-columns: 46%;
         gap: 12px;
         .product-card {
             min-width: 0;
@@ -356,14 +405,18 @@
     }
     .news-grid,
     .news-grid--2 {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 10px;
+    }
+    .news-card p {
+        display: none;
     }
     .channel-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .poster-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
     }
 
     .watch__title {
@@ -394,6 +447,14 @@
     }
     .media-row .thumb {
         flex-basis: 140px;
+    }
+    // Danh sách dạng hàng (Nghe nhiều, Tiếp theo): ảnh vuông audio nhỏ gọn, không phóng to theo ảnh video
+    .media-row .thumb--square {
+        flex-basis: 72px;
+    }
+    .media-text__stats b {
+        font-size: 16px;
+        white-space: nowrap;
     }
 
     .product {
@@ -481,7 +542,7 @@
     }
 
     .news-lead {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 16 / 9;
         &__body {
             padding: 18px;
             small {
@@ -502,8 +563,7 @@
     .footer {
         padding: 30px 16px 16px;
         &__grid {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 22px;
+            gap: 20px 16px;
         }
     }
 }

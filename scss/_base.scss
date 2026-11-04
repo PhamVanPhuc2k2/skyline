@@ -473,8 +473,9 @@ strong {
     }
     &__time {
         position: absolute;
+        z-index: 2;
         right: 6px;
-        bottom: 6px;
+        top: 6px;
         padding: 1px 7px;
         border-radius: 5px;
         background: rgba($overlay, 0.85);
@@ -484,8 +485,9 @@ strong {
     }
     &__tag {
         position: absolute;
+        z-index: 2;
         left: 6px;
-        bottom: 6px;
+        top: 6px;
         display: inline-flex;
         align-items: center;
         gap: 4px;
@@ -502,6 +504,7 @@ strong {
     }
     &__progress {
         position: absolute;
+        z-index: 2;
         left: 0;
         right: 0;
         bottom: 0;
@@ -514,6 +517,42 @@ strong {
         }
     }
 }
+// Tít nằm trong ảnh (khách chọn): một kiểu lớp phủ dùng chung cho mọi thẻ có ảnh
+// (video, audio, sản phẩm, tour, tin tức, poster, playlist, ô nổi bật). Dòng nhỏ: chuyên mục / tiểu mục, màu cam (Màu 2).
+.caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: grid;
+    gap: 3px;
+    padding: 40px 12px 10px;
+    background: linear-gradient(0deg, rgba($overlay, 0.92) 0%, rgba($overlay, 0.7) 45%, rgba($overlay, 0) 100%);
+    color: $white;
+    text-align: left;
+    pointer-events: none;
+    small {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: $orange-light;
+    }
+    strong {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+}
+
 a:hover > .thumb img,
 a.thumb:hover img {
     transform: scale(1.05);

@@ -230,7 +230,7 @@
         return '<div class="header__left">' +
                 '<button class="icon-btn header__toggle" type="button" aria-label="Mở menu" data-action="toggle-sidebar">' + icon("menu") + "</button>" +
                 '<a class="logo" href="index.html" aria-label="AIRLIFE – Trang chủ">' +
-                    '<img class="logo__img" src="./images/brand/airlife-logo.svg" alt="AIRLIFE – Tăng giá trị cuộc sống" width="167" height="46">' +
+                    '<img class="logo__img" src="./images/brand/airlife-logo-header.svg" alt="AIRLIFE – Tăng giá trị cuộc sống" width="158" height="48">' +
                 "</a>" +
             "</div>" +
             '<form class="search" action="tim-kiem.html" role="search">' +
@@ -299,17 +299,19 @@
                     '<a class="logo logo--footer" href="index.html" aria-label="AIRLIFE – Trang chủ"><img class="logo__img" src="./images/brand/airlife-logo-white.svg" alt="AIRLIFE" width="164" height="44"></a>' +
                     "<p>" + esc(s.tagline) + ". Vận hành bởi " + esc(s.company) + ".</p>" +
                 "</div>" +
-                '<div class="footer__col"><h4>Chuyên mục</h4>' +
+                // Khối trái: chuyên mục (menu ngang); khối phải: giải trí (Nghe, Xem, Mới tải)
+                '<div class="footer__col footer__col--cat"><h4>Chuyên mục</h4>' +
                     TOPNAV.map(function (t) { return '<a href="' + t.href + '">' + t.label + "</a>"; }).join("") +
                 "</div>" +
-                '<div class="footer__col"><h4>Giải trí</h4>' +
-                    SIDENAV.slice(1, 4).map(function (t) { return '<a href="' + t.href + '">' + t.label + "</a>"; }).join("") +
-                    '<a href="kenh.html?id=duty-free-sg">Mở gian hàng</a><a href="bai-viet.html?id=n07">Hướng dẫn đăng bán</a>' +
+                '<div class="footer__col footer__col--ent"><h4>Giải trí</h4>' +
+                    [SIDENAV[2], SIDENAV[1], SIDENAV[3]].map(function (t) { return '<a href="' + t.href + '">' + t.label + "</a>"; }).join("") +
                 "</div>" +
-                '<div class="footer__col footer__contact"><h4>Liên hệ</h4>' +
-                    "<p>" + icon("map") + esc(s.address) + "</p>" +
-                    '<p><a href="tel:+842839333249">' + icon("phone") + esc(s.phone) + "</a></p>" +
-                    '<p><a href="mailto:' + esc(s.email) + '">' + icon("mail") + esc(s.email) + "</a></p>" +
+                // Liên kết cho doanh nghiệp: nằm giữa, dưới hai khối (mobile) / dưới logo (màn rộng)
+                '<div class="footer__links"><a href="kenh.html?id=duty-free-sg">Mở gian hàng</a><a href="bai-viet.html?id=n07">Hướng dẫn đăng bán</a></div>' +
+                '<div class="footer__col footer__contact"><h4>Tòa soạn</h4>' +
+                    "<p>" + icon("map") + "<span><b>Địa chỉ:</b> " + esc(s.address) + "</span></p>" +
+                    '<p><a href="tel:+842839333249">' + icon("phone") + "<span><b>Hotline:</b> " + esc(s.phone) + "</span></a></p>" +
+                    '<p><a href="mailto:' + esc(s.email) + '">' + icon("mail") + "<span><b>Email:</b> " + esc(s.email) + "</span></a></p>" +
                 "</div>" +
             "</div>" +
             '<div class="footer__bottom">© 2026 AIRLIFE · Vận hành bởi Skyline Media. All rights reserved.</div>';

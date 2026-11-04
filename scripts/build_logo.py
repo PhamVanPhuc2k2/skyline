@@ -67,7 +67,13 @@ VARIANTS = {
     "airlife-logo3-slogan": ("logo3-slogan", ["tail", "text", "wing", "slogan"], "color", 1000),
     # Biểu tượng đuôi máy bay (Logo 2, Off Slogan): đặt trước tiêu đề chuyên mục, favicon
     "airlife-mark": ("logo2", ["tail", "text", "wing"], "color", 512),
+    # Logo header (khách yêu cầu): Logo 1 giữ nguyên, riêng chữ slogan phóng to để đọc được ở cỡ header
+    "airlife-logo-header": ("logo1", ["tail", "text", "wing", "air", "life", "slogan"], "color", 1600),
 }
+
+# Phóng to riêng một phần của logo: tên file -> {phần: tỉ lệ}. Neo ở góc trên bên phải của phần đó
+# (slogan vẫn canh phải theo chữ LIFE, giữ khoảng cách với dòng chữ AIRLIFE như bản gốc).
+SCALE = {"airlife-logo-header": {"slogan": 1.6}}
 
 
 def bbox(d):
@@ -170,6 +176,19 @@ def to_png(svg_path, png_path, width, w, h):
     return True
 
 
+def scaled(part, k):
+    """Bản sao của một phần logo, phóng to k lần quanh góc trên bên phải của nó."""
+    ax, ay = part["bbox"][2], part["bbox"][1]
+    vals = iter(range(10 ** 9))
+
+    def fix(m):
+        v = float(m.group(0))
+        v = ax + (v - ax) * k if next(vals) % 2 == 0 else ay + (v - ay) * k
+        return f"{v:.3f}"
+    d = re.sub(r"-?\d+\.?\d*", fix, part["d"])
+    return dict(part, d=d, bbox=bbox(d))
+
+
 def main():
     if not SRC.exists():
         sys.exit(f"Không thấy {SRC.relative_to(ROOT)}")
@@ -179,7 +198,10 @@ def main():
         pages[key] = pick(load_page(num), refs)
     for name, (key, names, mode, png_w) in VARIANTS.items():
         slogan = "Tăng giá trị cuộc sống" if "slogan" in names else "AIRLIFE"
-        svg, w, h = build(pages[key], names, mode, f"AIRLIFE – {slogan}" if slogan != "AIRLIFE" else "AIRLIFE")
+        parts = dict(pages[key])
+        for part, k in SCALE.get(name, {}).items():
+            parts[part] = scaled(parts[part], k)
+        svg, w, h = build(parts, names, mode, f"AIRLIFE – {slogan}" if slogan != "AIRLIFE" else "AIRLIFE")
         svg_path = OUT / f"{name}.svg"
         svg_path.write_text(svg, encoding="utf-8")
         png = to_png(svg_path, OUT / f"{name}.png", png_w, w, h)
