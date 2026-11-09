@@ -1559,3 +1559,432 @@ body[data-page="product"] {
         line-height: 1.55;
     }
 }
+
+/* ================= Tiện ích > Sơ đồ hướng dẫn: nhà ga & tàu bay ================= */
+
+.terminal {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 12px;
+    .t-building {
+        fill: $surface-2;
+        stroke: $color-border-strong;
+    }
+    .t-zone {
+        fill: $surface;
+        stroke: $color-border-strong;
+        &--sec {
+            fill: rgba($orange-light, 0.18);
+            stroke: rgba($orange-dark, 0.5);
+        }
+    }
+    .t-gate {
+        fill: $surface;
+        stroke: $color-border-strong;
+        &--mine {
+            fill: $brand-400;
+            stroke: $brand-400;
+        }
+    }
+    .t-label {
+        font-family: $font-body;
+        font-size: 12px;
+        font-weight: 600;
+        fill: $ink;
+        text-anchor: middle;
+        &--gate {
+            font-size: 14px;
+            font-weight: 800;
+        }
+        &--you {
+            fill: $brand-700;
+            font-weight: 800;
+        }
+    }
+    .t-gate--mine + .t-label--gate {
+        fill: $white;
+    }
+    .t-route {
+        fill: none;
+        stroke: $brand-400;
+        stroke-width: 3;
+        stroke-dasharray: 7 6;
+        stroke-linejoin: round;
+        animation: t-walk 1.2s linear infinite;
+    }
+    .t-you {
+        fill: $orange-dark;
+        stroke: $white;
+        stroke-width: 3;
+    }
+}
+@keyframes t-walk {
+    to {
+        stroke-dashoffset: -26;
+    }
+}
+.t-steps {
+    display: grid;
+    gap: 8px;
+    margin-top: 14px;
+    li {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        color: $ink;
+        font-size: 14px;
+    }
+    b {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: $brand-400;
+        color: $white;
+        font-size: 12px;
+    }
+}
+
+.seatmap {
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    max-width: 360px;
+    margin: 12px auto 0;
+    padding: 18px 16px;
+    border-radius: 120px 120px 28px 28px / 90px 90px 28px 28px;
+    background: $surface-2;
+    box-shadow: 0 0 0 1px $color-border-strong inset;
+    &__nose {
+        margin-top: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        color: $muted;
+        &--tail {
+            margin-top: 6px;
+        }
+    }
+    &__divider,
+    &__exit {
+        width: 100%;
+        margin: 6px 0 2px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: center;
+        color: $tier-sub;
+    }
+    &__exit {
+        color: $emerald;
+    }
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    &__side {
+        display: flex;
+        gap: 5px;
+    }
+    &__no {
+        width: 22px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: $muted;
+    }
+    &__legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 18px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: $text-2;
+        span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .seat {
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+.seat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px 7px 4px 4px;
+    background: $surface;
+    box-shadow: 0 0 0 1px $color-border-strong inset;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: normal;
+    color: $muted;
+    &--biz {
+        width: 38px;
+        height: 34px;
+    }
+    &--taken {
+        background: $surface-4;
+        box-shadow: none;
+        color: transparent;
+    }
+    &--mine {
+        background: $brand-400;
+        box-shadow: 0 0 0 3px rgba($brand-400, 0.25);
+        color: $white;
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+/* ================= Tiện ích: Giám sát chuyến bay (bản đồ trực tiếp kiểu Flightradar24) ================= */
+
+.section[id] {
+    scroll-margin-top: $header-h + $topnav-h + 12px;
+}
+.section--first {
+    margin-top: 8px;
+}
+.live-map {
+    position: relative;
+    overflow: hidden;
+    border-radius: $radius;
+    box-shadow: 0 0 0 1px $color-border, $shadow-md;
+    &__canvas {
+        height: min(68vh, 640px);
+        min-height: 420px;
+        background: #e8eef2;
+        z-index: 0;
+    }
+    &__fallback {
+        display: grid;
+        place-items: center;
+        height: 100%;
+        color: $muted;
+    }
+    // Ô tìm kiếm nổi trên bản đồ, chữ gợi ý mờ "Tìm, giám sát live"
+    &__search {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: min(460px, calc(100% - 120px));
+        height: 46px;
+        padding: 0 16px;
+        border-radius: 10px;
+        background: $white;
+        box-shadow: $shadow-md;
+        transform: translateX(-50%);
+        .icon {
+            color: $muted;
+        }
+        input {
+            flex: 1;
+            min-width: 0;
+            font-size: 16px;
+            &::placeholder {
+                color: $dim;
+                font-style: italic;
+            }
+        }
+    }
+    &__badge {
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        z-index: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba($overlay, 0.8);
+        color: $white;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff3b30;
+            animation: blink 1.2s infinite;
+        }
+    }
+    .leaflet-popup-content {
+        font-family: $font-body;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
+// Máy bay vàng có viền tối như Flightradar24; chuyến trong dữ liệu AIRLIFE tô tím
+.fr-plane {
+    span {
+        display: block;
+        width: 22px;
+        height: 22px;
+        transition: transform 0.3s;
+    }
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: #ffd23f;
+        stroke: rgba(0, 0, 0, 0.55);
+        stroke-width: 0.8;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+    }
+    &--ours svg {
+        fill: $brand-400;
+        stroke: $white;
+    }
+}
+.ap-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% 50% 50% 0;
+    background: #2f6fd6;
+    box-shadow: 0 0 0 2px $white, 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: rotate(-45deg);
+    .icon {
+        width: 15px;
+        height: 15px;
+        color: $white;
+        transform: rotate(45deg);
+    }
+}
+
+/* ================= Tiện ích: Thông tin chuyến bay (ảnh ngang tràn màn hình theo cảng hàng không) ================= */
+
+.ap-banners {
+    display: grid;
+    gap: 12px;
+}
+.ap-banner {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 32 / 9;
+    border-radius: $radius;
+    background: $overlay;
+    color: $white;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s $ease;
+    }
+    &:hover img {
+        transform: scale(1.04);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba($overlay, 0.85) 0%, rgba($overlay, 0.35) 55%, rgba($overlay, 0) 100%);
+    }
+    &__body {
+        position: absolute;
+        left: 28px;
+        top: 50%;
+        z-index: 1;
+        display: grid;
+        gap: 4px;
+        transform: translateY(-50%);
+        small {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: $orange-light;
+        }
+        strong {
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+    }
+    &__more {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba($white, 0.85);
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+.ap-board {
+    margin-top: 14px;
+    scroll-margin-top: $header-h + $topnav-h + 12px;
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: $tier-main;
+            small {
+                margin-left: 6px;
+                font-size: 13px;
+                font-weight: 600;
+                color: $muted;
+            }
+        }
+    }
+    &__weather {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        font-weight: 800;
+        .icon {
+            color: $orange-dark;
+        }
+    }
+    .tabs {
+        margin-bottom: 4px;
+    }
+}
+.ap-others {
+    scroll-margin-top: $header-h + $topnav-h + 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+}
+.ap-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: $radius;
+    background: $overlay;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

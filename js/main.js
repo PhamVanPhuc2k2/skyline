@@ -106,7 +106,13 @@
 
     // Vé bay & tour đặt chỗ, không "thêm vào giỏ" như hàng hóa
     function isBooking(p) {
-        return p.cat === "Vé bay" || p.section === "tour-bay";
+        return p.cat === "Vé bay" || p.cat === "Tài chính" || p.section === "tour-bay";
+    }
+
+    // Nút hành động của thẻ đặt chỗ: vé / tour "Đặt ngay", dịch vụ tài chính "Đăng ký"
+    function bookingAction(p) {
+        if (p.cat === "Tài chính") return icon("check") + "Đăng ký";
+        return icon(p.cat === "Vé bay" ? "ticket" : "globe") + "Đặt ngay";
     }
 
     function productCard(p) {
@@ -121,7 +127,7 @@
                 '<div class="price">' + (p.section === "tour-bay" ? "<small>Từ</small>" : "") + "<strong>" + SL.price(p.price) + "</strong>" + (p.oldPrice ? "<del>" + SL.price(p.oldPrice) + "</del>" : "") + "</div>" +
                 '<div class="product-card__meta">' + stars(p.rating) + "<span>" + (isBooking(p) ? "Đã đặt " : "Đã bán ") + SL.compact(p.sold) + "</span></div>" +
                 (isBooking(p)
-                    ? '<a class="btn btn--primary btn--block btn--sm" href="' + link("product", p.id) + '">' + icon(p.cat === "Vé bay" ? "ticket" : "globe") + "Đặt ngay</a>"
+                    ? '<a class="btn btn--primary btn--block btn--sm" href="' + link("product", p.id) + '">' + bookingAction(p) + "</a>"
                     : '<button class="btn btn--accent btn--block btn--sm" type="button" data-cart="' + p.id + '">' + icon("cart") + "Thêm vào giỏ</button>") +
             "</div>" +
         "</article>";
@@ -290,16 +296,15 @@
         return '<div class="panel utility">' +
             '<div class="panel__head"><h2>' + lockup("Tiện ích") + '</h2><a class="link" href="tien-ich.html">Tất cả</a></div>' +
             '<form class="flight-form" action="tien-ich.html">' +
-                '<input type="hidden" name="tab" value="flightradar">' +
-                '<input type="text" name="q" placeholder="Số hiệu chuyến bay, VD: VN 220" aria-label="Số hiệu chuyến bay">' +
+                '<input type="text" name="q" placeholder="Tìm, giám sát live" aria-label="Tìm chuyến bay, sân bay">' +
                 '<button class="btn btn--primary btn--sm" type="submit">Tra cứu</button>' +
             "</form>" +
             '<div class="flight-mini">' + live.map(flightRow).join("") + "</div>" +
             '<div class="utility__grid">' +
-                '<a class="utility__item" href="tien-ich.html?tab=ra-tau-bay">' + icon("luggage") + "<span>Ra tàu bay</span></a>" +
-                '<a class="utility__item" href="tien-ich.html?tab=thoi-tiet">' + icon("sun") + "<span>Thời tiết</span></a>" +
-                '<a class="utility__item" href="tien-ich.html?tab=wifi">' + icon("wifi") + "<span>Wi-Fi</span></a>" +
-                '<a class="utility__item" href="tien-ich.html?tab=phong-cho">' + icon("gate") + "<span>Phòng chờ</span></a>" +
+                '<a class="utility__item" href="tien-ich.html#thong-tin">' + icon("luggage") + "<span>Thông tin chuyến bay</span></a>" +
+                '<a class="utility__item" href="tien-ich.html#giam-sat">' + icon("radar") + "<span>Giám sát chuyến bay</span></a>" +
+                '<a class="utility__item" href="tien-ich.html#so-do">' + icon("map") + "<span>Sơ đồ hướng dẫn</span></a>" +
+                '<a class="utility__item" href="tien-ich.html#thoi-tiet">' + icon("sun") + "<span>Thời tiết sân bay</span></a>" +
             "</div>" +
         "</div>";
     }
@@ -375,7 +380,8 @@
             });
             grid = '<div class="product-grid">' + products.map(productCard).join("") + "</div>";
         } else {
-            var items = D.media.filter(function (m) { return m.cat === cat.id; });
+            // Sách nói: gom các audio thuộc nhóm Sách nói (vẫn hiện trong mục Nghe)
+            var items = D.media.filter(function (m) { return cat.id === "sach-noi" ? m.group === "Sách nói" : m.cat === cat.id; });
             var featured = items.filter(function (m) { return m.featured; })[0] || items[0];
             var rest = items.filter(function (m) { return m !== featured; });
             var mids = items.map(function (m) { return m.id; });
@@ -577,7 +583,7 @@
 
         var options = booking
             ? '<div class="field-row">' +
-                '<label class="field"><span>' + (p.cat === "Vé bay" ? "Ngày bay" : "Ngày khởi hành") + '</span><input type="date" value="2026-11-14"></label>' +
+                '<label class="field"><span>' + ({ "Vé bay": "Ngày bay", "Tài chính": "Ngày bắt đầu" }[p.cat] || "Ngày khởi hành") + '</span><input type="date" value="2026-11-14"></label>' +
                 '<label class="field"><span>Số khách</span><select><option>1 người lớn</option><option selected>2 người lớn</option><option>2 người lớn, 1 trẻ em</option><option>Gia đình 4 người</option></select></label>' +
               "</div>" +
               '<fieldset class="options"><legend>Hạng dịch vụ</legend>' +
@@ -613,7 +619,7 @@
                         '<div class="product__buy">' +
                             (booking
                                 ? '<button class="btn btn--outline btn--lg" type="button">' + icon("save") + "Lưu</button>" +
-                                  '<button class="btn btn--primary btn--lg" type="button" data-cart="' + p.id + '">' + icon("ticket") + "Đặt ngay</button>"
+                                  '<button class="btn btn--primary btn--lg" type="button" data-cart="' + p.id + '">' + bookingAction(p) + "</button>"
                                 : '<button class="btn btn--outline btn--lg" type="button" data-cart="' + p.id + '">' + icon("cart") + "Thêm vào giỏ</button>" +
                                   '<button class="btn btn--primary btn--lg" type="button" data-cart="' + p.id + '">Mua ngay</button>') +
                         "</div>" +
@@ -729,102 +735,263 @@
         "</div>";
     }
 
-    // Bản đồ bay dạng sơ đồ: sân bay theo toạ độ trong data, đường bay cong, máy bay đặt theo % hành trình
-    function radarMap() {
-        var W = 160, H = 100;
-        function pt(code) { var a = airport(code); return [a.x / 100 * (W - 20) + 10, a.y / 100 * (H - 16) + 8]; }
-        var routes = "", planes = "";
-        D.flights.forEach(function (f) {
-            var a = pt(f.from), b = pt(f.to);
-            var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
-            var dx = b[0] - a[0], dy = b[1] - a[1];
-            var c = [mx - dy * 0.2, my + dx * 0.2]; // điểm điều khiển lệch vuông góc để đường bay cong
-            var live = f.progress > 0 && f.progress < 1;
-            routes += '<path class="route' + (live ? " route--live" : "") + '" d="M' + a + " Q" + c + " " + b + '"/>';
-            if (live) {
-                var t = f.progress;
-                var x = (1 - t) * (1 - t) * a[0] + 2 * (1 - t) * t * c[0] + t * t * b[0];
-                var y = (1 - t) * (1 - t) * a[1] + 2 * (1 - t) * t * c[1] + t * t * b[1];
-                var tx = 2 * (1 - t) * (c[0] - a[0]) + 2 * t * (b[0] - c[0]);
-                var ty = 2 * (1 - t) * (c[1] - a[1]) + 2 * t * (b[1] - c[1]);
-                var angle = Math.atan2(ty, tx) * 180 / Math.PI + 90;
-                planes += '<g class="plane" transform="translate(' + x.toFixed(1) + " " + y.toFixed(1) + ") rotate(" + angle.toFixed(0) + ')">' +
-                    '<path d="M0-3.2 .7-1v.8L3 .9v.7L.7.9v1.5l.9.8v.5L0 3.3l-1.6.4v-.5l.9-.8V.9L-3 1.6V.9L-.7-.2V-1z"/></g>' +
-                    '<text class="plane__label" x="' + (x + 3).toFixed(1) + '" y="' + (y - 2.5).toFixed(1) + '">' + esc(f.code) + "</text>";
-            }
+    /* ---------- Giám sát chuyến bay: bản đồ trực tiếp kiểu Flightradar24 (Leaflet + bản đồ CARTO/OSM) ---------- */
+
+    // Số ngẫu nhiên có hạt giống: mỗi lần mở trang máy bay ở cùng vị trí (mockup ổn định)
+    function seeded(seed) {
+        return function () {
+            seed = (seed * 9301 + 49297) % 233280;
+            return seed / 233280;
+        };
+    }
+
+    var PLANE_SVG = '<svg viewBox="0 0 24 24"><path d="M12 1.5c.9 0 1.3.9 1.3 1.8V9l8 4.6v2.2l-8-2.4v5l2.6 1.9v1.6L12 21l-3.9.9v-1.6l2.6-1.9v-5l-8 2.4v-2.2l8-4.6V3.3c0-.9.4-1.8 1.3-1.8z"/></svg>';
+
+    function liveMap() {
+        return '<div class="live-map">' +
+            '<div id="live-map" class="live-map__canvas" role="application" aria-label="Bản đồ giám sát chuyến bay trực tiếp"></div>' +
+            '<form class="live-map__search" data-live-search>' +
+                icon("search") + '<input type="search" name="q" placeholder="Tìm, giám sát live" aria-label="Tìm chuyến bay, sân bay" value="' + esc(SL.param("q") || "") + '">' +
+            "</form>" +
+            '<span class="live-map__badge"><i></i>LIVE</span>' +
+        "</div>";
+    }
+
+    function initLiveMap() {
+        var el = document.getElementById("live-map");
+        if (!el) return;
+        if (!window.L) {
+            el.innerHTML = '<div class="live-map__fallback">Không tải được bản đồ (cần kết nối Internet).</div>';
+            return;
+        }
+        var L = window.L;
+        var map = L.map(el, { zoomControl: false, worldCopyJump: true }).setView([13.2, 106.6], 6);
+        L.control.zoom({ position: "bottomright" }).addTo(map);
+        // Bản đồ địa hình Esri (không cần API key), gần giống nền bản đồ của Flightradar24
+        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
+            maxZoom: 12,
+            attribution: "Tiles &copy; Esri"
+        }).addTo(map);
+
+        // Sân bay: ghim xanh có hình tháp không lưu (icon Home của bộ Player)
+        Object.keys(D.airports).forEach(function (code) {
+            var a = D.airports[code];
+            if (a.lat == null) return;
+            L.marker([a.lat, a.lon], { icon: L.divIcon({ className: "ap-pin", html: icon("home"), iconSize: [26, 32], iconAnchor: [13, 32], popupAnchor: [0, -30] }) })
+                .addTo(map).bindPopup("<strong>" + esc(a.name) + " (" + code + ")</strong><br>" + esc(a.city) + ' · <a href="tien-ich.html?ap=' + code + '#ap-board">Bảng chuyến bay</a>');
         });
-        var dots = Object.keys(D.airports).map(function (code) {
-            var p = pt(code);
-            return '<g class="ap"><circle class="ap__pulse" cx="' + p[0] + '" cy="' + p[1] + '" r="2.2"/><circle cx="' + p[0] + '" cy="' + p[1] + '" r="1.1"/>' +
-                '<text x="' + (p[0] + 2.4) + '" y="' + (p[1] + 1) + '">' + code + "</text></g>";
-        }).join("");
-        return '<div class="radar"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Bản đồ chuyến bay đang hoạt động">' +
-            '<defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" class="grid"/></pattern></defs>' +
-            '<rect width="' + W + '" height="' + H + '" fill="url(#grid)"/>' + routes + dots + planes + "</svg>" +
-            '<span class="radar__live"><i></i>Trực tiếp · ' + D.flights.filter(function (f) { return f.progress > 0 && f.progress < 1; }).length + " chuyến đang bay</span></div>";
+
+        // Máy bay: các chuyến trong dữ liệu (đặt theo % hành trình) + máy bay minh hoạ quanh khu vực
+        var rnd = seeded(20261109);
+        var codes = Object.keys(D.airports);
+        var prefixes = ["VN", "VJ", "QH", "VU", "TG", "SQ", "CX", "KE", "MH"];
+        var planes = [];
+        D.flights.forEach(function (f) {
+            var a = D.airports[f.from], b = D.airports[f.to];
+            if (!(f.progress > 0 && f.progress < 1) || !a || !b) return;
+            planes.push({ code: f.code, from: f.from, to: f.to, lat: a.lat + (b.lat - a.lat) * f.progress, lon: a.lon + (b.lon - a.lon) * f.progress,
+                hdg: Math.atan2(b.lon - a.lon, b.lat - a.lat) * 180 / Math.PI, real: true });
+        });
+        for (var n = 0; n < 110; n++) {
+            var from = codes[Math.floor(rnd() * codes.length)], to = codes[Math.floor(rnd() * codes.length)];
+            planes.push({ code: prefixes[Math.floor(rnd() * prefixes.length)] + " " + (100 + Math.floor(rnd() * 8900)), from: from, to: to === from ? "SGN" : to,
+                lat: 3 + rnd() * 20, lon: 99 + rnd() * 15, hdg: rnd() * 360 });
+        }
+        planes.forEach(function (pl) {
+            pl.alt = 8000 + Math.round(rnd() * 4000);
+            pl.spd = 720 + Math.round(rnd() * 180);
+            pl.marker = L.marker([pl.lat, pl.lon], { icon: L.divIcon({ className: "fr-plane" + (pl.real ? " fr-plane--ours" : ""), html: '<span style="transform:rotate(' + pl.hdg.toFixed(0) + 'deg)">' + PLANE_SVG + "</span>", iconSize: [22, 22], iconAnchor: [11, 11] }) })
+                .addTo(map)
+                .bindPopup("<strong>" + esc(pl.code) + "</strong><br>" + pl.from + " → " + pl.to + "<br>Độ cao " + pl.alt.toLocaleString("vi-VN") + " m · " + pl.spd + " km/h");
+        });
+
+        // "Live": máy bay nhích dần theo hướng bay; ra khỏi khu vực thì quay lại phía đối diện
+        setInterval(function () {
+            planes.forEach(function (pl) {
+                var r = pl.hdg * Math.PI / 180, step = pl.spd / 900000 * 6;
+                pl.lat += Math.cos(r) * step;
+                pl.lon += Math.sin(r) * step / Math.cos(pl.lat * Math.PI / 180);
+                if (pl.lat > 24) pl.lat = 2; else if (pl.lat < 2) pl.lat = 24;
+                if (pl.lon > 115) pl.lon = 98; else if (pl.lon < 98) pl.lon = 115;
+                pl.marker.setLatLng([pl.lat, pl.lon]);
+            });
+        }, 1500);
+
+        // Ô tìm kiếm: số hiệu chuyến bay hoặc mã / tên sân bay
+        function find(q) {
+            var k = q.replace(/\s/g, "").toUpperCase();
+            if (!k) return;
+            var pl = planes.filter(function (x) { return x.code.replace(/\s/g, "") === k; })[0];
+            if (pl) { map.flyTo([pl.lat, pl.lon], 8); pl.marker.openPopup(); return; }
+            var code = codes.filter(function (c) { return c === k || normalize(D.airports[c].name).replace(/\s/g, "").toUpperCase() === normalize(k).toUpperCase(); })[0];
+            if (code) { map.flyTo([D.airports[code].lat, D.airports[code].lon], 9); return; }
+            SL.toast("Không tìm thấy “" + q + "”. Thử VN 220, SGN hoặc Nội Bài.");
+        }
+        page.querySelector("[data-live-search]").addEventListener("submit", function (e) {
+            e.preventDefault();
+            find(this.q.value);
+        });
+        if (SL.param("q")) find(SL.param("q"));
+    }
+
+    /* ---------- Thông tin chuyến bay: ảnh ngang tràn màn hình theo từng cảng hàng không ---------- */
+
+    var MAIN_AIRPORTS = ["HAN", "SGN", "DAD"];
+
+    // Ảnh sân bay: ảnh thật (Wikimedia Commons) nếu có trong dữ liệu, chưa có thì dùng ảnh minh hoạ
+    function apPhoto(code, w, h) {
+        return D.airports[code].photo || img("ap-" + code, w, h);
+    }
+
+    function airportBanner(code) {
+        var a = D.airports[code];
+        return '<a class="ap-banner" href="tien-ich.html?ap=' + code + '#ap-board">' +
+            '<img src="' + apPhoto(code, 1600, 560) + '" alt="Cảng hàng không ' + esc(a.name) + '" loading="lazy">' +
+            '<span class="ap-banner__body"><small>Cảng hàng không quốc tế · ' + code + "</small><strong>" + esc(a.name) + "</strong>" +
+            '<span class="ap-banner__more">Bảng chuyến bay ' + icon("chevron") + "</span></span>" +
+        "</a>";
+    }
+
+    // Bảng chuyến bay (minh hoạ) của một sân bay: chuyến trong dữ liệu + chuyến sinh thêm cho đủ bảng
+    function airportFlights(code, dir) {
+        var rnd = seeded(code.charCodeAt(0) * 31 + code.charCodeAt(2) + (dir === "dep" ? 7 : 3));
+        var others = Object.keys(D.airports).filter(function (c) { return c !== code; });
+        var list = D.flights.filter(function (f) { return dir === "dep" ? f.from === code : f.to === code; }).map(function (f) { return f; });
+        var statuses = ["Đúng giờ", "Đang lên tàu", "Trễ 20 phút", "Đang bay", "Đúng giờ", "Đã hạ cánh"];
+        for (var i = 0; list.length < 8; i++) {
+            var other = others[Math.floor(rnd() * others.length)];
+            var h = 6 + i * 2, m = Math.floor(rnd() * 6) * 10;
+            var t = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+            var h2 = h + 1 + Math.floor(rnd() * 2);
+            list.push({ code: ["VN", "VJ", "QH", "VU"][Math.floor(rnd() * 4)] + " " + (100 + Math.floor(rnd() * 1800)),
+                from: dir === "dep" ? code : other, to: dir === "dep" ? other : code,
+                dep: t, arr: (h2 < 10 ? "0" : "") + h2 + ":" + (m < 10 ? "0" : "") + m, status: statuses[i % statuses.length] });
+        }
+        // Bảng sân bay: sắp theo giờ đi (chuyến đi) hoặc giờ đến (chuyến đến)
+        var key = dir === "dep" ? "dep" : "arr";
+        return list.sort(function (x, y) { return x[key] < y[key] ? -1 : x[key] > y[key] ? 1 : 0; });
+    }
+
+    function airportDetail(code) {
+        if (code === "khac") {
+            var others = Object.keys(D.airports).filter(function (c) { return MAIN_AIRPORTS.indexOf(c) < 0; });
+            return '<div class="ap-others" id="ap-board">' + others.map(function (c) {
+                var a = D.airports[c];
+                return '<a class="ap-card" href="tien-ich.html?ap=' + c + '#ap-board"><img src="' + apPhoto(c, 480, 270) + '" alt="Cảng hàng không ' + esc(a.name) + '" loading="lazy">' +
+                    caption(c + " · " + esc(a.city), esc(a.name)) + "</a>";
+            }).join("") + "</div>";
+        }
+        var a = D.airports[code];
+        if (!a) return "";
+        return '<div class="panel ap-board" id="ap-board">' +
+            '<div class="ap-board__head"><h3>' + esc(a.name) + " <small>" + code + " · " + esc(a.city) + "</small></h3>" +
+                '<span class="ap-board__weather">' + icon(a.weather) + a.temp + "°</span></div>" +
+            tabbed([
+                { id: "dep", label: "Chuyến đi", html: airportFlights(code, "dep").map(flightRow).join("") },
+                { id: "arr", label: "Chuyến đến", html: airportFlights(code, "arr").map(flightRow).join("") }
+            ], "dep") +
+        "</div>";
     }
 
     function renderUtility() {
         var me = D.me;
-        var steps = [
-            { t: "Trước 24 giờ", d: "Làm thủ tục trực tuyến, chọn ghế và nhận thẻ lên máy bay điện tử." },
-            { t: "Trước 2 giờ", d: "Có mặt tại sân bay. Chuyến quốc tế nên đến trước 3 giờ." },
-            { t: "Trước 60 phút", d: "Đóng quầy ký gửi hành lý. Qua soi chiếu an ninh (fast-track nếu đã đặt)." },
-            { t: "Trước 40 phút", d: "Có mặt tại cửa ra máy bay " + me.flight.gate + ". Bắt đầu lên tàu lúc " + me.flight.boarding + "." },
-            { t: "Trước 15 phút", d: "Đóng cửa ra máy bay. Hành khách đến trễ sẽ không được lên tàu." }
-        ];
-        var wifi = [
-            { name: "Nhắn tin", price: 49000, desc: "Zalo, Messenger, WhatsApp suốt chặng bay", hot: false },
-            { name: "Lướt web", price: 149000, desc: "Email, mạng xã hội, 1 thiết bị", hot: true },
-            { name: "Cao cấp", price: 299000, desc: "Tốc độ cao, xem video, 2 thiết bị", hot: false }
-        ];
         var weatherText = { sun: "Nắng đẹp", cloud: "Nhiều mây", rain: "Có mưa rào" };
+        var ap = SL.param("ap");
 
         page.innerHTML =
             '<div class="container">' +
-                pageHead("Tiện ích", "Mọi thứ cần cho chuyến bay: ra tàu bay, theo dõi chuyến bay, thời tiết, Wi-Fi và dịch vụ sân bay.") +
-                tabbed([
-                    { id: "ra-tau-bay", label: "Ra tàu bay", icon: "luggage", html:
-                        '<div class="util-grid">' +
-                            '<div>' +
-                                '<h2 class="side-title">Chuyến bay của bạn</h2>' + boardingPass(me.flight) +
-                                '<div class="panel mt-16"><h2>Hành lý</h2><ul class="check-list">' +
-                                    "<li>" + icon("check") + "Xách tay 7kg, kích thước tối đa 56 × 36 × 23 cm</li>" +
-                                    "<li>" + icon("check") + "Ký gửi 30kg (hạng Thương gia)</li>" +
-                                    "<li>" + icon("check") + "Chất lỏng dưới 100ml/chai, tổng không quá 1 lít</li>" +
-                                    "<li>" + icon("check") + "Pin dự phòng mang theo người, không ký gửi</li>" +
-                                "</ul></div>" +
-                            "</div>" +
-                            '<div class="panel"><h2>Lịch trình ra tàu bay</h2><ol class="timeline">' + steps.map(function (s) {
-                                return "<li><strong>" + s.t + "</strong><p>" + s.d + "</p></li>";
-                            }).join("") + "</ol></div>" +
-                        "</div>" },
-                    { id: "flightradar", label: "Flightradar", icon: "radar", html:
-                        '<form class="search search--page" action="tien-ich.html"><input type="hidden" name="tab" value="flightradar">' +
-                            '<input class="search__input" type="search" name="q" value="' + esc(SL.param("q") || "") + '" placeholder="Số hiệu chuyến bay hoặc sân bay, VD: VN 220, SGN"><button class="search__btn" type="submit" aria-label="Tìm">' + icon("search") + "</button></form>" +
-                        '<div class="radar-layout">' + radarMap() +
-                            '<div class="panel flight-board"><h2>Bảng chuyến bay</h2>' + D.flights.filter(function (f) {
-                                var q = (SL.param("q") || "").replace(/\s/g, "").toUpperCase();
-                                return !q || (f.code + f.from + f.to).replace(/\s/g, "").indexOf(q) > -1;
-                            }).map(flightRow).join("") + "</div>" +
-                        "</div>" },
-                    { id: "thoi-tiet", label: "Thời tiết điểm đến", icon: "sun", html:
-                        '<div class="weather-grid">' + Object.keys(D.airports).map(function (code) {
-                            var a = D.airports[code];
-                            return '<div class="weather weather--' + a.weather + '">' + icon(a.weather) +
-                                "<div><strong>" + esc(a.city) + "</strong><small>" + code + " · " + weatherText[a.weather] + "</small></div>" +
-                                '<span class="weather__temp">' + a.temp + "°</span></div>";
-                        }).join("") + "</div>" },
-                    { id: "wifi", label: "Wi-Fi trên máy bay", icon: "wifi", html:
-                        '<div class="plan-grid">' + wifi.map(function (w) {
-                            return '<div class="plan' + (w.hot ? " plan--hot" : "") + '">' + (w.hot ? '<span class="pill">Phổ biến</span>' : "") +
-                                icon("wifi") + "<h3>" + w.name + "</h3><p>" + w.desc + '</p><div class="price"><strong>' + SL.price(w.price) + "</strong><small>/ chặng bay</small></div>" +
-                                '<button class="btn ' + (w.hot ? "btn--primary" : "btn--outline") + ' btn--block" type="button" data-action="buy-wifi">Mua gói</button></div>';
-                        }).join("") + "</div>" },
-                    { id: "phong-cho", label: "Phòng chờ & fast-track", icon: "gate", html:
-                        '<div class="product-grid">' + D.products.filter(function (p) { return p.cat === "Dịch vụ sân bay"; }).map(productCard).join("") + "</div>" }
-                ], SL.param("tab")) +
+                pageHead("Tiện ích", "Giám sát chuyến bay trực tiếp, thông tin chuyến bay theo cảng hàng không, sơ đồ nhà ga và tàu bay, thời tiết sân bay.") +
+
+                '<section class="section section--first" id="giam-sat">' + sectionHead("Giám sát chuyến bay") + liveMap() + "</section>" +
+
+                '<section class="section" id="thong-tin">' + sectionHead("Thông tin chuyến bay") +
+                    '<div class="ap-banners">' +
+                        MAIN_AIRPORTS.map(airportBanner).join("") +
+                        '<a class="ap-banner ap-banner--others" href="tien-ich.html?ap=khac#ap-board">' +
+                            '<img src="' + apPhoto("PQC", 1600, 560) + '" alt="Các cảng hàng không khác" loading="lazy">' +
+                            '<span class="ap-banner__body"><small>' + (Object.keys(D.airports).length - MAIN_AIRPORTS.length) + " cảng hàng không trong nước & quốc tế</small><strong>Các cảng hàng không khác</strong>" +
+                            '<span class="ap-banner__more">Xem danh sách ' + icon("chevron") + "</span></span>" +
+                        "</a>" +
+                    "</div>" +
+                    (ap ? airportDetail(ap) : "") +
+                "</section>" +
+
+                '<section class="section" id="so-do">' + sectionHead("Sơ đồ hướng dẫn") +
+                    '<div class="util-grid">' +
+                        '<div class="panel"><h2>Sơ đồ nhà ga</h2><p class="muted">Nhà ga quốc nội Tân Sơn Nhất · đường đi đến cửa ra ' + me.flight.gate + "</p>" + terminalMap(me.flight.gate) + "</div>" +
+                        '<div class="panel"><h2>Sơ đồ tàu bay</h2><p class="muted">Airbus A321 · chuyến ' + esc(me.flight.code) + " · ghế của bạn " + esc(me.flight.seat) + "</p>" + seatMap(me.flight.seat) + "</div>" +
+                    "</div>" +
+                "</section>" +
+
+                '<section class="section" id="thoi-tiet">' + sectionHead("Thời tiết sân bay") +
+                    '<div class="weather-grid">' + Object.keys(D.airports).map(function (code) {
+                        var a = D.airports[code];
+                        return '<div class="weather weather--' + a.weather + '">' + icon(a.weather) +
+                            "<div><strong>" + esc(a.name) + "</strong><small>" + code + " · " + esc(a.city) + " · " + weatherText[a.weather] + "</small></div>" +
+                            '<span class="weather__temp">' + a.temp + "°</span></div>";
+                    }).join("") + "</div>" +
+                "</section>" +
             "</div>";
+
+        initLiveMap();
+    }
+
+    // Sơ đồ nhà ga (minh hoạ): các khu theo thứ tự đi, đường đi nét đứt từ cửa vào đến cửa ra máy bay của bạn
+    function terminalMap(myGate) {
+        var gates = [10, 11, 12, 13, 14, 15, 16];
+        var gx = function (g) { return 170 + (g - 10) * 62; };
+        var mine = gx(+myGate) + 22;
+        function zone(x, y, w, h, label, cls) {
+            return '<rect class="t-zone' + (cls ? " " + cls : "") + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8"/>' +
+                '<text class="t-label" x="' + (x + w / 2) + '" y="' + (y + 20) + '">' + label + "</text>";
+        }
+        return '<svg class="terminal" viewBox="0 0 640 290" role="img" aria-label="Sơ đồ nhà ga, đường đến cửa ra ' + myGate + '">' +
+            '<rect class="t-building" x="16" y="30" width="608" height="240" rx="16"/>' +
+            gates.map(function (g) {
+                return '<rect class="t-gate' + (g === +myGate ? " t-gate--mine" : "") + '" x="' + gx(g) + '" y="44" width="44" height="40" rx="6"/>' +
+                    '<text class="t-label t-label--gate" x="' + (gx(g) + 22) + '" y="69">' + g + "</text>";
+            }).join("") +
+            zone(160, 110, 280, 56, "Miễn thuế · Ăn uống") +
+            zone(460, 110, 150, 56, "Phòng chờ thương gia") +
+            zone(30, 196, 112, 60, "Cửa vào sảnh đi") +
+            zone(160, 196, 170, 60, "Quầy làm thủ tục A–D") +
+            zone(350, 196, 110, 60, "Soi chiếu an ninh", "t-zone--sec") +
+            zone(480, 196, 130, 60, "Hành lý quá khổ") +
+            // Đường đi chạy dưới chân các khu (không đè chữ), lên hành lang giữa miễn thuế và phòng chờ, rồi tới cửa ra
+            '<path class="t-route" d="M86 242 H450 V97 H' + mine + ' V88"/>' +
+            '<circle class="t-you" cx="86" cy="242" r="7"/><text class="t-label t-label--you" x="86" y="284">Bạn ở đây</text>' +
+        "</svg>" +
+        '<ol class="t-steps">' +
+            "<li><b>1</b>Vào sảnh đi, đến quầy làm thủ tục A–D (khoảng 3 phút)</li>" +
+            "<li><b>2</b>Qua soi chiếu an ninh (5–15 phút, fast-track nếu đã đặt)</li>" +
+            "<li><b>3</b>Đi qua khu miễn thuế · ăn uống</li>" +
+            "<li><b>4</b>Đến cửa ra máy bay " + myGate + " trước giờ lên tàu 20 phút</li>" +
+        "</ol>";
+    }
+
+    // Sơ đồ ghế tàu bay (minh hoạ A321): thương gia 2-2, phổ thông 3-3, ghế của bạn tô màu
+    function seatMap(mySeat) {
+        var taken = "1D 2A 2F 4B 5C 5D 6A 6E 7F 8B 8C 9D 10A 11E 12C 12F 13B 14D".split(" ");
+        var rows = "";
+        for (var r = 1; r <= 14; r++) {
+            var biz = r <= 3;
+            var left = biz ? ["A", "C"] : ["A", "B", "C"];
+            var right = biz ? ["D", "F"] : ["D", "E", "F"];
+            var seat = function (c) {
+                var id = r + c;
+                var cls = "seat" + (biz ? " seat--biz" : "") + (id === mySeat ? " seat--mine" : taken.indexOf(id) > -1 ? " seat--taken" : "");
+                return '<span class="' + cls + '" title="Ghế ' + id + '">' + (id === mySeat ? icon("user") : c) + "</span>";
+            };
+            if (r === 4) rows += '<div class="seatmap__divider">Hạng phổ thông</div>';
+            if (r === 11) rows += '<div class="seatmap__exit">⇠ Lối thoát hiểm ⇢</div>';
+            rows += '<div class="seatmap__row"><span class="seatmap__side">' + left.map(seat).join("") + '</span><span class="seatmap__no">' + r + '</span><span class="seatmap__side">' + right.map(seat).join("") + "</span></div>";
+        }
+        return '<div class="seatmap">' +
+            '<div class="seatmap__nose">Buồng lái · Bếp · WC</div>' +
+            '<div class="seatmap__divider">Hạng thương gia</div>' + rows +
+            '<div class="seatmap__nose seatmap__nose--tail">WC · Bếp</div>' +
+        "</div>" +
+        '<div class="seatmap__legend"><span><i class="seat seat--mine"></i>Ghế của bạn</span><span><i class="seat"></i>Còn trống</span><span><i class="seat seat--taken"></i>Đã có người</span></div>';
     }
 
     /* ================= Ý kiến ================= */
@@ -869,7 +1036,7 @@
         var me = D.me;
         page.innerHTML =
             '<div class="container container--narrow">' +
-                pageHead("Ý kiến", "Chia sẻ trải nghiệm chuyến bay, tham gia khảo sát và góp ý để AIRLIFE phục vụ bạn tốt hơn.") +
+                pageHead("Ý kiến", "Chia sẻ trải nghiệm chuyến bay và tham gia khảo sát để AIRLIFE phục vụ bạn tốt hơn.") +
                 tabbed([
                     { id: "trai-nghiem", label: "Trải nghiệm", icon: "plane", html:
                         '<form class="panel composer" onsubmit="return false">' +
@@ -882,25 +1049,7 @@
                         "</form>" +
                         '<div class="feed">' + D.experiences.map(experiencePost).join("") + "</div>" },
                     { id: "khao-sat", label: "Khảo sát", icon: "poll", html:
-                        '<div class="survey-list">' + D.surveys.map(surveyCard).join("") + "</div>" },
-                    { id: "gop-y", label: "Góp ý", icon: "edit", html:
-                        '<form class="panel feedback" onsubmit="return false">' +
-                            "<h2>Gửi góp ý cho AIRLIFE</h2>" +
-                            '<label class="field"><span>Bạn góp ý về</span><select>' +
-                                "<option>Nội dung giải trí (phim, nhạc, podcast)</option><option>Kinh doanh: vé bay, mua sắm, đơn hàng</option><option>Tour bay</option><option>Tiện ích: Flightradar, Wi-Fi, phòng chờ</option><option>Website / ứng dụng</option><option>Khác</option>" +
-                            "</select></label>" +
-                            '<div class="field"><span>Mức độ hài lòng</span><div class="rate">' +
-                                ["Rất tệ", "Chưa tốt", "Bình thường", "Tốt", "Tuyệt vời"].map(function (r, i) {
-                                    return '<label><input type="radio" name="rate"' + (i === 3 ? " checked" : "") + "><span>" + (i + 1) + "<small>" + r + "</small></span></label>";
-                                }).join("") +
-                            "</div></div>" +
-                            '<label class="field"><span>Nội dung</span><textarea rows="5" placeholder="Điều gì khiến bạn hài lòng hoặc chưa hài lòng?"></textarea></label>' +
-                            '<div class="field-row">' +
-                                '<label class="field"><span>Số hiệu chuyến bay (nếu có)</span><input type="text" placeholder="VD: VN 220"></label>' +
-                                '<label class="field"><span>Email nhận phản hồi</span><input type="email" placeholder="ban@email.com"></label>' +
-                            "</div>" +
-                            '<button class="btn btn--primary btn--lg" type="submit" data-action="send-feedback">Gửi góp ý</button>' +
-                        "</form>" }
+                        '<div class="survey-list">' + D.surveys.map(surveyCard).join("") + "</div>" }
                 ], SL.param("tab")) +
             "</div>";
     }
@@ -927,7 +1076,7 @@
                 "</section>" +
 
                 '<div class="me-grid">' +
-                    '<section class="section">' + sectionHead("Chuyến bay sắp tới", "tien-ich.html?tab=ra-tau-bay", "Ra tàu bay") + boardingPass(me.flight) + "</section>" +
+                    '<section class="section">' + sectionHead("Chuyến bay sắp tới", "tien-ich.html#thong-tin", "Thông tin chuyến bay") + boardingPass(me.flight) + "</section>" +
                     '<section class="section" id="orders">' + sectionHead("Đơn hàng của bạn") +
                         '<div class="panel order-list">' + me.orders.map(function (o) {
                             var p = byId(D.products, o.product);
@@ -980,7 +1129,7 @@
         var cats = ["Tất cả"].concat(D.news.map(function (n) { return n.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
         page.innerHTML =
             '<div class="container">' +
-                pageHead("Tin tức", "Khám phá điểm đến, sự kiện, mẹo bay và line-up phim trên AIRLIFE.") +
+                pageHead("Tin tức", "Tin hàng không: an ninh, vũ trụ, UAV và không quân.") +
                 '<a class="news-lead" href="' + link("news", first.id) + '">' +
                     '<img src="' + img(first.id, 1200, 600) + '" alt="">' +
                     '<span class="news-lead__body"><span class="pill">' + esc(first.cat) + "</span><strong>" + esc(first.title) + "</strong><small>" + esc(first.excerpt) + "</small></span>" +
@@ -1007,10 +1156,10 @@
                     '<p class="article__lead">' + esc(n.excerpt) + "</p>" +
                     '<img class="article__cover" src="' + img(n.id, 1200, 640) + '" alt="">' +
                     "<p>Nội dung bài viết minh họa cho mockup. Phần thân bài sẽ do biên tập viên nhập trong CMS, gồm đoạn văn, ảnh, video và có thể gắn sản phẩm, tour hoặc nội dung liên quan ngay trong bài.</p>" +
-                    "<h2>Điểm nổi bật</h2>" +
-                    "<p>AIRLIFE kết hợp nội dung giải trí trên chuyến bay với tính năng mạng xã hội: hành khách có thể xem, nghe, bình luận, theo dõi kênh yêu thích và mua sắm ngay khi đang bay.</p>" +
-                    '<blockquote>“Mỗi chuyến bay là vài giờ khách hàng sẵn sàng khám phá nội dung mới.”</blockquote>' +
-                    "<p>Doanh nghiệp có thể mở kênh, đăng video giới thiệu sản phẩm và gắn sản phẩm vào nội dung để khách đặt hàng chỉ với một chạm.</p>" +
+                    "<h2>Diễn biến chính</h2>" +
+                    "<p>Đoạn văn minh hoạ phần diễn biến của bài viết. Khi triển khai, biên tập viên nhập nội dung đầy đủ, chèn ảnh, video hoặc biểu đồ minh hoạ ngay trong bài.</p>" +
+                    '<blockquote>“Trích dẫn phát biểu của nhân vật hoặc chuyên gia trong bài viết.”</blockquote>' +
+                    "<p>Đoạn văn minh hoạ phần phân tích, đánh giá và thông tin liên quan, kèm liên kết đến các bài cùng chuyên mục.</p>" +
                     '<div class="article__share"><span>Chia sẻ</span><button class="icon-btn" type="button" aria-label="Chia sẻ">' + icon("share") + '</button><button class="icon-btn" type="button" aria-label="Lưu">' + icon("save") + "</button></div>" +
                     '<section class="section section--tight">' + sectionHead("Bình luận") + commentForm() +
                         '<ul class="comment-list">' + D.comments.slice(0, 3).map(function (c) { return commentItem(c, false); }).join("") + "</ul></section>" +
@@ -1031,8 +1180,10 @@
                 pageHead("Liên hệ & hợp tác", "Hãng bay, nhà sản xuất nội dung và doanh nghiệp muốn mở gian hàng trên AIRLIFE.") +
                 '<div class="contact">' +
                     '<div class="contact__info">' +
-                        '<div class="panel info-card">' + icon("map") + "<div><strong>Địa chỉ</strong><p>" + esc(s.address) + "</p></div></div>" +
-                        '<div class="panel info-card">' + icon("phone") + '<div><strong>Điện thoại</strong><p><a href="tel:+842839333249">' + esc(s.phone) + "</a></p></div></div>" +
+                        s.offices.map(function (o) {
+                            return '<div class="panel info-card">' + icon("map") + "<div><strong>Tòa soạn " + esc(o.name) + "</strong><p>" + esc(o.address) + "</p></div></div>";
+                        }).join("") +
+                        '<div class="panel info-card">' + icon("phone") + '<div><strong>Hotline</strong><p><a href="' + s.phoneHref + '">' + esc(s.phone) + "</a></p></div></div>" +
                         '<div class="panel info-card">' + icon("mail") + '<div><strong>Email</strong><p><a href="mailto:' + esc(s.email) + '">' + esc(s.email) + "</a></p></div></div>" +
                         '<div class="map-box">' + icon("map") + "<span>Bản đồ (nhúng Google Maps khi triển khai)</span></div>" +
                     "</div>" +
@@ -1180,7 +1331,6 @@
                     "send-contact": "Đã gửi yêu cầu. Skyline Media sẽ liên hệ lại trong 24 giờ.",
                     "send-feedback": "Cảm ơn góp ý của bạn! AIRLIFE sẽ phản hồi qua email.",
                     "post": "Đã đăng trải nghiệm của bạn.",
-                    "buy-wifi": "Đã chọn gói Wi-Fi. Kết nối mạng AIRLIFE-WIFI trên máy bay để sử dụng."
                 }[el.getAttribute("data-action")];
                 if (msg) SL.toast(msg);
             }

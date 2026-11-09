@@ -8,8 +8,18 @@ window.DATA = {
     "slogan": "Tăng giá trị cuộc sống",
     "tagline": "Mạng xã hội trên không cho khách bay & doanh nghiệp",
     "company": "Skyline Media",
-    "address": "Tầng 7, 53 Phó Đức Chính, Phường Nguyễn Thái Bình, Quận 1, TP. Hồ Chí Minh, Việt Nam",
-    "phone": "(+84) 28 3933 3249",
+    "offices": [
+      {
+        "name": "Hà Nội",
+        "address": "Số 9 lô 12 KĐT mới Dịch Vọng, phường Cầu Giấy, Hà Nội"
+      },
+      {
+        "name": "TP.HCM",
+        "address": "37N Hoàng Quốc Việt, phường Tân Mỹ, TP. HCM"
+      }
+    ],
+    "phone": "093 176 5566",
+    "phoneHref": "tel:+84931765566",
     "email": "content@skyline.vn"
   },
   "categories": [
@@ -52,16 +62,14 @@ window.DATA = {
       "id": "kinh-doanh",
       "name": "Kinh doanh",
       "icon": "briefcase",
-      "title": "Vé bay, miễn thuế & mua sắm",
-      "desc": "Đặt vé, mua hàng miễn thuế, đặc sản và dịch vụ sân bay ngay trên chuyến bay, nhận hàng khi hạ cánh.",
+      "title": "Vé bay, tài chính & phi hàng không",
+      "desc": "Đặt vé, dịch vụ tài chính cho khách bay và các dịch vụ phi hàng không: miễn thuế, đặc sản, phòng chờ, nhận hàng khi hạ cánh.",
       "cover": "kinhdoanh-cover",
       "filters": [
         "Tất cả",
         "Vé bay",
-        "Miễn thuế",
-        "Mua sắm",
-        "Đặc sản",
-        "Dịch vụ sân bay"
+        "Tài chính",
+        "Phi hàng không"
       ]
     },
     {
@@ -69,13 +77,28 @@ window.DATA = {
       "name": "Tour bay",
       "icon": "globe",
       "title": "Tour bay trọn gói",
-      "desc": "Tour trong nước, quốc tế và combo vé bay + khách sạn được tuyển chọn cho khách bay AIRLIFE.",
+      "desc": "Điểm đến, dịch vụ, ăn chơi và mua sắm: tuyển chọn cho khách bay AIRLIFE.",
       "cover": "tour-cover",
       "filters": [
         "Tất cả",
-        "Trong nước",
-        "Quốc tế",
-        "Combo bay + khách sạn"
+        "Điểm đến",
+        "Dịch vụ",
+        "Ăn chơi",
+        "Mua sắm"
+      ]
+    },
+    {
+      "id": "sach-noi",
+      "name": "Sách nói",
+      "icon": "book",
+      "title": "Sách nói trên mọi chuyến bay",
+      "desc": "Cẩm nang hàng không, du lịch, kỹ năng sống và tâm linh: nghe trọn một cuốn sách trong một chuyến bay.",
+      "cover": "sachnoi-cover",
+      "filters": [
+        "Tất cả",
+        "Cẩm nang",
+        "Kỹ năng sống",
+        "Tâm linh"
       ]
     }
   ],
@@ -135,6 +158,14 @@ window.DATA = {
       "verified": true,
       "followers": 18400,
       "desc": "Phòng chờ hạng thương gia, fast-track và dịch vụ đưa đón sân bay."
+    },
+    {
+      "id": "airlife-pay",
+      "name": "AIRLIFE Pay",
+      "type": "Dịch vụ tài chính",
+      "verified": true,
+      "followers": 26700,
+      "desc": "Bảo hiểm du lịch, thẻ hội viên, ví điện tử và trả góp vé bay cho khách bay."
     }
   ],
   "media": [
@@ -384,7 +415,7 @@ window.DATA = {
       "kind": "audio",
       "cat": "nghe",
       "group": "Sách nói",
-      "genre": "Sách nói",
+      "genre": "Tâm linh",
       "title": "Nhà Giả Kim (Sách nói)",
       "channel": "skyline",
       "duration": "5:36:00",
@@ -456,7 +487,7 @@ window.DATA = {
       "kind": "audio",
       "cat": "nghe",
       "group": "Sách nói",
-      "genre": "Sách nói",
+      "genre": "Kỹ năng sống",
       "title": "Đắc Nhân Tâm (Sách nói)",
       "channel": "skyline",
       "duration": "7:12:00",
@@ -464,6 +495,66 @@ window.DATA = {
       "date": "1 tháng trước",
       "products": [],
       "desc": "Phiên bản sách nói rút gọn cho chuyến bay dưới 2 giờ."
+    },
+    {
+      "id": "a09",
+      "kind": "audio",
+      "cat": "nghe",
+      "group": "Sách nói",
+      "genre": "Cẩm nang",
+      "title": "Cẩm Nang Bay Lần Đầu",
+      "channel": "bay-vui",
+      "duration": "1:24:00",
+      "views": 233000,
+      "date": "3 ngày trước",
+      "products": [
+        "p08"
+      ],
+      "desc": "Cẩm nang hàng không: đặt vé, làm thủ tục, qua an ninh, lên tàu và những điều cần biết cho người bay lần đầu."
+    },
+    {
+      "id": "a10",
+      "kind": "audio",
+      "cat": "nghe",
+      "group": "Sách nói",
+      "genre": "Cẩm nang",
+      "title": "Cẩm Nang Du Lịch Nhật Bản Tự Túc",
+      "channel": "sky-tour",
+      "duration": "2:10:00",
+      "views": 189000,
+      "date": "1 tuần trước",
+      "products": [
+        "p12"
+      ],
+      "desc": "Cẩm nang du lịch: visa, thẻ tàu, lịch trình 7 ngày Tokyo – Kyoto – Osaka và mẹo tiết kiệm."
+    },
+    {
+      "id": "a11",
+      "kind": "audio",
+      "cat": "nghe",
+      "group": "Sách nói",
+      "genre": "Kỹ năng sống",
+      "title": "Thói Quen Nhỏ, Thay Đổi Lớn",
+      "channel": "skyline",
+      "duration": "4:05:00",
+      "views": 341000,
+      "date": "2 tuần trước",
+      "products": [],
+      "desc": "Sách nói về cách xây dựng thói quen tốt từ những bước rất nhỏ mỗi ngày."
+    },
+    {
+      "id": "a12",
+      "kind": "audio",
+      "cat": "nghe",
+      "group": "Sách nói",
+      "genre": "Tâm linh",
+      "title": "An Trú Trong Hiện Tại",
+      "channel": "song-cham",
+      "duration": "3:20:00",
+      "views": 276000,
+      "date": "5 ngày trước",
+      "products": [],
+      "desc": "Những bài giảng về chánh niệm và sống an lạc giữa nhịp sống bận rộn."
     }
   ],
   "products": [
@@ -471,7 +562,7 @@ window.DATA = {
       "id": "p01",
       "section": "kinh-doanh",
       "name": "Hộp quà Đặc sản Huế 6 món",
-      "cat": "Đặc sản",
+      "cat": "Phi hàng không",
       "channel": "dac-san-3-mien",
       "price": 389000,
       "oldPrice": 450000,
@@ -483,7 +574,7 @@ window.DATA = {
       "id": "p02",
       "section": "kinh-doanh",
       "name": "Nước hoa Aviator Eau de Parfum 100ml",
-      "cat": "Miễn thuế",
+      "cat": "Phi hàng không",
       "channel": "duty-free-sg",
       "price": 2150000,
       "oldPrice": 2890000,
@@ -495,7 +586,7 @@ window.DATA = {
       "id": "p03",
       "section": "kinh-doanh",
       "name": "Cà phê Buôn Ma Thuột rang mộc 500g",
-      "cat": "Đặc sản",
+      "cat": "Phi hàng không",
       "channel": "dac-san-3-mien",
       "price": 215000,
       "oldPrice": null,
@@ -507,7 +598,7 @@ window.DATA = {
       "id": "p04",
       "section": "kinh-doanh",
       "name": "Gối cổ memory foam du lịch",
-      "cat": "Mua sắm",
+      "cat": "Phi hàng không",
       "channel": "bay-vui",
       "price": 189000,
       "oldPrice": 259000,
@@ -519,7 +610,7 @@ window.DATA = {
       "id": "p05",
       "section": "kinh-doanh",
       "name": "Đồng hồ Pilot Chronograph",
-      "cat": "Miễn thuế",
+      "cat": "Phi hàng không",
       "channel": "duty-free-sg",
       "price": 6490000,
       "oldPrice": 7900000,
@@ -531,7 +622,7 @@ window.DATA = {
       "id": "p06",
       "section": "kinh-doanh",
       "name": "Vé phòng chờ thương gia Tân Sơn Nhất",
-      "cat": "Dịch vụ sân bay",
+      "cat": "Phi hàng không",
       "channel": "lounge-plus",
       "price": 590000,
       "oldPrice": 750000,
@@ -543,7 +634,7 @@ window.DATA = {
       "id": "p07",
       "section": "tour-bay",
       "name": "Tour Phong Nha 2 ngày 1 đêm",
-      "cat": "Trong nước",
+      "cat": "Điểm đến",
       "channel": "sky-tour",
       "price": 1890000,
       "oldPrice": 2290000,
@@ -555,7 +646,7 @@ window.DATA = {
       "id": "p08",
       "section": "kinh-doanh",
       "name": "Fast-track an ninh + đưa đón sân bay",
-      "cat": "Dịch vụ sân bay",
+      "cat": "Phi hàng không",
       "channel": "lounge-plus",
       "price": 450000,
       "oldPrice": null,
@@ -603,7 +694,7 @@ window.DATA = {
       "id": "p12",
       "section": "tour-bay",
       "name": "Tour Nhật Bản mùa lá đỏ 5N4Đ",
-      "cat": "Quốc tế",
+      "cat": "Điểm đến",
       "channel": "sky-tour",
       "price": 18900000,
       "oldPrice": 21500000,
@@ -615,7 +706,7 @@ window.DATA = {
       "id": "p13",
       "section": "tour-bay",
       "name": "Combo Phú Quốc 3N2Đ: vé bay + resort 5 sao",
-      "cat": "Combo bay + khách sạn",
+      "cat": "Dịch vụ",
       "channel": "sky-tour",
       "price": 4290000,
       "oldPrice": 5600000,
@@ -627,7 +718,7 @@ window.DATA = {
       "id": "p14",
       "section": "tour-bay",
       "name": "Tour Đà Lạt săn mây 3N2Đ",
-      "cat": "Trong nước",
+      "cat": "Điểm đến",
       "channel": "sky-tour",
       "price": 2490000,
       "oldPrice": 2990000,
@@ -639,7 +730,7 @@ window.DATA = {
       "id": "p15",
       "section": "tour-bay",
       "name": "Tour Hàn Quốc Seoul – Nami 5N4Đ",
-      "cat": "Quốc tế",
+      "cat": "Điểm đến",
       "channel": "sky-tour",
       "price": 12900000,
       "oldPrice": 14900000,
@@ -651,13 +742,121 @@ window.DATA = {
       "id": "p16",
       "section": "tour-bay",
       "name": "Combo Đà Nẵng 4N3Đ: vé bay + khách sạn biển",
-      "cat": "Combo bay + khách sạn",
+      "cat": "Dịch vụ",
       "channel": "sky-tour",
       "price": 3690000,
       "oldPrice": 4400000,
       "rating": 4.6,
       "sold": 2210,
       "desc": "Vé khứ hồi, 3 đêm khách sạn 4 sao view biển Mỹ Khê."
+    },
+    {
+      "id": "p17",
+      "section": "kinh-doanh",
+      "name": "Bảo hiểm du lịch quốc tế 7 ngày",
+      "cat": "Tài chính",
+      "channel": "airlife-pay",
+      "price": 199000,
+      "oldPrice": 250000,
+      "rating": 4.7,
+      "sold": 3240,
+      "desc": "Chi phí y tế đến 1 tỷ đồng, hành lý thất lạc, huỷ chuyến. Cấp hợp đồng điện tử ngay."
+    },
+    {
+      "id": "p18",
+      "section": "kinh-doanh",
+      "name": "Bảo hiểm trễ chuyến bay",
+      "cat": "Tài chính",
+      "channel": "airlife-pay",
+      "price": 49000,
+      "oldPrice": null,
+      "rating": 4.5,
+      "sold": 5810,
+      "desc": "Chuyến bay trễ từ 2 giờ: chi trả tự động 500.000₫ vào ví, không cần làm hồ sơ."
+    },
+    {
+      "id": "p19",
+      "section": "kinh-doanh",
+      "name": "Thẻ Hội viên Vàng 1 năm",
+      "cat": "Tài chính",
+      "channel": "airlife-pay",
+      "price": 990000,
+      "oldPrice": 1290000,
+      "rating": 4.8,
+      "sold": 1420,
+      "desc": "Tích dặm x2, phòng chờ thương gia 4 lần/năm, ưu tiên làm thủ tục."
+    },
+    {
+      "id": "p20",
+      "section": "kinh-doanh",
+      "name": "Trả góp 0% vé bay quốc tế",
+      "cat": "Tài chính",
+      "channel": "airlife-pay",
+      "price": 1150000,
+      "oldPrice": null,
+      "rating": 4.6,
+      "sold": 980,
+      "desc": "Giá hiển thị là mỗi kỳ cho vé 6.900.000₫, trả góp 6 tháng, duyệt online trong 5 phút."
+    },
+    {
+      "id": "p21",
+      "section": "tour-bay",
+      "name": "Food tour Hội An về đêm",
+      "cat": "Ăn chơi",
+      "channel": "sky-tour",
+      "price": 690000,
+      "oldPrice": 850000,
+      "rating": 4.9,
+      "sold": 2150,
+      "desc": "8 món đặc sản phố cổ cùng hướng dẫn viên địa phương, thả đèn hoa đăng sông Hoài."
+    },
+    {
+      "id": "p22",
+      "section": "tour-bay",
+      "name": "Vé công viên giải trí + cáp treo Phú Quốc",
+      "cat": "Ăn chơi",
+      "channel": "sky-tour",
+      "price": 1250000,
+      "oldPrice": 1500000,
+      "rating": 4.7,
+      "sold": 3360,
+      "desc": "Combo vé vào cổng công viên giải trí và cáp treo vượt biển, đưa đón từ sân bay."
+    },
+    {
+      "id": "p23",
+      "section": "tour-bay",
+      "name": "Tour mua sắm Seoul 1 ngày",
+      "cat": "Mua sắm",
+      "channel": "sky-tour",
+      "price": 1490000,
+      "oldPrice": 1790000,
+      "rating": 4.6,
+      "sold": 720,
+      "desc": "Myeongdong, chợ Dongdaemun, outlet mỹ phẩm, có xe và hướng dẫn viên tiếng Việt."
+    },
+    {
+      "id": "p24",
+      "section": "tour-bay",
+      "name": "Voucher outlet Bangkok giảm 30%",
+      "cat": "Mua sắm",
+      "channel": "sky-tour",
+      "price": 350000,
+      "oldPrice": 500000,
+      "rating": 4.4,
+      "sold": 1880,
+      "desc": "Áp dụng tại các outlet thời trang lớn ở Bangkok, kèm xe đưa đón từ trung tâm."
+    },
+    {
+      "id": "p25",
+      "section": "tour-bay",
+      "name": "Dịch vụ làm visa Hàn Quốc trọn gói",
+      "cat": "Dịch vụ",
+      "channel": "sky-tour",
+      "price": 1800000,
+      "oldPrice": 2200000,
+      "rating": 4.7,
+      "sold": 1040,
+      "desc": "Tư vấn hồ sơ, nộp và nhận kết quả hộ, tỉ lệ đậu cao, hoàn phí nếu trượt."
     }
   ],
   "users": [
@@ -763,59 +962,59 @@ window.DATA = {
   "news": [
     {
       "id": "n01",
-      "title": "Skyline Media đưa 40 phim mới lên hệ thống giải trí tháng 11",
-      "cat": "Line-up phim",
-      "date": "20/10/2026",
-      "excerpt": "Danh sách phim chiếu trên các chuyến bay nội địa và quốc tế trong tháng 11 có nhiều tác phẩm Việt vừa ra rạp."
+      "title": "Sân bay Tân Sơn Nhất thử nghiệm máy soi chiếu an ninh thế hệ mới",
+      "cat": "An ninh",
+      "date": "08/11/2026",
+      "excerpt": "Hành khách không cần lấy máy tính, chất lỏng khỏi hành lý xách tay; thời gian qua cửa an ninh giảm gần một nửa."
     },
     {
       "id": "n02",
-      "title": "Ra mắt AIRLIFE: xem, nghe, mua sắm ngay trên chuyến bay",
-      "cat": "Sự kiện",
-      "date": "15/10/2026",
-      "excerpt": "Nền tảng mới cho phép hành khách bình luận, theo dõi nhà sáng tạo và đặt hàng giao tại sân bay đến."
+      "title": "Tàu vũ trụ chở khách du lịch hoàn thành chuyến bay quỹ đạo thứ ba",
+      "cat": "Vũ trụ",
+      "date": "07/11/2026",
+      "excerpt": "Bốn hành khách dân sự trải qua ba ngày trên quỹ đạo, mở ra triển vọng du lịch vũ trụ thương mại."
     },
     {
       "id": "n03",
-      "title": "5 mẹo để ngủ ngon trên chuyến bay đường dài",
-      "cat": "Mẹo bay",
-      "date": "10/10/2026",
-      "excerpt": "Chọn ghế, giờ ăn, ánh sáng và âm thanh: những điều nhỏ giúp bạn hạ cánh tỉnh táo."
+      "title": "UAV giao hàng y tế giữa các đảo bắt đầu hoạt động thường xuyên",
+      "cat": "UAV",
+      "date": "06/11/2026",
+      "excerpt": "Thiết bị bay không người lái chở thuốc và mẫu xét nghiệm, rút thời gian vận chuyển từ vài giờ xuống 25 phút."
     },
     {
       "id": "n04",
-      "title": "Khám phá Côn Đảo: 45 phút bay, một thế giới khác",
-      "cat": "Khám phá",
-      "date": "06/10/2026",
-      "excerpt": "Biển xanh, rùa đẻ trứng và những cung đường ven núi: lịch trình 3 ngày cho người lần đầu đến Côn Đảo."
+      "title": "Không quân nhiều nước trình diễn tại triển lãm hàng không khu vực",
+      "cat": "Không quân",
+      "date": "05/11/2026",
+      "excerpt": "Màn bay biểu diễn đội hình và trưng bày tiêm kích thế hệ mới thu hút hàng chục nghìn khách tham quan."
     },
     {
       "id": "n05",
-      "title": "Những sân bay đẹp nhất châu Á bạn nên ghé một lần",
-      "cat": "Khám phá",
-      "date": "02/10/2026",
-      "excerpt": "Từ thác nước trong nhà ở Singapore đến khu vườn Nhật ở Haneda: quá cảnh cũng thành trải nghiệm."
+      "title": "Siết quy định mang pin dự phòng lên máy bay từ tháng 12",
+      "cat": "An ninh",
+      "date": "03/11/2026",
+      "excerpt": "Pin dự phòng phải để trong hành lý xách tay, có thông số rõ ràng và không được sạc trong suốt chuyến bay."
     },
     {
       "id": "n06",
-      "title": "Phim Việt chiếm 35% lượt xem trên máy bay quý III",
-      "cat": "Line-up phim",
-      "date": "28/09/2026",
-      "excerpt": "Phim gia đình và hài lãng mạn được khách nội địa chọn xem nhiều nhất."
+      "title": "Kính viễn vọng không gian chụp được ảnh rõ nét nhất về một ngoại hành tinh",
+      "cat": "Vũ trụ",
+      "date": "01/11/2026",
+      "excerpt": "Bức ảnh cho thấy dấu hiệu hơi nước trong khí quyển của hành tinh cách Trái Đất 40 năm ánh sáng."
     },
     {
       "id": "n07",
-      "title": "Doanh nghiệp đặc sản tăng 3 lần đơn hàng nhờ bán trên chuyến bay",
-      "cat": "Kinh doanh",
-      "date": "24/09/2026",
-      "excerpt": "Mô hình gian hàng trên AIRLIFE giúp thương hiệu địa phương tiếp cận khách bay mỗi ngày."
+      "title": "Quy định mới về vùng cấm bay UAV quanh các sân bay",
+      "cat": "UAV",
+      "date": "30/10/2026",
+      "excerpt": "Mở rộng vùng cấm bay thiết bị bay không người lái lên 8 km quanh sân bay, áp dụng mức phạt cao hơn."
     },
     {
       "id": "n08",
-      "title": "Khám phá Kyoto mùa lá đỏ: đi đâu, ăn gì, ở đâu",
-      "cat": "Khám phá",
-      "date": "18/09/2026",
-      "excerpt": "Cẩm nang 5 ngày cho mùa thu Kyoto, kèm lịch lá đỏ dự kiến tháng 11."
+      "title": "Lịch sử các phi đội vận tải của không quân qua 70 năm",
+      "cat": "Không quân",
+      "date": "28/10/2026",
+      "excerpt": "Từ những chiếc máy bay vận tải đầu tiên đến các phi đội hiện đại phục vụ cứu hộ, cứu nạn."
     }
   ],
   "flights": [
@@ -898,56 +1097,152 @@ window.DATA = {
       "x": 36,
       "y": 18,
       "temp": 24,
-      "weather": "cloud"
+      "weather": "cloud",
+      "name": "Nội Bài",
+      "lat": 21.2212,
+      "lon": 105.8072,
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Noi_Bai_Airport.jpg/1280px-Noi_Bai_Airport.jpg"
     },
     "DAD": {
       "city": "Đà Nẵng",
       "x": 46,
       "y": 44,
       "temp": 27,
-      "weather": "rain"
+      "weather": "rain",
+      "name": "Đà Nẵng",
+      "lat": 16.0439,
+      "lon": 108.1993,
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Da_Nang_International_Airport%2C_Vietnam.jpg/1280px-Da_Nang_International_Airport%2C_Vietnam.jpg"
     },
     "SGN": {
       "city": "TP.HCM",
       "x": 42,
       "y": 72,
       "temp": 32,
-      "weather": "sun"
+      "weather": "sun",
+      "name": "Tân Sơn Nhất",
+      "lat": 10.8188,
+      "lon": 106.6519,
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tan_Son_Nhat_International_Airport_at_night_%2812088245464%29.jpg/1280px-Tan_Son_Nhat_International_Airport_at_night_%2812088245464%29.jpg"
     },
     "PQC": {
       "city": "Phú Quốc",
       "x": 30,
       "y": 78,
       "temp": 31,
-      "weather": "sun"
+      "weather": "sun",
+      "name": "Phú Quốc",
+      "lat": 10.1698,
+      "lon": 103.9931,
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Phu_Quoc_International_Airport.JPG"
     },
     "BKK": {
       "city": "Bangkok",
       "x": 18,
       "y": 58,
       "temp": 33,
-      "weather": "sun"
+      "weather": "sun",
+      "name": "Suvarnabhumi",
+      "lat": 13.69,
+      "lon": 100.7501,
+      "domestic": false
     },
     "SIN": {
       "city": "Singapore",
       "x": 30,
       "y": 96,
       "temp": 30,
-      "weather": "rain"
+      "weather": "rain",
+      "name": "Changi",
+      "lat": 1.3644,
+      "lon": 103.9915,
+      "domestic": false
     },
     "ICN": {
       "city": "Seoul",
       "x": 82,
       "y": 6,
       "temp": 12,
-      "weather": "cloud"
+      "weather": "cloud",
+      "name": "Incheon",
+      "lat": 37.4602,
+      "lon": 126.4407,
+      "domestic": false
     },
     "NRT": {
       "city": "Tokyo",
       "x": 96,
       "y": 14,
       "temp": 15,
-      "weather": "sun"
+      "weather": "sun",
+      "name": "Narita",
+      "lat": 35.772,
+      "lon": 140.3929,
+      "domestic": false
+    },
+    "CXR": {
+      "city": "Khánh Hoà",
+      "name": "Cam Ranh",
+      "lat": 11.9982,
+      "lon": 109.2194,
+      "temp": 29,
+      "weather": "sun",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Cam_Ranh_International_Terminal.jpg"
+    },
+    "HUI": {
+      "city": "Huế",
+      "name": "Phú Bài",
+      "lat": 16.4015,
+      "lon": 107.7026,
+      "temp": 25,
+      "weather": "rain",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Nh%C3%A0_Ga_T2-C%E1%BA%A3ng_H%C3%A0ng_Kh%C3%B4ng_Qu%E1%BB%91c_T%E1%BA%BF_Ph%C3%BA_B%C3%A0i_%28HUI%29-Th%C3%A0nh_Ph%E1%BB%91_Hu%E1%BA%BF.jpg"
+    },
+    "HPH": {
+      "city": "Hải Phòng",
+      "name": "Cát Bi",
+      "lat": 20.8194,
+      "lon": 106.725,
+      "temp": 23,
+      "weather": "cloud",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Cat_Bi_International_Airport_Terminal.jpg/1280px-Cat_Bi_International_Airport_Terminal.jpg"
+    },
+    "VCA": {
+      "city": "Cần Thơ",
+      "name": "Cần Thơ",
+      "lat": 10.0851,
+      "lon": 105.7117,
+      "temp": 31,
+      "weather": "sun",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Can_Tho_Airport1.JPG/1280px-Can_Tho_Airport1.JPG"
+    },
+    "VII": {
+      "city": "Nghệ An",
+      "name": "Vinh",
+      "lat": 18.7376,
+      "lon": 105.6708,
+      "temp": 24,
+      "weather": "cloud",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/1/18/Vinh_International_Airport.jpg"
+    },
+    "DLI": {
+      "city": "Lâm Đồng",
+      "name": "Liên Khương",
+      "lat": 11.75,
+      "lon": 108.367,
+      "temp": 19,
+      "weather": "cloud",
+      "domestic": true,
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Lien_Khuong_Airport_01.jpg/1280px-Lien_Khuong_Airport_01.jpg"
     }
   },
   "experiences": [

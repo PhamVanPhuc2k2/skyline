@@ -76,6 +76,7 @@
         sparkle: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
         film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
         news: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>',
+        book: '<path d="M4 5a2 2 0 0 1 2-2h5v17H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-5v17h5a2 2 0 0 1 2 2z"/>',
         plane: '<path d="M10.5 21 12 18l1.5 3M12 18V4a1.5 1.5 0 0 0-3 0v5L3 13v2l6-2v5"/><path d="M12 4a1.5 1.5 0 0 1 3 0v5l6 4v2l-6-2"/>',
         store: '<path d="M4 9h16l-1-5H5z"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/>',
         phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1"/>',
@@ -159,36 +160,42 @@
         return base + "?" + key + "=" + encodeURIComponent(value);
     }
 
+    // Kết cấu chuyên mục / tiểu mục theo yêu cầu khách (6 chuyên mục)
+    function catLink(c, f) {
+        return "chuyen-muc.html?c=" + c + "&f=" + encodeURIComponent(f);
+    }
     var TOPNAV = [
         { key: "tien-ich", label: "Tiện ích", icon: "radar", href: "tien-ich.html", subs: [
-            sub("Ra tàu bay", "tien-ich.html?tab=ra-tau-bay", "Check-in, giờ lên tàu, hành lý"),
-            sub("Flightradar", "tien-ich.html?tab=flightradar", "Theo dõi chuyến bay trực tiếp"),
-            sub("Thời tiết điểm đến", "tien-ich.html?tab=thoi-tiet", "Dự báo tại sân bay đến"),
-            sub("Wi-Fi trên máy bay", "tien-ich.html?tab=wifi", "Gói kết nối theo chặng bay"),
-            sub("Phòng chờ & fast-track", "tien-ich.html?tab=phong-cho", "Đặt trước dịch vụ sân bay")
+            sub("Thông tin chuyến bay", "tien-ich.html#thong-tin", "Nội Bài, Tân Sơn Nhất, Đà Nẵng…"),
+            sub("Giám sát chuyến bay", "tien-ich.html#giam-sat", "Bản đồ chuyến bay trực tiếp"),
+            sub("Sơ đồ hướng dẫn", "tien-ich.html#so-do", "Nhà ga, tàu bay, chỗ ngồi"),
+            sub("Thời tiết sân bay", "tien-ich.html#thoi-tiet", "Thời tiết tại các sân bay")
         ] },
         { key: "tin-tuc", label: "Tin tức", icon: "news", href: "tin-tuc.html", subs: [
-            sub("Khám phá", q("tin-tuc.html", "f", "Khám phá"), "Điểm đến, sân bay, văn hóa"),
-            sub("Sự kiện", q("tin-tuc.html", "f", "Sự kiện"), "Tin hoạt động AIRLIFE"),
-            sub("Mẹo bay", q("tin-tuc.html", "f", "Mẹo bay"), "Bay thông minh, thoải mái"),
-            sub("Line-up phim", q("tin-tuc.html", "f", "Line-up phim"), "Phim mới trên chuyến bay")
+            sub("An ninh", q("tin-tuc.html", "f", "An ninh"), "An ninh hàng không"),
+            sub("Vũ trụ", q("tin-tuc.html", "f", "Vũ trụ"), "Khám phá không gian"),
+            sub("UAV", q("tin-tuc.html", "f", "UAV"), "Thiết bị bay không người lái"),
+            sub("Không quân", q("tin-tuc.html", "f", "Không quân"), "Tin không quân, quốc phòng")
         ] },
         { key: "kinh-doanh", label: "Kinh doanh", icon: "briefcase", href: "chuyen-muc.html?c=kinh-doanh", subs: [
-            sub("Vé bay", "chuyen-muc.html?c=kinh-doanh&f=" + encodeURIComponent("Vé bay"), "Giá tốt cho chặng tiếp theo"),
-            sub("Miễn thuế", "chuyen-muc.html?c=kinh-doanh&f=" + encodeURIComponent("Miễn thuế"), "Nhận tại cửa ra máy bay"),
-            sub("Mua sắm", "chuyen-muc.html?c=kinh-doanh&f=" + encodeURIComponent("Mua sắm"), "Đồ du lịch, quà tặng"),
-            sub("Đặc sản", "chuyen-muc.html?c=kinh-doanh&f=" + encodeURIComponent("Đặc sản"), "Quà vùng miền chính gốc"),
-            sub("Dịch vụ sân bay", "chuyen-muc.html?c=kinh-doanh&f=" + encodeURIComponent("Dịch vụ sân bay"), "Phòng chờ, fast-track, đưa đón")
+            sub("Vé bay", catLink("kinh-doanh", "Vé bay"), "Giá tốt cho chặng tiếp theo"),
+            sub("Tài chính", catLink("kinh-doanh", "Tài chính"), "Bảo hiểm, thẻ hội viên, trả góp"),
+            sub("Phi hàng không", catLink("kinh-doanh", "Phi hàng không"), "Miễn thuế, đặc sản, phòng chờ")
         ] },
         { key: "y-kien", label: "Ý kiến", icon: "chat", href: "y-kien.html", subs: [
             sub("Trải nghiệm", "y-kien.html?tab=trai-nghiem", "Chia sẻ chuyến bay của bạn"),
-            sub("Khảo sát", "y-kien.html?tab=khao-sat", "Bình chọn, xem kết quả"),
-            sub("Góp ý", "y-kien.html?tab=gop-y", "Gửi phản hồi cho AIRLIFE")
+            sub("Khảo sát", "y-kien.html?tab=khao-sat", "Bình chọn, xem kết quả")
         ] },
         { key: "tour-bay", label: "Tour bay", icon: "globe", href: "chuyen-muc.html?c=tour-bay", subs: [
-            sub("Trong nước", "chuyen-muc.html?c=tour-bay&f=" + encodeURIComponent("Trong nước"), "Phú Quốc, Đà Lạt, Phong Nha…"),
-            sub("Quốc tế", "chuyen-muc.html?c=tour-bay&f=" + encodeURIComponent("Quốc tế"), "Nhật Bản, Hàn Quốc…"),
-            sub("Combo bay + khách sạn", "chuyen-muc.html?c=tour-bay&f=" + encodeURIComponent("Combo bay + khách sạn"), "Trọn gói, tự do lịch trình")
+            sub("Điểm đến", catLink("tour-bay", "Điểm đến"), "Tour trong nước, quốc tế"),
+            sub("Dịch vụ", catLink("tour-bay", "Dịch vụ"), "Combo bay + khách sạn, visa"),
+            sub("Ăn chơi", catLink("tour-bay", "Ăn chơi"), "Ẩm thực, vui chơi giải trí"),
+            sub("Mua sắm", catLink("tour-bay", "Mua sắm"), "Tour mua sắm, voucher outlet")
+        ] },
+        { key: "sach-noi", label: "Sách nói", icon: "book", href: "chuyen-muc.html?c=sach-noi", subs: [
+            sub("Cẩm nang", catLink("sach-noi", "Cẩm nang"), "Hàng không, du lịch"),
+            sub("Kỹ năng sống", catLink("sach-noi", "Kỹ năng sống"), "Phát triển bản thân"),
+            sub("Tâm linh", catLink("sach-noi", "Tâm linh"), "Chánh niệm, an lạc")
         ] }
     ];
 
@@ -307,10 +314,12 @@
                     [SIDENAV[2], SIDENAV[1], SIDENAV[3]].map(function (t) { return '<a href="' + t.href + '">' + t.label + "</a>"; }).join("") +
                 "</div>" +
                 // Liên kết cho doanh nghiệp: nằm giữa, dưới hai khối (mobile) / dưới logo (màn rộng)
-                '<div class="footer__links"><a href="kenh.html?id=duty-free-sg">Mở gian hàng</a><a href="bai-viet.html?id=n07">Hướng dẫn đăng bán</a></div>' +
+                '<div class="footer__links"><a href="kenh.html?id=duty-free-sg">Mở gian hàng</a><a href="lien-he.html">Hướng dẫn đăng bán</a></div>' +
                 '<div class="footer__col footer__contact"><h4>Tòa soạn</h4>' +
-                    "<p>" + icon("map") + "<span><b>Địa chỉ:</b> " + esc(s.address) + "</span></p>" +
-                    '<p><a href="tel:+842839333249">' + icon("phone") + "<span><b>Hotline:</b> " + esc(s.phone) + "</span></a></p>" +
+                    s.offices.map(function (o) {
+                        return "<p>" + icon("map") + "<span><b>" + esc(o.name) + ":</b> " + esc(o.address) + "</span></p>";
+                    }).join("") +
+                    '<p><a href="' + s.phoneHref + '">' + icon("phone") + "<span><b>Hotline:</b> " + esc(s.phone) + "</span></a></p>" +
                     '<p><a href="mailto:' + esc(s.email) + '">' + icon("mail") + "<span><b>Email:</b> " + esc(s.email) + "</span></a></p>" +
                 "</div>" +
             "</div>" +

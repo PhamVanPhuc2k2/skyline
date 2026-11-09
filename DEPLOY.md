@@ -6,16 +6,20 @@ nội dung là dữ liệu mẫu trong `data/content.json`, ảnh minh họa l�
 ## 1. Các trang
 
 **Menu dọc** (kiểu YouTube): Home · Xem · Nghe · Mới tải · Bạn · Sưu tập.
-**Menu ngang** (chuyên mục, rê chuột xổ tiểu mục): Tiện ích · Tin tức · Kinh doanh · Ý kiến · Tour bay.
+**Menu ngang** (chuyên mục, rê chuột xổ tiểu mục), theo kết cấu khách gửi:
+Tiện ích (Thông tin chuyến bay · Giám sát chuyến bay · Sơ đồ hướng dẫn · Thời tiết sân bay) ·
+Tin tức (An ninh · Vũ trụ · UAV · Không quân) · Kinh doanh (Vé bay · Tài chính · Phi hàng không) ·
+Ý kiến (Trải nghiệm · Khảo sát) · Tour bay (Điểm đến · Dịch vụ · Ăn chơi · Mua sắm) ·
+Sách nói (Cẩm nang · Kỹ năng sống · Tâm linh). Danh sách nằm ở `TOPNAV` trong `js/layout.js`.
 
 | File | Trang |
 |---|---|
 | `index.html` | Home (bố cục theo bản vẽ tay: 3 ô trái, khối nổi bật, cột bình luận Hay/Nhiều, hàng 4 thẻ, hàng 3 khối) |
 | `chuyen-muc.html?c=xem` / `nghe` | Xem, Nghe (menu dọc) |
-| `chuyen-muc.html?c=kinh-doanh` / `tour-bay` | Kinh doanh (vé bay, miễn thuế, mua sắm, đặc sản, dịch vụ sân bay), Tour bay. Lọc tiểu mục bằng `&f=` |
-| `tien-ich.html?tab=...` | Tiện ích: ra tàu bay, Flightradar, thời tiết điểm đến, Wi-Fi, phòng chờ & fast-track |
-| `y-kien.html?tab=...` | Ý kiến: trải nghiệm, khảo sát, góp ý |
-| `tin-tuc.html?f=...`, `bai-viet.html?id=...` | Tin tức (Khám phá, Sự kiện, Mẹo bay, Line-up phim…) |
+| `chuyen-muc.html?c=kinh-doanh` / `tour-bay` / `sach-noi` | Kinh doanh, Tour bay, Sách nói. Lọc tiểu mục bằng `&f=` |
+| `tien-ich.html` | Tiện ích, một trang 4 khối: `#giam-sat` (bản đồ trực tiếp kiểu Flightradar24), `#thong-tin` (ảnh ngang theo cảng hàng không; `?ap=HAN` mở bảng chuyến đi/đến, `?ap=khac` các cảng khác), `#so-do` (sơ đồ nhà ga & tàu bay), `#thoi-tiet` |
+| `y-kien.html?tab=...` | Ý kiến: trải nghiệm, khảo sát |
+| `tin-tuc.html?f=...`, `bai-viet.html?id=...` | Tin tức (An ninh, Vũ trụ, UAV, Không quân) |
 | `moi-tai.html` | Mới tải (gồm tab Line-up phim tháng, giữ từ site cũ) |
 | `ban.html` | Bạn: hồ sơ, chuyến bay sắp tới, đơn hàng, tiếp tục xem, kênh theo dõi |
 | `suu-tap.html` | Sưu tập: playlist, đã lưu, yêu thích, đã xem |
@@ -50,6 +54,11 @@ Thanh Player vẽ bằng CSS (`.runway` trong `scss/_layout.scss`) theo số đo
 phần đã chạy trắng, máy bay ở đầu; chưa chạy thì vạch/chấm xám, đang chạy thì vạch trắng và chấm đèn thành **điểm sáng lung linh** (lõi trắng, quầng sáng, 8 tia, theo ảnh mẫu của khách, hai hàng sáng đều). Điểm sáng vẽ vector ở `images/runway-spark.svg` (sửa trực tiếp file này nếu muốn đổi hình); không lấy ảnh bitmap từ file `.ai` vì thu nhỏ sẽ bị nhoè.
 Icon thanh hình (trình phát video) / thanh âm thanh (trình phát audio, mini player) là chỉ báo trạng thái: xám khi chưa chạy, trắng khi đang chạy.
 Các icon còn lại (tìm kiếm, giỏ hàng, chuông…) là icon nét trong `js/layout.js` vì bộ thiết kế chưa có.
+
+**Bản đồ giám sát chuyến bay** dùng thư viện Leaflet 1.9.4 (nạp từ unpkg, chỉ ở `tien-ich.html`) và nền bản đồ Esri World Topo
+(không cần API key, phải giữ dòng ghi nguồn "Tiles © Esri"). Máy bay trên bản đồ là dữ liệu minh hoạ; khi làm thật cần nguồn dữ liệu
+chuyến bay trực tiếp (ADS-B / nhà cung cấp dữ liệu bay). **Ảnh sân bay** lấy từ Wikimedia Commons (trường `photo` trong
+`data/content.json` > `airports`), cần ghi nguồn tác giả theo giấy phép của từng ảnh hoặc thay bằng ảnh có bản quyền khi lên thật.
 
 ## 2. Chạy thử trên máy
 
